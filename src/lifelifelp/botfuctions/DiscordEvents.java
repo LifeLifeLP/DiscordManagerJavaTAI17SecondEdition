@@ -19,8 +19,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.apache.commons.lang3.StringUtils;
 
-import helper_and_tools.Game_Nummber_Guess;
-import objects.UnicodeEmoji;
+import lifelifelp.games.Game_Nummber_Guess;
+import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IEmoji;

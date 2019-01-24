@@ -10,9 +10,9 @@ import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 
-import discord4j.BotFunctions;
-import objects.NumberGuessSavegame;
-import objects.UnicodeEmoji;
+import lifelifelp.botfuctions.BotFunctions;
+import lifelifelp.tools.Tools;
+import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.Permissions;
