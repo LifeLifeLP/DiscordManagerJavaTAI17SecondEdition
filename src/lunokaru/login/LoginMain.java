@@ -100,7 +100,7 @@ public class LoginMain {
 		frmDiscordManager.setBackground(Color.LIGHT_GRAY);
 		frmDiscordManager.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		frmDiscordManager.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		frmDiscordManager.setTitle("Discord Manager Beta V1");
+		frmDiscordManager.setTitle("Discord Manager V1");
 		frmDiscordManager.setBounds(100, 100, 450, 300);
 		frmDiscordManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDiscordManager.getContentPane().setLayout(myCL);

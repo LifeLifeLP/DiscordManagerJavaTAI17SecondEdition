@@ -68,7 +68,6 @@ public class GuiMain {
 
 	//Discordattribute
 	private static IDiscordClient discordClient;
-	private IGuild discordServer;
 	private IUser discordUser;
 	private IRole discordRolle;
 	private int discordChannelCount,
@@ -113,7 +112,6 @@ public class GuiMain {
 	private Vector<String> test;
 	private static Object[] cancelOption = {"Ja", "Nein"};
 	private JLabel lblLblchannelcountzahl;
-	
 	
 	private JComboBox<String> cBUserVerwalten;
 	private JTable tUserRollenAlt;
@@ -207,119 +205,108 @@ public class GuiMain {
 		createButtonGroupUserBannen();
 	}
 	
+	
+	//Funktion zum Setzen der aktuell ausgewählten Guild
+	private IGuild findCurrentGuild() {
+		IGuild discordServer = null;
+		for (IGuild ig : discordClient.getGuilds()) {
+			if(ig.getName().equals(cBServerListe.getSelectedItem())) {
+				discordServer = ig;
+				break;
+			}
+		}
+		return discordServer;
+	}
+	
+	
 	//Funktion zum Befuellen der ComboBox cbRVAlleRollen
 	private void fillCBRVAlleRollen() {
 		cBRVAlleRollen.removeAllItems();
-		for (IGuild ig : discordClient.getGuilds()) {
-			if (ig.getName().equals(cBServerListe.getSelectedItem())) {
-				for (IRole ir : ig.getRoles()) {
-					cBRVAlleRollen.addItem(ir.getName());
-				}
-			}
+		IGuild ig = findCurrentGuild();
+		for (IRole ir : ig.getRoles()) {
+			cBRVAlleRollen.addItem(ir.getName());
 		}
+		cBRVAlleRollen.setSelectedIndex(-1);
 	}
+	
 	
 	//Funktion zum Befuellen der ComboBox cBCVAlleKategorien
 	private void fillCBKVAlleKategorien() {
 		cBKVAlleKategorien.removeAllItems();
-		for (IGuild ig : discordClient.getGuilds()) {
-			if (ig.getName().equals(cBServerListe.getSelectedItem())) {
-				for (ICategory ic : ig.getCategories()) {
-					cBKVAlleKategorien.addItem(ic.getName());
-				}
-			}
+		IGuild ig = findCurrentGuild();
+		for (ICategory ic : ig.getCategories()) {
+			cBKVAlleKategorien.addItem(ic.getName());
 		}
+		cBKVAlleKategorien.setSelectedIndex(-1);
 	}
 	
 	//Funktion zum Befuellen der ComboBox cBCVAlleChannel
 	private void fillCBCVAlleChannel() {
 		cBCVAlleChannel.removeAllItems();
-		for (IGuild ig : discordClient.getGuilds()) {
-			if(ig.getName().equals(cBServerListe.getSelectedItem())) {
-				for (IChannel ic : ig.getChannels()) {
-					cBCVAlleChannel.addItem(ic.getName());
-				}
-			}
+		IGuild ig = findCurrentGuild();
+		for (IChannel ic : ig.getChannels()) {
+			cBCVAlleChannel.addItem(ic.getName());
 		}
 		cBCVAlleChannel.setSelectedIndex(-1);
 	}
 	
 	//Funktion zum Setzen des dynamischen Textes fuer JLabel lblUVStatsStatus
 	private void setUVUserStatus() {
-		for (IGuild ig : discordClient.getGuilds()) {
-			if (ig.getName().equals(cBServerListe.getSelectedItem())) {
-				for (IUser iu : ig.getUsers()) {
-					if (iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
-						lblUVStatsStatus.setText("Status des Users: "+ iu.getPresence().getStatus().toString().toLowerCase());
-					}
-				}
+		IGuild ig = findCurrentGuild();
+		for (IUser iu : ig.getUsers()) {
+			if (iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
+				lblUVStatsStatus.setText("Status des Users: "+ iu.getPresence().getStatus().toString().toLowerCase());
 			}
 		}
-		
 	}
 
-	//Funkion zum Setzen des dynamischen Textes fuer JLabel lblUVStatsNickname 
+	//Funktion zum Setzen des dynamischen Textes fuer JLabel lblUVStatsNickname 
 	private void setUVUserNickname() {
-		for (IGuild ig : discordClient.getGuilds()) {
-			if (ig.getName().equals(cBServerListe.getSelectedItem())) {
-				for (IUser iu : ig.getUsers()) {
-					if (iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
-						lblUVStatsNickname.setText("Nickname des Users: " + iu.getNicknameForGuild(ig));
-					}
-				}
+		IGuild ig = findCurrentGuild();
+		for (IUser iu : ig.getUsers()) {
+			if (iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
+				lblUVStatsNickname.setText("Nickname des Users: " + iu.getNicknameForGuild(ig));
 			}
 		}
-		
 	}
 	
 	//Funktion zum Aendern des User Nicknames
 	private void changeUserNickname() {
-		for (IGuild ig : discordClient.getGuilds()) {
-			if(ig.getName().equals(cBServerListe.getSelectedItem())){
-				for (IUser iu : ig.getUsers()) {
-					if(iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
-						ig.setUserNickname(iu, tFUVNickname.getText());
-					}
-				}
+		IGuild ig = findCurrentGuild();
+		for (IUser iu : ig.getUsers()) {
+			if(iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
+				ig.setUserNickname(iu, tFUVNickname.getText());
 			}
 		}
-		
 	}
 	
 	//Funktion zum Befuellen der ComboBox cBUserVerwalten
 	private void fillcBUserVerwalten() {
-		for(IGuild ig : discordClient.getGuilds()) {
-			if (ig.getName().equals(cBServerListe.getSelectedItem())) {
-				for(IUser iu : ig.getUsers()) {
-					if(!iu.getName().equals(discordClient.getApplicationName())) {
-						cBUserVerwalten.addItem(iu.getName());
-					}
-				}
+		IGuild ig = findCurrentGuild();
+		for(IUser iu : ig.getUsers()) {
+			if(!iu.getName().equals(discordClient.getApplicationName())) {
+				cBUserVerwalten.addItem(iu.getName());
 			}
 		}
 	}
 	
 	//Funktion zum Setzen des dynamischen Textes fuer JLabel lblNicknameAnzeigen
 	private void getUserNickname() {
-		for (IGuild ig : discordClient.getGuilds()) {
-			if(ig.getName().equals(cBServerListe.getSelectedItem())) {
-				for (IUser iu : ig.getUsers()) {
-					if (iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
-						lblNicknameAnzeigen.setText(iu.getNicknameForGuild(ig));
-					}
-				}
+		IGuild ig = findCurrentGuild();
+		for (IUser iu : ig.getUsers()) {
+			if (iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
+				lblNicknameAnzeigen.setText(iu.getNicknameForGuild(ig));
 			}
-			
 		}
 	}
 	
+	
 	//Funktion zum Setzen einer Rolle in discordRolle
 	private void setDiscordRolle(boolean x) {
-		for (IGuild ig : discordClient.getGuilds()) {
-			if (ig.getName().equals(cBServerListe.getSelectedItem())) {
-				for (IRole ir : ig.getRoles()) {
-					if(x == true) {
-						if (ir.getName().equals(dtmUserRollenNeu.getValueAt(tUserRollenNeu.getSelectedRow(), 0))) {
+		IGuild ig = findCurrentGuild();
+		for (IRole ir : ig.getRoles()) {
+			if(x == true) {
+				if (ir.getName().equals(dtmUserRollenNeu.getValueAt(tUserRollenNeu.getSelectedRow(), 0))) {
 							discordRolle = ir;
 						}
 					}else {
@@ -329,8 +316,8 @@ public class GuiMain {
 					}
 				}
 			}
-		}
-	}
+		
+	
 	
 	//Funktion zum Setzen des discordUser
 	private void setDiscordUser() {
@@ -386,9 +373,7 @@ public class GuiMain {
 	//Funktion zum Zaehlen der User sichtbar fuer den Bot
 	private void computeDiscordUsers() {
 		for (IGuild ig : discordClient.getGuilds()) {
-			for (IUser iu : ig.getUsers()) {
-				discordUserCount++;
-			}
+			discordUserCount = ig.getUsers().size();
 		}
 	}
 
@@ -496,7 +481,7 @@ public class GuiMain {
 		frmDiscordManagerBeta.setBounds(100, 100, 840, 655);
 		frmDiscordManagerBeta.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		frmDiscordManagerBeta.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		frmDiscordManagerBeta.setTitle("Discord Manager Beta V1");
+		frmDiscordManagerBeta.setTitle("Discord Manager V1");
 		frmDiscordManagerBeta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDiscordManagerBeta.getContentPane().setLayout(new CardLayout(0, 0));
 		
@@ -605,6 +590,8 @@ public class GuiMain {
 		gbc_cBServerListe.gridy = 8;
 		pMenue.add(cBServerListe, gbc_cBServerListe);
 		cBServerListe.addMouseListener(new MouseAdapter() {
+			private IGuild discordServer;
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				for (IGuild ig : discordClient.getGuilds()) {
@@ -751,7 +738,6 @@ public class GuiMain {
 				subMenueSwitch();
 				for (IGuild ig : discordClient.getGuilds()) {
 					if(ig.getName() == cBServerListe.getSelectedItem()) {
-						System.out.println("Hallllllllo");
 						lblAlleChannel.setText("Alle Channels des Servers: "+ ig.getName());
 					}
 				}
@@ -762,6 +748,8 @@ public class GuiMain {
 			}
 		});
 		btnUserVerwalten.addActionListener(new ActionListener() {
+			private IGuild discordServer;
+
 			public void actionPerformed(ActionEvent e) {
 				subMenueSwitch();
 				cardLayoutSwitch.show(pSwitch, "pUserVerwalten");
@@ -954,6 +942,8 @@ public class GuiMain {
 			}
 		});
 		cBUserVerwalten.addMouseListener(new MouseAdapter() {
+			private IDiscordClient discordServer;
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				for (IUser iu : discordServer.getUsers()) {
