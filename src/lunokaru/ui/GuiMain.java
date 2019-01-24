@@ -62,6 +62,7 @@ import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
+import java.awt.Toolkit;
 
 public class GuiMain {
 
@@ -491,6 +492,7 @@ public class GuiMain {
 	 */
 	private void initialize() {
 		frmDiscordManagerBeta = new JFrame();
+		frmDiscordManagerBeta.setIconImage(Toolkit.getDefaultToolkit().getImage(GuiMain.class.getResource("/lunokaru/picture/Logo.png")));
 		frmDiscordManagerBeta.setBounds(100, 100, 840, 655);
 		frmDiscordManagerBeta.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		frmDiscordManagerBeta.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -533,7 +535,7 @@ public class GuiMain {
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		pMenue.add(lblNewLabel, gbc_lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon(GuiMain.class.getResource("/bilder/DiscordBot.jpg")));
+		lblNewLabel.setIcon(new ImageIcon(GuiMain.class.getResource("/lunokaru/picture/DiscordBot.jpg")));
 		
 		JLabel lBotName = new JLabel(discordClient.getApplicationName());
 		GridBagConstraints gbc_lBotName = new GridBagConstraints();
@@ -685,7 +687,7 @@ public class GuiMain {
 		pBackToMenue.setLayout(gbl_pBackToMenue);
 		
 		JLabel lblBackToMenueBild = new JLabel("");
-		lblBackToMenueBild.setIcon(new ImageIcon(GuiMain.class.getResource("/bilder/DiscordBot.jpg")));
+		lblBackToMenueBild.setIcon(new ImageIcon(GuiMain.class.getResource("/lunokaru/picture/DiscordBot.jpg")));
 		GridBagConstraints gbc_lblBackToMenueBild = new GridBagConstraints();
 		gbc_lblBackToMenueBild.insets = new Insets(0, 0, 5, 0);
 		gbc_lblBackToMenueBild.gridx = 0;
