@@ -87,7 +87,7 @@ public class LoginMain {
 		    logger.info(discordClient.getApplicationName()+ " is back. Let's get going!");
 			LoginData.setBotID(discordClient);
 	    	frmDiscordManagerBeta.dispose();
-//	    	guiHauptfenster.GuiMain.main(null);
+	    	lunokaru.ui.GuiMain.main(null);
 	    }
 	}
 
