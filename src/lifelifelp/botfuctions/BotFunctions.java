@@ -1,17 +1,21 @@
 /**
- * 
+ *
  */
 package lifelifelp.botfuctions;
 
 import java.awt.Color;
 import java.util.EnumSet;
 
+import org.apache.commons.lang3.StringUtils;
+
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
+import sx.blah.discord.handle.obj.ICategory;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.handle.obj.IVoiceChannel;
 import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RequestBuffer;
@@ -217,4 +221,40 @@ public class BotFunctions {
 			return false;
 		}
 	}
+	//Erstellt einen Voice oder Text-Channel mit dem gew�nschten Einstellungen
+		public static boolean CreateChannel(IGuild iguild, String name, Boolean channeltyp, String channeltopic,
+				Boolean NSFW, int bitrate, int userlimit, ICategory category, int position) {
+			Long channelID;
+			String channelname = StringUtils.replace(name.toLowerCase(), " ", "-");
+			if (channeltyp) {
+				channelID = iguild.createChannel(channelname).getLongID();
+				IChannel toeditchannel = iguild.getChannelByID(channelID);
+				toeditchannel.changeTopic(channeltopic);
+				if (NSFW) {
+					toeditchannel.changeNSFW(true);
+				}
+				toeditchannel.changeCategory(category);
+				toeditchannel.changePosition(position);
+				IChannel totest = iguild.getChannelByID(channelID);
+				if (totest.equals(toeditchannel)) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				channelID = iguild.createVoiceChannel(channelname).getLongID();
+				IVoiceChannel toeditvoicechannel = iguild.getVoiceChannelByID(channelID);
+				//toeditvoicechannel.changeBitrate(bitrate); Nicht nutzbar da dies ein Problem in Discord4J ist welches wir nicht umgehen k�nnen zur Zeit der Abgabe ist kein Bugfix 
+				toeditvoicechannel.changeUserLimit(userlimit);
+				toeditvoicechannel.changeCategory(category);
+				toeditvoicechannel.changePosition(position);
+				IVoiceChannel totest = iguild.getVoiceChannelByID(channelID);
+				if (totest.equals(toeditvoicechannel)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+		}
 }
