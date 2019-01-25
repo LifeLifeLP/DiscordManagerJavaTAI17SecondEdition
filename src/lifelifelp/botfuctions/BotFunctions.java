@@ -53,7 +53,7 @@ public class BotFunctions {
 	
 	//Erstellt eine Rolle, indem ein Server(iguild) der Rolename sowie die Farbe und dann die f�r jede veef�gbare Berechtigung ein Boolean Wert �bergeben wird
 	//daraus ensteht dann ein EnumSet welches die gewollten Permissions Objekte enth�lt, welches im letzten Schritt dem RoleBuilder �bergeben wird der dann die Rolle
-	//auf dem Server erstellt, am Ende gibt es noch einen Test ob das erstllen erfolgreich war.
+	//auf dem Server erstellt, am Ende gibt es noch einen Test ob das erstllen erfolgreich war. test
 	public static boolean saveRole(
 			IGuild iguild,
 			String Rolename,
