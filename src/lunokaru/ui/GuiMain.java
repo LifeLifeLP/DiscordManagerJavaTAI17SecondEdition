@@ -63,6 +63,7 @@ import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
 import java.awt.Toolkit;
+import java.awt.SystemColor;
 
 public class GuiMain {
 
@@ -104,6 +105,9 @@ public class GuiMain {
 					pKVSwitch,
 					pRVSwitch;
 	
+	//JScrollPane
+	private JScrollPane sPRVRollenErstellen;
+	
 	//JLabel
 	private JLabel 	lblchannelcountzahl,
 					lblPrivateMessageAn,
@@ -112,8 +116,7 @@ public class GuiMain {
 					lblBackToMenueBotName,
 					lblNicknameAnzeigen,
 					lblUVStatsNickname,
-					lblUVStatsStatus,
-					lblRVRollenFarbvorschauFarbe;
+					lblUVStatsStatus;
 	
 	//JTable
 	private JTable 	tUserRollenAlt,
@@ -132,8 +135,7 @@ public class GuiMain {
 						tFCVChannelNameNew,
 						tFCVChannelTopicNew,
 						tFKVKategorieName,
-						tFKVKategorieNameNew,
-						tFRVRollenErstellenName;
+						tFKVKategorieNameNew;
 	
 	//JComboBox<String>
 	private JComboBox<String> 	cBCVAlleChannel,
@@ -173,15 +175,10 @@ public class GuiMain {
 	
 	//JCheckBox
 	private JCheckBox 	chBCVChannelNSWF,
-						chBCVChannelinKategorie,
-						chBRVRollenMitgliederGruppieren,
-						chBRVRollenErwaehnen,
-						chBRVRollenAdmin,
-						chBRVRollenAuditLog,
-						chBRVRollenServerVerwalten,
-						chBRVRollenRollenVerwalten,
-						chBRVRollenChannelVerwalten,
-						chBRVRollenMitgliederKicken;
+						chBCVChannelinKategorie;
+	
+	
+	private JTextField textField;
 
 	
 	/**
@@ -2327,7 +2324,7 @@ public class GuiMain {
 		JButton btnRolleErstellen = new JButton("Rolle erstellen");
 		btnRolleErstellen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cardLayoutRVSwitchMain.show(pRVSwitch, "pRVRollenErstellen");
+				cardLayoutRVSwitchMain.show(pRVSwitch, "sPRVRollenErstellen");
 			}
 		});
 		GridBagConstraints gbc_btnRolleErstellen = new GridBagConstraints();
@@ -2363,272 +2360,218 @@ public class GuiMain {
 		gbc_lblRVRollenVerwalten.gridy = 0;
 		pRVRollenMain.add(lblRVRollenVerwalten, gbc_lblRVRollenVerwalten);
 		
+		sPRVRollenErstellen = new JScrollPane();
+		pRVSwitch.add(sPRVRollenErstellen, "sPRVRollenErstellen");
+		
 		JPanel pRVRollenErstellen = new JPanel();
-		pRVSwitch.add(pRVRollenErstellen, "pRVRollenErstellen");
+		sPRVRollenErstellen.setViewportView(pRVRollenErstellen);
 		GridBagLayout gbl_pRVRollenErstellen = new GridBagLayout();
 		gbl_pRVRollenErstellen.columnWidths = new int[]{0, 0, 0};
-		gbl_pRVRollenErstellen.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_pRVRollenErstellen.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_pRVRollenErstellen.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pRVRollenErstellen.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_pRVRollenErstellen.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_pRVRollenErstellen.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		pRVRollenErstellen.setLayout(gbl_pRVRollenErstellen);
 		
-		JLabel lblRVRollenErstellen = new JLabel("Rollen erstellen");
-		lblRVRollenErstellen.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
-		GridBagConstraints gbc_lblRVRollenErstellen = new GridBagConstraints();
-		gbc_lblRVRollenErstellen.insets = new Insets(0, 0, 5, 0);
-		gbc_lblRVRollenErstellen.gridwidth = 2;
-		gbc_lblRVRollenErstellen.gridx = 0;
-		gbc_lblRVRollenErstellen.gridy = 0;
-		pRVRollenErstellen.add(lblRVRollenErstellen, gbc_lblRVRollenErstellen);
+		JLabel label_1 = new JLabel("Rollen erstellen");
+		label_1.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 20));
+		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.gridwidth = 2;
+		gbc_label_1.insets = new Insets(0, 0, 5, 0);
+		gbc_label_1.gridx = 0;
+		gbc_label_1.gridy = 0;
+		pRVRollenErstellen.add(label_1, gbc_label_1);
 		
-		JLabel lblRVRollenErstellenName = new JLabel("Rollen Name:");
-		GridBagConstraints gbc_lblRVRollenErstellenName = new GridBagConstraints();
-		gbc_lblRVRollenErstellenName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenErstellenName.gridx = 0;
-		gbc_lblRVRollenErstellenName.gridy = 1;
-		pRVRollenErstellen.add(lblRVRollenErstellenName, gbc_lblRVRollenErstellenName);
+		JLabel label_2 = new JLabel("Rollen Name:");
+		GridBagConstraints gbc_label_2 = new GridBagConstraints();
+		gbc_label_2.insets = new Insets(0, 0, 5, 5);
+		gbc_label_2.gridx = 0;
+		gbc_label_2.gridy = 1;
+		pRVRollenErstellen.add(label_2, gbc_label_2);
 		
-		tFRVRollenErstellenName = new JTextField();
-		tFRVRollenErstellenName.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				lblRVRollenFarbvorschauFarbe.setText(tFRVRollenErstellenName.getText());
-			}
-		});
-		GridBagConstraints gbc_tFRVRollenErstellenName = new GridBagConstraints();
-		gbc_tFRVRollenErstellenName.insets = new Insets(0, 0, 5, 0);
-		gbc_tFRVRollenErstellenName.fill = GridBagConstraints.BOTH;
-		gbc_tFRVRollenErstellenName.gridx = 1;
-		gbc_tFRVRollenErstellenName.gridy = 1;
-		pRVRollenErstellen.add(tFRVRollenErstellenName, gbc_tFRVRollenErstellenName);
-		tFRVRollenErstellenName.setColumns(10);
+		textField = new JTextField();
+		textField.setColumns(10);
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 1;
+		gbc_textField.gridy = 1;
+		pRVRollenErstellen.add(textField, gbc_textField);
 		
-		JLabel lblRVRollenFarbauswahl = new JLabel("Rollenfarbe auswaehlen:");
-		GridBagConstraints gbc_lblRVRollenFarbauswahl = new GridBagConstraints();
-		gbc_lblRVRollenFarbauswahl.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenFarbauswahl.gridx = 0;
-		gbc_lblRVRollenFarbauswahl.gridy = 2;
-		pRVRollenErstellen.add(lblRVRollenFarbauswahl, gbc_lblRVRollenFarbauswahl);
+		JLabel label_3 = new JLabel("Rollenfarbe auswaehlen:");
+		GridBagConstraints gbc_label_3 = new GridBagConstraints();
+		gbc_label_3.insets = new Insets(0, 0, 5, 5);
+		gbc_label_3.gridx = 0;
+		gbc_label_3.gridy = 2;
+		pRVRollenErstellen.add(label_3, gbc_label_3);
 		
-		JButton btnRVRollenFarbauswahl = new JButton("Zur Farbauswahl");
-		btnRVRollenFarbauswahl.addActionListener(new ActionListener() {
+		JButton button = new JButton("Zur Farbauswahl");
+		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Erstellung eines JColorChooser Dialoges, 
-		        // der eine Farbe zurueck gibt
-		        Color ausgewaehlteFarbe = JColorChooser.showDialog(null, "Farbauswahl", null);
-		        
-		        // Speichern und Anzeigen der ausgewaehlten Farbe
-		        lblRVRollenFarbvorschauFarbe.setForeground(ausgewaehlteFarbe);
-		        discordRollenFarbe = lblRVRollenFarbvorschauFarbe.getForeground();
+		        // der eine Farbe zurück gibt
+		        Color ausgewaehlteFarbe = JColorChooser.showDialog(null, 
+		            "Farbauswahl", null);
+		        // Ausgabe der ausgewählten Farbe
+		        System.out.println(ausgewaehlteFarbe);
 			}
 		});
-		GridBagConstraints gbc_btnRVRollenFarbauswahl = new GridBagConstraints();
-		gbc_btnRVRollenFarbauswahl.insets = new Insets(0, 0, 5, 0);
-		gbc_btnRVRollenFarbauswahl.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnRVRollenFarbauswahl.gridx = 1;
-		gbc_btnRVRollenFarbauswahl.gridy = 2;
-		pRVRollenErstellen.add(btnRVRollenFarbauswahl, gbc_btnRVRollenFarbauswahl);
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.insets = new Insets(0, 0, 5, 0);
+		gbc_button.gridx = 1;
+		gbc_button.gridy = 2;
+		pRVRollenErstellen.add(button, gbc_button);
 		
-		JLabel lblRVRollenFarbvorschau = new JLabel("Farbvorschau:");
-		GridBagConstraints gbc_lblRVRollenFarbvorschau = new GridBagConstraints();
-		gbc_lblRVRollenFarbvorschau.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenFarbvorschau.gridx = 0;
-		gbc_lblRVRollenFarbvorschau.gridy = 3;
-		pRVRollenErstellen.add(lblRVRollenFarbvorschau, gbc_lblRVRollenFarbvorschau);
+		JLabel label_4 = new JLabel("Farbvorschau:");
+		GridBagConstraints gbc_label_4 = new GridBagConstraints();
+		gbc_label_4.insets = new Insets(0, 0, 5, 5);
+		gbc_label_4.gridx = 0;
+		gbc_label_4.gridy = 3;
+		pRVRollenErstellen.add(label_4, gbc_label_4);
 		
-		lblRVRollenFarbvorschauFarbe = new JLabel("");
-		lblRVRollenFarbvorschauFarbe.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblRVRollenFarbvorschauFarbe.setBackground(new Color(240, 240, 240));
-		GridBagConstraints gbc_lblRVRollenFarbvorschauFarbe = new GridBagConstraints();
-		gbc_lblRVRollenFarbvorschauFarbe.insets = new Insets(0, 0, 5, 0);
-		gbc_lblRVRollenFarbvorschauFarbe.gridx = 1;
-		gbc_lblRVRollenFarbvorschauFarbe.gridy = 3;
-		pRVRollenErstellen.add(lblRVRollenFarbvorschauFarbe, gbc_lblRVRollenFarbvorschauFarbe);
+		JLabel label_5 = new JLabel("");
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		label_5.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_label_5 = new GridBagConstraints();
+		gbc_label_5.insets = new Insets(0, 0, 5, 0);
+		gbc_label_5.gridx = 1;
+		gbc_label_5.gridy = 3;
+		pRVRollenErstellen.add(label_5, gbc_label_5);
 		
-		JSeparator separator_8 = new JSeparator();
-		GridBagConstraints gbc_separator_8 = new GridBagConstraints();
-		gbc_separator_8.insets = new Insets(0, 0, 5, 0);
-		gbc_separator_8.gridwidth = 2;
-		gbc_separator_8.gridx = 0;
-		gbc_separator_8.gridy = 4;
-		pRVRollenErstellen.add(separator_8, gbc_separator_8);
+		JLabel label_6 = new JLabel("Rolleneinstellungen");
+		label_6.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		GridBagConstraints gbc_label_6 = new GridBagConstraints();
+		gbc_label_6.gridwidth = 2;
+		gbc_label_6.insets = new Insets(0, 0, 5, 0);
+		gbc_label_6.gridx = 0;
+		gbc_label_6.gridy = 4;
+		pRVRollenErstellen.add(label_6, gbc_label_6);
 		
-		JLabel lblRVRollenEinstellungen = new JLabel("Rolleneinstellungen");
-		lblRVRollenEinstellungen.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		GridBagConstraints gbc_lblRVRollenEinstellungen = new GridBagConstraints();
-		gbc_lblRVRollenEinstellungen.insets = new Insets(0, 0, 5, 0);
-		gbc_lblRVRollenEinstellungen.gridwidth = 2;
-		gbc_lblRVRollenEinstellungen.gridx = 0;
-		gbc_lblRVRollenEinstellungen.gridy = 5;
-		pRVRollenErstellen.add(lblRVRollenEinstellungen, gbc_lblRVRollenEinstellungen);
+		JLabel label_7 = new JLabel("Mitglieder gruppieren");
+		GridBagConstraints gbc_label_7 = new GridBagConstraints();
+		gbc_label_7.insets = new Insets(0, 0, 5, 5);
+		gbc_label_7.gridx = 0;
+		gbc_label_7.gridy = 5;
+		pRVRollenErstellen.add(label_7, gbc_label_7);
 		
-		JLabel lblRVRollenMitgliederGruppieren = new JLabel("Mitglieder gruppieren");
-		GridBagConstraints gbc_lblRVRollenMitgliederGruppieren = new GridBagConstraints();
-		gbc_lblRVRollenMitgliederGruppieren.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenMitgliederGruppieren.gridx = 0;
-		gbc_lblRVRollenMitgliederGruppieren.gridy = 6;
-		pRVRollenErstellen.add(lblRVRollenMitgliederGruppieren, gbc_lblRVRollenMitgliederGruppieren);
+		JCheckBox checkBox = new JCheckBox("");
+		GridBagConstraints gbc_checkBox = new GridBagConstraints();
+		gbc_checkBox.insets = new Insets(0, 0, 5, 0);
+		gbc_checkBox.gridx = 1;
+		gbc_checkBox.gridy = 5;
+		pRVRollenErstellen.add(checkBox, gbc_checkBox);
 		
-		chBRVRollenMitgliederGruppieren = new JCheckBox("");
-		GridBagConstraints gbc_chBRVRollenMitgliederGruppieren = new GridBagConstraints();
-		gbc_chBRVRollenMitgliederGruppieren.insets = new Insets(0, 0, 5, 0);
-		gbc_chBRVRollenMitgliederGruppieren.gridx = 1;
-		gbc_chBRVRollenMitgliederGruppieren.gridy = 6;
-		pRVRollenErstellen.add(chBRVRollenMitgliederGruppieren, gbc_chBRVRollenMitgliederGruppieren);
+		JLabel label_8 = new JLabel("mit @ erwaehnen");
+		GridBagConstraints gbc_label_8 = new GridBagConstraints();
+		gbc_label_8.insets = new Insets(0, 0, 5, 5);
+		gbc_label_8.gridx = 0;
+		gbc_label_8.gridy = 6;
+		pRVRollenErstellen.add(label_8, gbc_label_8);
 		
-		JLabel lblRVRollenErwaehnen = new JLabel("mit @ erwaehnen");
-		GridBagConstraints gbc_lblRVRollenErwaehnen = new GridBagConstraints();
-		gbc_lblRVRollenErwaehnen.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenErwaehnen.gridx = 0;
-		gbc_lblRVRollenErwaehnen.gridy = 7;
-		pRVRollenErstellen.add(lblRVRollenErwaehnen, gbc_lblRVRollenErwaehnen);
+		JCheckBox checkBox_1 = new JCheckBox("");
+		GridBagConstraints gbc_checkBox_1 = new GridBagConstraints();
+		gbc_checkBox_1.insets = new Insets(0, 0, 5, 0);
+		gbc_checkBox_1.gridx = 1;
+		gbc_checkBox_1.gridy = 6;
+		pRVRollenErstellen.add(checkBox_1, gbc_checkBox_1);
 		
-		chBRVRollenErwaehnen = new JCheckBox("");
-		GridBagConstraints gbc_chBRVRollenErwaehnen = new GridBagConstraints();
-		gbc_chBRVRollenErwaehnen.insets = new Insets(0, 0, 5, 0);
-		gbc_chBRVRollenErwaehnen.gridx = 1;
-		gbc_chBRVRollenErwaehnen.gridy = 7;
-		pRVRollenErstellen.add(chBRVRollenErwaehnen, gbc_chBRVRollenErwaehnen);
+		JLabel label_9 = new JLabel("Allgemeine Einstellungen");
+		label_9.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		GridBagConstraints gbc_label_9 = new GridBagConstraints();
+		gbc_label_9.gridwidth = 2;
+		gbc_label_9.insets = new Insets(0, 0, 5, 0);
+		gbc_label_9.gridx = 0;
+		gbc_label_9.gridy = 7;
+		pRVRollenErstellen.add(label_9, gbc_label_9);
 		
-		JLabel lblRVAllgemeinEinstellungen = new JLabel("Allgemeine Einstellungen");
-		lblRVAllgemeinEinstellungen.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		GridBagConstraints gbc_lblRVAllgemeinEinstellungen = new GridBagConstraints();
-		gbc_lblRVAllgemeinEinstellungen.insets = new Insets(0, 0, 5, 0);
-		gbc_lblRVAllgemeinEinstellungen.gridwidth = 2;
-		gbc_lblRVAllgemeinEinstellungen.gridx = 0;
-		gbc_lblRVAllgemeinEinstellungen.gridy = 8;
-		pRVRollenErstellen.add(lblRVAllgemeinEinstellungen, gbc_lblRVAllgemeinEinstellungen);
+		JLabel label_10 = new JLabel("Administrator");
+		GridBagConstraints gbc_label_10 = new GridBagConstraints();
+		gbc_label_10.insets = new Insets(0, 0, 5, 5);
+		gbc_label_10.gridx = 0;
+		gbc_label_10.gridy = 8;
+		pRVRollenErstellen.add(label_10, gbc_label_10);
 		
-		JLabel lblRVRollenAdmin = new JLabel("Administrator");
-		GridBagConstraints gbc_lblRVRollenAdmin = new GridBagConstraints();
-		gbc_lblRVRollenAdmin.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenAdmin.gridx = 0;
-		gbc_lblRVRollenAdmin.gridy = 9;
-		pRVRollenErstellen.add(lblRVRollenAdmin, gbc_lblRVRollenAdmin);
+		JCheckBox checkBox_2 = new JCheckBox("");
+		GridBagConstraints gbc_checkBox_2 = new GridBagConstraints();
+		gbc_checkBox_2.insets = new Insets(0, 0, 5, 0);
+		gbc_checkBox_2.gridx = 1;
+		gbc_checkBox_2.gridy = 8;
+		pRVRollenErstellen.add(checkBox_2, gbc_checkBox_2);
 		
-		chBRVRollenAdmin = new JCheckBox("");
-		GridBagConstraints gbc_chBRVRollenAdmin = new GridBagConstraints();
-		gbc_chBRVRollenAdmin.insets = new Insets(0, 0, 5, 0);
-		gbc_chBRVRollenAdmin.gridx = 1;
-		gbc_chBRVRollenAdmin.gridy = 9;
-		pRVRollenErstellen.add(chBRVRollenAdmin, gbc_chBRVRollenAdmin);
+		JLabel label_11 = new JLabel("Audit-Log anzeigen");
+		GridBagConstraints gbc_label_11 = new GridBagConstraints();
+		gbc_label_11.insets = new Insets(0, 0, 5, 5);
+		gbc_label_11.gridx = 0;
+		gbc_label_11.gridy = 9;
+		pRVRollenErstellen.add(label_11, gbc_label_11);
 		
-		JLabel lblRVRollenAuditLog = new JLabel("Audit-Log anzeigen");
-		GridBagConstraints gbc_lblRVRollenAuditLog = new GridBagConstraints();
-		gbc_lblRVRollenAuditLog.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenAuditLog.gridx = 0;
-		gbc_lblRVRollenAuditLog.gridy = 10;
-		pRVRollenErstellen.add(lblRVRollenAuditLog, gbc_lblRVRollenAuditLog);
+		JCheckBox checkBox_3 = new JCheckBox("");
+		GridBagConstraints gbc_checkBox_3 = new GridBagConstraints();
+		gbc_checkBox_3.insets = new Insets(0, 0, 5, 0);
+		gbc_checkBox_3.gridx = 1;
+		gbc_checkBox_3.gridy = 9;
+		pRVRollenErstellen.add(checkBox_3, gbc_checkBox_3);
 		
-		chBRVRollenAuditLog = new JCheckBox("");
-		GridBagConstraints gbc_chBRVRollenAuditLog = new GridBagConstraints();
-		gbc_chBRVRollenAuditLog.insets = new Insets(0, 0, 5, 0);
-		gbc_chBRVRollenAuditLog.gridx = 1;
-		gbc_chBRVRollenAuditLog.gridy = 10;
-		pRVRollenErstellen.add(chBRVRollenAuditLog, gbc_chBRVRollenAuditLog);
+		JLabel label_12 = new JLabel("Server verwalten");
+		GridBagConstraints gbc_label_12 = new GridBagConstraints();
+		gbc_label_12.insets = new Insets(0, 0, 5, 5);
+		gbc_label_12.gridx = 0;
+		gbc_label_12.gridy = 10;
+		pRVRollenErstellen.add(label_12, gbc_label_12);
 		
-		JLabel lblRVRollenServerVerwalten = new JLabel("Server verwalten");
-		GridBagConstraints gbc_lblRVRollenServerVerwalten = new GridBagConstraints();
-		gbc_lblRVRollenServerVerwalten.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenServerVerwalten.gridx = 0;
-		gbc_lblRVRollenServerVerwalten.gridy = 11;
-		pRVRollenErstellen.add(lblRVRollenServerVerwalten, gbc_lblRVRollenServerVerwalten);
+		JCheckBox checkBox_4 = new JCheckBox("");
+		GridBagConstraints gbc_checkBox_4 = new GridBagConstraints();
+		gbc_checkBox_4.insets = new Insets(0, 0, 5, 0);
+		gbc_checkBox_4.gridx = 1;
+		gbc_checkBox_4.gridy = 10;
+		pRVRollenErstellen.add(checkBox_4, gbc_checkBox_4);
 		
-		chBRVRollenServerVerwalten = new JCheckBox("");
-		GridBagConstraints gbc_chBRVRollenServerVerwalten = new GridBagConstraints();
-		gbc_chBRVRollenServerVerwalten.insets = new Insets(0, 0, 5, 0);
-		gbc_chBRVRollenServerVerwalten.gridx = 1;
-		gbc_chBRVRollenServerVerwalten.gridy = 11;
-		pRVRollenErstellen.add(chBRVRollenServerVerwalten, gbc_chBRVRollenServerVerwalten);
+		JLabel label_13 = new JLabel("Rollen verwalten");
+		GridBagConstraints gbc_label_13 = new GridBagConstraints();
+		gbc_label_13.insets = new Insets(0, 0, 5, 5);
+		gbc_label_13.gridx = 0;
+		gbc_label_13.gridy = 11;
+		pRVRollenErstellen.add(label_13, gbc_label_13);
 		
-		JLabel lblRVRollenRollenVerwalten = new JLabel("Rollen verwalten");
-		GridBagConstraints gbc_lblRVRollenRollenVerwalten = new GridBagConstraints();
-		gbc_lblRVRollenRollenVerwalten.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenRollenVerwalten.gridx = 0;
-		gbc_lblRVRollenRollenVerwalten.gridy = 12;
-		pRVRollenErstellen.add(lblRVRollenRollenVerwalten, gbc_lblRVRollenRollenVerwalten);
+		JCheckBox checkBox_5 = new JCheckBox("");
+		GridBagConstraints gbc_checkBox_5 = new GridBagConstraints();
+		gbc_checkBox_5.insets = new Insets(0, 0, 5, 0);
+		gbc_checkBox_5.gridx = 1;
+		gbc_checkBox_5.gridy = 11;
+		pRVRollenErstellen.add(checkBox_5, gbc_checkBox_5);
 		
-		chBRVRollenRollenVerwalten = new JCheckBox("");
-		GridBagConstraints gbc_chBRVRollenRollenVerwalten = new GridBagConstraints();
-		gbc_chBRVRollenRollenVerwalten.insets = new Insets(0, 0, 5, 0);
-		gbc_chBRVRollenRollenVerwalten.gridx = 1;
-		gbc_chBRVRollenRollenVerwalten.gridy = 12;
-		pRVRollenErstellen.add(chBRVRollenRollenVerwalten, gbc_chBRVRollenRollenVerwalten);
+		JLabel label_14 = new JLabel("Channel verwalten");
+		GridBagConstraints gbc_label_14 = new GridBagConstraints();
+		gbc_label_14.insets = new Insets(0, 0, 5, 5);
+		gbc_label_14.gridx = 0;
+		gbc_label_14.gridy = 12;
+		pRVRollenErstellen.add(label_14, gbc_label_14);
 		
-		JLabel lblRVRollenChannelVerwalten = new JLabel("Channel verwalten");
-		GridBagConstraints gbc_lblRVRollenChannelVerwalten = new GridBagConstraints();
-		gbc_lblRVRollenChannelVerwalten.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenChannelVerwalten.gridx = 0;
-		gbc_lblRVRollenChannelVerwalten.gridy = 13;
-		pRVRollenErstellen.add(lblRVRollenChannelVerwalten, gbc_lblRVRollenChannelVerwalten);
+		JCheckBox checkBox_6 = new JCheckBox("");
+		GridBagConstraints gbc_checkBox_6 = new GridBagConstraints();
+		gbc_checkBox_6.insets = new Insets(0, 0, 5, 0);
+		gbc_checkBox_6.gridx = 1;
+		gbc_checkBox_6.gridy = 12;
+		pRVRollenErstellen.add(checkBox_6, gbc_checkBox_6);
 		
-		chBRVRollenChannelVerwalten = new JCheckBox("");
-		GridBagConstraints gbc_chBRVRollenChannelVerwalten = new GridBagConstraints();
-		gbc_chBRVRollenChannelVerwalten.insets = new Insets(0, 0, 5, 0);
-		gbc_chBRVRollenChannelVerwalten.gridx = 1;
-		gbc_chBRVRollenChannelVerwalten.gridy = 13;
-		pRVRollenErstellen.add(chBRVRollenChannelVerwalten, gbc_chBRVRollenChannelVerwalten);
+		JLabel label_15 = new JLabel("Mitglieder kicken");
+		GridBagConstraints gbc_label_15 = new GridBagConstraints();
+		gbc_label_15.insets = new Insets(0, 0, 5, 5);
+		gbc_label_15.gridx = 0;
+		gbc_label_15.gridy = 13;
+		pRVRollenErstellen.add(label_15, gbc_label_15);
 		
-		JLabel lblRVRollenMitgliederKicken = new JLabel("Mitglieder kicken");
-		GridBagConstraints gbc_lblRVRollenMitgliederKicken = new GridBagConstraints();
-		gbc_lblRVRollenMitgliederKicken.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRVRollenMitgliederKicken.gridx = 0;
-		gbc_lblRVRollenMitgliederKicken.gridy = 14;
-		pRVRollenErstellen.add(lblRVRollenMitgliederKicken, gbc_lblRVRollenMitgliederKicken);
+		JCheckBox checkBox_7 = new JCheckBox("");
+		GridBagConstraints gbc_checkBox_7 = new GridBagConstraints();
+		gbc_checkBox_7.insets = new Insets(0, 0, 5, 0);
+		gbc_checkBox_7.gridx = 1;
+		gbc_checkBox_7.gridy = 13;
+		pRVRollenErstellen.add(checkBox_7, gbc_checkBox_7);
 		
-		chBRVRollenMitgliederKicken = new JCheckBox("");
-		GridBagConstraints gbc_chBRVRollenMitgliederKicken = new GridBagConstraints();
-		gbc_chBRVRollenMitgliederKicken.insets = new Insets(0, 0, 5, 0);
-		gbc_chBRVRollenMitgliederKicken.gridx = 1;
-		gbc_chBRVRollenMitgliederKicken.gridy = 14;
-		pRVRollenErstellen.add(chBRVRollenMitgliederKicken, gbc_chBRVRollenMitgliederKicken);
-		
-		JButton btnRolleErstellen_1 = new JButton("Rolle erstellen");
-		btnRolleErstellen_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				for (IGuild ig : discordClient.getGuilds()) {
-					if (ig.getName().equals(cBServerListe.getSelectedItem())) {
-						lifelifelp.tools.Tools.saveRole(ig,
-								tFRVRollenErstellenName.getText(), 
-								discordRollenFarbe, 
-								chBRVRollenMitgliederGruppieren.isSelected(), 
-								chBRVRollenErwaehnen.isSelected(), 
-								chBRVRollenAdmin.isSelected(), 
-								chBRVRollenAuditLog.isSelected(), 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false, 
-								false);
-					}
-				}
-			}
-		});
-		GridBagConstraints gbc_btnRolleErstellen_1 = new GridBagConstraints();
-		gbc_btnRolleErstellen_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnRolleErstellen_1.gridx = 1;
-		gbc_btnRolleErstellen_1.gridy = 15;
-		pRVRollenErstellen.add(btnRolleErstellen_1, gbc_btnRolleErstellen_1);
+		JButton btnRVRollenErstellen = new JButton("Rolle erstellen");
+		GridBagConstraints gbc_btnRVRollenErstellen = new GridBagConstraints();
+		gbc_btnRVRollenErstellen.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRVRollenErstellen.gridx = 0;
+		gbc_btnRVRollenErstellen.gridy = 16;
+		pRVRollenErstellen.add(btnRVRollenErstellen, gbc_btnRVRollenErstellen);
 	}
 }
