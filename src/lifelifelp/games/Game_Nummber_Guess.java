@@ -11,7 +11,6 @@ import java.util.Random;
 import org.apache.commons.lang3.StringUtils;
 
 import lifelifelp.botfuctions.BotFunctions;
-import lifelifelp.tools.Tools;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IMessage;
@@ -55,8 +54,8 @@ public class Game_Nummber_Guess {
 			RequestBuffer.request(() -> {
 			
 			//Erstellt einen einfachen TextChannel
-			Tools.CreateChannel(event.getGuild(), event.getAuthor().getName() + "-gameroom", true, "Rate mal?", false,0, 0, null, 0);
-			
+			lifelifelp.botfuctions.BotFunctions.CreateChannel(event.getGuild(), event.getAuthor().getName() + "-gameroom", true, "Rate mal?", false,0, 0, null, 0);
+				
 			RequestBuffer.request(() -> {
 			
 			//Erstellung eines Savegames mit Spieler und Spielchannels
