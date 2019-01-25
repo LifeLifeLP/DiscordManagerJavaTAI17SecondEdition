@@ -104,59 +104,85 @@ public class GuiMain {
 					pKVSwitch,
 					pRVSwitch;
 	
+	//JLabel
+	private JLabel 	lblchannelcountzahl,
+					lblPrivateMessageAn,
+					lblUserBannenWertigkeit,
+					lblAlleChannel,
+					lblBackToMenueBotName,
+					lblNicknameAnzeigen,
+					lblUVStatsNickname,
+					lblUVStatsStatus,
+					lblRVRollenFarbvorschauFarbe;
 	
+	//JTable
+	private JTable 	tUserRollenAlt,
+					tUserRollenNeu;
 	
-	private DefaultTableModel dtmUserRollenAlt;
-	private DefaultTableModel dtmUserRollenNeu;
-	private JComboBox<String> cBServerListe;
+	//DefaulTableModel
+	private DefaultTableModel 	dtmUserRollenAlt,
+								dtmUserRollenNeu;
+	
+	//JTextField
+	private JTextField 	tFUVNickname,
+						tFUVChat,
+						tFUVKick,
+						tFCVChannelName,
+						tFCVChannelTopic,
+						tFCVChannelNameNew,
+						tFCVChannelTopicNew,
+						tFKVKategorieName,
+						tFKVKategorieNameNew,
+						tFRVRollenErstellenName;
+	
+	//JComboBox<String>
+	private JComboBox<String> 	cBCVAlleChannel,
+								cBCVChannelinKategorie,
+								cBKVAlleKategorien,
+								cBRVAlleRollen,
+								cBServerListe,
+								cBUserVerwalten;
+	
+	//Vector<String>
 	private Vector<String> test;
-	private static Object[] cancelOption = {"Ja", "Nein"};
-	private JLabel lblLblchannelcountzahl;
 	
-	private JComboBox<String> cBUserVerwalten;
-	private JTable tUserRollenAlt;
-	private JTable tUserRollenNeu;
-	private JButton btnRollenUserHinzufuegen;
-	private JButton btnRollenUserLoeschen;
-	private JLabel lblPrivateMessageAn;
-	private JLabel lblUserBannenWertigkeit;
+	//JButton
+	private JButton btnRollenUserHinzufuegen,
+					btnRollenUserLoeschen,
+					btnChannelBearbeiten,
+					btnChannelLoeschen;
+								
+	//ButtonGroup
 	private ButtonGroup buttonGroupUserBannen;
-	private JRadioButton rdbtnKeine, rdbtnLetzteStunden, rdbtnLetzteTage, rdbtnAlleNachrichten;
-	private JLabel lblAlleChannel;
-	private JLabel lblBackToMenueBotName;
-	private JComboBox<String> cBCVAlleChannel;
-	private JButton btnChannelBearbeiten;
-	private JButton btnChannelLoeschen;
-	private JLabel lblNicknameAnzeigen;
-	private JTextField tFUVNickname;
-	private JTextField tFUVChat;
-	private JTextField tFUVKick;
-	private JLabel lblUVStatsNickname;
-	private JLabel lblUVStatsStatus;
-	private JTextField tFCVChannelName;
-	private JTextField tFCVChannelTopic;
-	private JComboBox<String> cBCVChannelinKategorie;
-	private Hashtable<Integer, JLabel> labelsForCBUserlimit;
-	private Hashtable<Integer, JLabel> labelsForCBBitrate;
+	
+	//JRadioButton
+	private JRadioButton	rdbtnKeine,
+							rdbtnLetzteStunden,
+							rdbtnLetzteTage,
+							rdbtnAlleNachrichten;
+	
+	//JSlider
 	private JSlider slCVPositioninKategorie;
-	private JCheckBox chBCVChannelNSWF;
-	private JCheckBox chBCVChannelinKategorie;
-	private JTextField tFCVChannelNameNew;
-	private JTextField tFCVChannelTopicNew;
-	private JTextField tFKVKategorieName;
-	private JComboBox<String> cBKVAlleKategorien;
-	private JTextField tFKVKategorieNameNew;
-	private JComboBox<String> cBRVAlleRollen;
-	private JTextField tFRVRollenErstellenName;
-	private JCheckBox chBRVRollenMitgliederGruppieren;
-	private JCheckBox chBRVRollenErwaehnen;
-	private JCheckBox chBRVRollenAdmin;
-	private JCheckBox chBRVRollenAuditLog;
-	private JCheckBox chBRVRollenServerVerwalten;
-	private JCheckBox chBRVRollenRollenVerwalten;
-	private JCheckBox chBRVRollenChannelVerwalten;
-	private JCheckBox chBRVRollenMitgliederKicken;
-	private JLabel lblRVRollenFarbvorschauFarbe;
+	
+	//Hashtable
+	private Hashtable<Integer, JLabel> 	labelsForCBUserlimit,
+										labelsForCBBitrate;
+										
+	//Object
+	private static Object[] cancelOption = {"Ja", "Nein"};
+	
+	//JCheckBox
+	private JCheckBox 	chBCVChannelNSWF,
+						chBCVChannelinKategorie,
+						chBRVRollenMitgliederGruppieren,
+						chBRVRollenErwaehnen,
+						chBRVRollenAdmin,
+						chBRVRollenAuditLog,
+						chBRVRollenServerVerwalten,
+						chBRVRollenRollenVerwalten,
+						chBRVRollenChannelVerwalten,
+						chBRVRollenMitgliederKicken;
+
 	
 	/**
 	 * Launch the application.
@@ -321,13 +347,10 @@ public class GuiMain {
 	
 	//Funktion zum Setzen des discordUser
 	private void setDiscordUser() {
-		for (IGuild ig : discordClient.getGuilds()) {
-			if (ig.getName().equals(cBServerListe.getSelectedItem())) {
-				for (IUser iu : ig.getUsers()) {
-					if (iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
-						discordUser = iu;
-					}
-				}
+		IGuild ig = findCurrentGuild();
+		for (IUser iu : ig.getUsers()) {
+			if (iu.getName().equals(cBUserVerwalten.getSelectedItem())) {
+				discordUser = iu;
 			}
 		}
 	}
@@ -351,11 +374,8 @@ public class GuiMain {
 	//Funktion zum Wechseln des JPanels und setzen eines dynamischen Textes
 	private void subMenueSwitch() {
 		cardLayoutMenueSwitch.show(pMenueSwitch, "pBackToMenue");
-		for (IGuild ig : discordClient.getGuilds()) {
-			if(ig.getName() == cBServerListe.getSelectedItem()) {
-				lblBackToMenueBotName.setText(discordClient.getOurUser().getNicknameForGuild(ig));
-			}
-		}
+		IGuild ig = findCurrentGuild();
+		lblBackToMenueBotName.setText(discordClient.getOurUser().getNicknameForGuild(ig));
 	}
 	
 	//Funktion zum Erstellen einer ButtonGroup und befuellen dieser
@@ -419,7 +439,7 @@ public class GuiMain {
 	    	List<IChannel> discordChannels = iG.getChannels();
 	    	List<IVoiceChannel> discordVoiceChannels = iG.getVoiceChannels();
 	    	temp = temp + discordChannels.size() + discordVoiceChannels.size();
-	    	lblLblchannelcountzahl.setText(String.valueOf(temp));
+	    	lblchannelcountzahl.setText(String.valueOf(temp));
 		}
 		for (IGuild iG : discordClient.getGuilds()) {
 			cBServerListe.addItem(iG.getName());
@@ -844,13 +864,13 @@ public class GuiMain {
 		gbc_lblChannelcount.gridy = 2;
 		pWillkommen.add(lblChannelcount, gbc_lblChannelcount);
 		
-		lblLblchannelcountzahl = new JLabel(String.valueOf(discordChannelCount));
-		lblLblchannelcountzahl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		lblchannelcountzahl = new JLabel(String.valueOf(discordChannelCount));
+		lblchannelcountzahl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		GridBagConstraints gbc_lblLblchannelcountzahl = new GridBagConstraints();
 		gbc_lblLblchannelcountzahl.insets = new Insets(0, 0, 5, 0);
 		gbc_lblLblchannelcountzahl.gridx = 1;
 		gbc_lblLblchannelcountzahl.gridy = 2;
-		pWillkommen.add(lblLblchannelcountzahl, gbc_lblLblchannelcountzahl);
+		pWillkommen.add(lblchannelcountzahl, gbc_lblLblchannelcountzahl);
 		
 		JLabel lblUsercount = new JLabel("Usercount:");
 		lblUsercount.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
