@@ -54,257 +54,166 @@ public class BotFunctions {
 	//Erstellt eine Rolle, indem ein Server(iguild) der Rolename sowie die Farbe und dann die f�r jede veef�gbare Berechtigung ein Boolean Wert �bergeben wird
 	//daraus ensteht dann ein EnumSet welches die gewollten Permissions Objekte enth�lt, welches im letzten Schritt dem RoleBuilder �bergeben wird der dann die Rolle
 	//auf dem Server erstellt, am Ende gibt es noch einen Test ob das erstllen erfolgreich war.
-	public static boolean saveRole(IGuild iguild, String Rolename, Color Rolecolor, Boolean isHoist, Boolean isMentionable, Boolean canReadMessages, Boolean canMentionEveryone, Boolean canUseExternalEmojis, Boolean canAddReaction, Boolean canChangeNickname, 
-			Boolean isAdministrator, Boolean canViewAuditLog, Boolean canManageServer, Boolean canManageRoles, Boolean canKick, Boolean canBan, Boolean canCreateInvite, Boolean canManageNicknames, Boolean canManageEmojis, Boolean canManageWebhooks, Boolean canSendText, 
-			Boolean canSendTTSText, Boolean canManageMesages, Boolean CanEmbedLinks, Boolean canAddFile, Boolean CanReadHistory, Boolean CanVoiceConnect, Boolean CanVoiceSpeak, Boolean CanMuteMembers, Boolean CanDeafMembers, Boolean CanMoveMembers, 
-			Boolean CanUseVoiceAuto, Boolean CanManageChannels) {
+	public static boolean saveRole(
+			IGuild iguild,
+			String Rolename,
+			Color Rolecolor,
+			Boolean isHoist,
+			Boolean isMentionable,
+			Boolean isAdministrator,
+			Boolean canViewAuditLog,
+			Boolean canManageServer,
+			Boolean canManageRoles,
+			Boolean CanManageChannels,
+			Boolean canKick,
+			Boolean canBan,
+			Boolean canCreateInvite,
+			Boolean canChangeNickname,
+			Boolean canManageNicknames,
+			Boolean canManageEmojis,
+			Boolean canManageWebhooks,
+			Boolean canReadMessages,
+			Boolean canSendText,
+			Boolean canSendTTSText,
+			Boolean canManageMesages,
+			Boolean CanEmbedLinks,
+			Boolean canAddFile,
+			Boolean CanReadHistory,
+			Boolean canMentionEveryone,
+			Boolean canUseExternalEmojis,
+			Boolean canAddReaction,
+			Boolean CanVoiceConnect,
+			Boolean CanVoiceSpeak,
+			Boolean CanMuteMembers,
+			Boolean CanDeafMembers,
+			Boolean CanMoveMembers,
+			Boolean CanUseVoiceAuto) {
 		EnumSet<Permissions> newRolePermissions = EnumSet.noneOf(Permissions.class);
 		RoleBuilder roleBuilderForNewRole = new RoleBuilder(iguild);
-		System.out.println("###");
-		System.out.println("NewRole: "+Rolename);
-		/////////////////////////////////////////////////////////////////
-		if(isHoist) {
-			System.out.println("HOIST:"+isHoist);
+		if (isHoist) {
 			roleBuilderForNewRole.setHoist(true);
-		}else {
-			System.out.println("HOIST:"+isHoist);
 		}
-		/////////////////////////////////////////////////////////////////
-		if(isMentionable) {
-			System.out.println("MENTIONABLE:"+isMentionable);
+		if (isMentionable) {
 			roleBuilderForNewRole.setMentionable(true);
-		}else {
-			System.out.println("MENTIONABLE:"+isMentionable);
 		}
-		/////////////////////////////////////////////////////////////////
-		if(canReadMessages) {
-			System.out.println("READ_MESSAGES:"+canReadMessages);
+		if (canReadMessages) {
 			Permissions READ_MESSAGES = Permissions.READ_MESSAGES;
 			newRolePermissions.add(READ_MESSAGES);
-		}else {
-			System.out.println("READ_MESSAGES:"+canReadMessages);
 		}
-		////////////////////////////////////////////////////////////////
-		if(canMentionEveryone) {
-			System.out.println("MENTION_EVERYONE:"+canMentionEveryone);
+		if (canMentionEveryone) {
 			Permissions MENTION_EVERYONE = Permissions.MENTION_EVERYONE;
 			newRolePermissions.add(MENTION_EVERYONE);
-		}else {
-			System.out.println("MENTION_EVERYONE:"+canMentionEveryone);
 		}
-		/////////////////////////////////////////////////////////////////
-		if(canUseExternalEmojis) {
-			System.out.println("USER_EXTERNAL_EMOJIS:"+canUseExternalEmojis);
+		if (canUseExternalEmojis) {
 			Permissions USE_EXTERNAL_EMOJIS = Permissions.USE_EXTERNAL_EMOJIS;
 			newRolePermissions.add(USE_EXTERNAL_EMOJIS);
-		}else {
-			System.out.println("USER_EXTERNAL_EMOJIS:"+canUseExternalEmojis);
 		}
-		/////////////////////////////////////////////////////////////////
-		if(canAddReaction) {
-			System.out.println("ADD_REACTION:"+canAddReaction);
+		if (canAddReaction) {
 			Permissions ADD_REACTIONS = Permissions.ADD_REACTIONS;
 			newRolePermissions.add(ADD_REACTIONS);
-		}else {
-			System.out.println("ADD_REACTION:"+canAddReaction);
 		}
-		//////////////////////////////////////////////////////////////////
-		if(canChangeNickname) {
-			System.out.println("CANGE_NICKNAME:"+canChangeNickname);
+		if (canChangeNickname) {
 			Permissions CHANGE_NICKNAME = Permissions.CHANGE_NICKNAME;
 			newRolePermissions.add(CHANGE_NICKNAME);
-		}else {
-			System.out.println("CANGE_NICKNAME:"+canChangeNickname);
 		}
-		///////////////////////////////////////////////////////////////
-		if(isAdministrator) {
-			System.out.println("ADMIN:"+isAdministrator);
+		if (isAdministrator) {
 			Permissions ADMINISTRATOR = Permissions.ADMINISTRATOR;
 			newRolePermissions.add(ADMINISTRATOR);
-		}else {
-			System.out.println("ADMIN:"+isAdministrator);
 		}
-		//////////////////////////////////////////////////////////
-		if(canViewAuditLog) {
-			System.out.println("VIEW_AUDIT_LOG:"+canViewAuditLog);
+		if (canViewAuditLog) {
 			Permissions VIEW_AUDIT_LOG = Permissions.VIEW_AUDIT_LOG;
 			newRolePermissions.add(VIEW_AUDIT_LOG);
-		}else {
-			System.out.println("VIEW_AUDIT_LOG:"+canViewAuditLog);
 		}
-		//////////////////////////////////////////////////////////
-		if(canManageServer) {
-			System.out.println("MANAGE_SERVER:"+canManageServer);
+		if (canManageServer) {
 			Permissions MANAGE_SERVER = Permissions.MANAGE_SERVER;
 			newRolePermissions.add(MANAGE_SERVER);
-		}else {
-			System.out.println("MANAGE_SERVER:"+canManageServer);
 		}
-		///////////////////////////////////////////////////////////
-		if(canManageRoles) {
-			System.out.println("MANAGE_ROLES"+canManageRoles);
+		if (canManageRoles) {
 			Permissions MANAGE_ROLES = Permissions.MANAGE_ROLES;
 			newRolePermissions.add(MANAGE_ROLES);
-		}else {
-			System.out.println("MANAGE_ROLES"+canManageRoles);
 		}
-		/////////////////////////////////////////////////////
-		if(canKick) {
-			System.out.println("CAN_KICK"+canKick);
+		if (canKick) {
 			Permissions KICK = Permissions.KICK;
 			newRolePermissions.add(KICK);
-		}else {
-			System.out.println("CAN_KICK"+canKick);
 		}
-		////////////////////////////////////////////////////////
-		if(canBan) {
-			System.out.println("CAN_BAN:"+canBan);
+		if (canBan) {
 			Permissions BAN = Permissions.BAN;
 			newRolePermissions.add(BAN);
-		}else {
-			System.out.println("CAN_BAN:"+canBan);
 		}
-		///////////////////////////////////////////////////////////
-		if(canCreateInvite) {
-			System.out.println("CREATE_INVITE:"+canCreateInvite);
+		if (canCreateInvite) {
 			Permissions CREATE_INVITE = Permissions.CREATE_INVITE;
 			newRolePermissions.add(CREATE_INVITE);
-		}else {
-			System.out.println("CREATE_INVITE:"+canCreateInvite);
 		}
-		////////////////////////////////////////////////
-		if(canChangeNickname) {
-			System.out.println("CHANGE_NICKNAME:"+canChangeNickname);
+		if (canChangeNickname) {
 			Permissions MANAGE_NICKNAMES = Permissions.MANAGE_NICKNAMES;
 			newRolePermissions.add(MANAGE_NICKNAMES);
-		}else {
-			System.out.println("CHANGE_NICKNAME:"+canChangeNickname);
 		}
-		
-		if(canManageEmojis) {
-			System.out.println("MANGE_EMOJIS:"+canManageEmojis);
+		if (canManageEmojis) {
 			Permissions MANAGE_EMOJIS = Permissions.MANAGE_EMOJIS;
 			newRolePermissions.add(MANAGE_EMOJIS);
-		}else {
-			System.out.println("MANGE_EMOJIS:"+canManageEmojis);
 		}
-		if(canManageWebhooks) {
-			System.out.println("MANGE_WEBHOOKS:"+canManageWebhooks);
+		if (canManageWebhooks) {
 			Permissions MANAGE_WEBHOOKS = Permissions.MANAGE_WEBHOOKS;
 			newRolePermissions.add(MANAGE_WEBHOOKS);
-		}else {
-			System.out.println("MANGE_WEBHOOKS:"+canManageWebhooks);
 		}
-		
-		if(canSendText) {
-			System.out.println("SEND_TEXT:"+canSendText);
+		if (canSendText) {
 			Permissions SEND_MESSAGES = Permissions.SEND_MESSAGES;
 			newRolePermissions.add(SEND_MESSAGES);
-		}else {
-			System.out.println("SEND_TEXT:"+canSendText);
 		}
-		
-		if(canSendTTSText) {
-			System.out.println("SEND_TTS_TEXT:"+canSendTTSText);
+		if (canSendTTSText) {
 			Permissions SEND_TTS_MESSAGES = Permissions.SEND_TTS_MESSAGES;
 			newRolePermissions.add(SEND_TTS_MESSAGES);
-		}else {
-			System.out.println("SEND_TTS_TEXT:"+canSendTTSText);
 		}
-		
-		if(canManageMesages) {
-			System.out.println("MANAGE_MESAGES:"+canManageMesages);
+		if (canManageMesages) {
 			Permissions MANAGE_MESSAGES = Permissions.MANAGE_MESSAGES;
 			newRolePermissions.add(MANAGE_MESSAGES);
-		}else {
-			System.out.println("MANAGE_MESAGES:"+canManageMesages);
 		}
-		
-		if(CanEmbedLinks) {
-			System.out.println("EMBED_LINKS:"+CanEmbedLinks);
+		if (CanEmbedLinks) {
 			Permissions EMBED_LINKS = Permissions.EMBED_LINKS;
 			newRolePermissions.add(EMBED_LINKS);
-		}else {
-			System.out.println("EMBED_LINKS:"+CanEmbedLinks);
 		}
-		
-		if(canAddFile) {
-			System.out.println("ADD_FIEL:"+canAddFile);
+		if (canAddFile) {
 			Permissions ATTACH_FILES = Permissions.ATTACH_FILES;
 			newRolePermissions.add(ATTACH_FILES);
-		}else {
-			System.out.println("ADD_FIEL:"+canAddFile);
-		}
-		
-		if(CanReadHistory) {
-			System.out.println("READ_HISTORY:"+CanReadHistory);
+		} 
+		if (CanReadHistory) {
 			Permissions READ_MESSAGE_HISTORY = Permissions.READ_MESSAGE_HISTORY;
 			newRolePermissions.add(READ_MESSAGE_HISTORY);
-		}else {
-			System.out.println("READ_HISTORY:"+CanReadHistory);
 		}
-		
-		if(CanVoiceConnect) {
-			System.out.println("VOICE_CONNECT:"+CanVoiceConnect);
+		if (CanVoiceConnect) {
 			Permissions VOICE_CONNECT = Permissions.VOICE_CONNECT;
 			newRolePermissions.add(VOICE_CONNECT);
-		}else {
-			System.out.println("VOICE_CONNECT:"+CanVoiceConnect);
 		}
-		
-		if(CanVoiceSpeak) {
-			System.out.println("VOICE_SPEAK:"+CanVoiceSpeak);
+		if (CanVoiceSpeak) {
 			Permissions VOICE_SPEAK = Permissions.VOICE_SPEAK;
 			newRolePermissions.add(VOICE_SPEAK);
-		}else {
-			System.out.println("VOICE_SPEAK:"+CanVoiceSpeak);
 		}
-		
-		if(CanMuteMembers) {
-			System.out.println("VOICE_MUTE:"+CanVoiceSpeak);
+		if (CanMuteMembers) {
 			Permissions VOICE_MUTE_MEMBERS = Permissions.VOICE_MUTE_MEMBERS;
 			newRolePermissions.add(VOICE_MUTE_MEMBERS);
-		}else {
-			System.out.println("VOICE_MUTE:"+CanVoiceSpeak);
 		}
-		
-		if(CanDeafMembers) {
-			System.out.println("VOICE_DEAF:"+CanDeafMembers);
+		if (CanDeafMembers) {
 			Permissions VOICE_DEAFEN_MEMBERS = Permissions.VOICE_DEAFEN_MEMBERS;
 			newRolePermissions.add(VOICE_DEAFEN_MEMBERS);
-		}else {
-			System.out.println("VOICE_DEAF:"+CanDeafMembers);
 		}
-		
-		if(CanMoveMembers) {
-			System.out.println("MOVE_MEMBERS:"+CanMoveMembers);
+		if (CanMoveMembers) {
 			Permissions VOICE_MOVE_MEMBERS = Permissions.VOICE_MOVE_MEMBERS;
 			newRolePermissions.add(VOICE_MOVE_MEMBERS);
-		}else {
-			System.out.println("MOVE_MEMBERS:"+CanMoveMembers);
 		}
-		
-		if(CanUseVoiceAuto) {
-			System.out.println("VOICE_AUTO:"+CanUseVoiceAuto);
+		if (CanUseVoiceAuto) {
 			Permissions VOICE_USE_VAD = Permissions.VOICE_USE_VAD;
 			newRolePermissions.add(VOICE_USE_VAD);
-		}else {
-			System.out.println("VOICE_AUTO:"+CanUseVoiceAuto);
 		}
-		if(CanManageChannels) {
-			System.out.println("MANAGE:CHANNELS:"+CanManageChannels);
+		if (CanManageChannels) {
 			Permissions MANAGE_CHANNELS = Permissions.MANAGE_CHANNELS;
 			newRolePermissions.add(MANAGE_CHANNELS);
-		}else {
-			System.out.println("MANAGE:CHANNELS:"+CanManageChannels);
 		}
-		
 		roleBuilderForNewRole.withPermissions(newRolePermissions);
 		roleBuilderForNewRole.withName(Rolename);
 		roleBuilderForNewRole.withColor(Rolecolor);
-		if(roleBuilderForNewRole.build() != null) {
+		if (roleBuilderForNewRole.build() != null) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
