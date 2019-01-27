@@ -98,7 +98,7 @@ public class LoginMain {
 		frmDiscordManagerBeta = new JFrame();
 		frmDiscordManagerBeta.setLocale(Locale.GERMANY);
 		frmDiscordManagerBeta.setBackground(Color.LIGHT_GRAY);
-		frmDiscordManagerBeta.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginMain.class.getResource("/bilder/Logo.png")));
+		//frmDiscordManagerBeta.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginMain.class.getResource("/bilder/Logo.png")));
 		frmDiscordManagerBeta.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		frmDiscordManagerBeta.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		frmDiscordManagerBeta.setTitle("Discord Manager Beta V1");

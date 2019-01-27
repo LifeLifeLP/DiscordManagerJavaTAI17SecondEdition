@@ -146,7 +146,7 @@ public class DiscordEvents{
     	 }
     	 
     	 
-    	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "meme".toLowerCase())){
+    	 /*if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "meme".toLowerCase())){
     		 event.getMessage().delete();
     		 File directory = new File("src\\memesource\\");
     		 int fileCount= directory.list().length;
@@ -158,7 +158,7 @@ public class DiscordEvents{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	 }
+    	 }*/
     	 
     	 
     	 //Schreibt unter jeder Nachrichte die Max Schr�der schreibt seinen Namen und das Server Emoj "MAX_WHEELCHAIR"
