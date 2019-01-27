@@ -21,13 +21,13 @@ import sx.blah.discord.util.RequestBuffer;
  * @author K.Schulz
  *
  */
-public class Game_Nummber_Guess {
+public class GameNummberGuess {
 	//Spielstandspeicher, jedes Objet im Array ist ein Spielstand, f�r den Inhalt sie NumberGuessSavegame.java
 	public static ArrayList<NumberGuessSavegame> GameData = new ArrayList<NumberGuessSavegame>();
 	/**
 	 * 
 	 */
-	public Game_Nummber_Guess() {
+	public GameNummberGuess() {
 		//Leere Main Metode
 	}
 	

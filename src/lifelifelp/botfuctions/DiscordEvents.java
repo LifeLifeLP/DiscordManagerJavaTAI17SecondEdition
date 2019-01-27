@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
@@ -18,8 +19,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.tidy.Tidy;
 
-import lifelifelp.games.Game_Nummber_Guess;
+import lifelifelp.games.GameNummberGuess;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
@@ -42,7 +46,27 @@ public class DiscordEvents{
 	//Die @Anbindung wird ben�tig damit die Funktion bei einem Event ausgef�hrt wird
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event){ //Dies ist der EventReceiver f�r alle Nachricht erhalten Events, dies wird bei JEDER erhalten Nachricht ausgef�hrt
-    	
+    	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "meme")){
+    		InputStream input = null;
+			try {
+				input = new URL("http://www.stackoverflow.com").openStream();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	Document document = new Tidy().parseDOM(input, null);
+        	NodeList imgs = document.getElementsByTagName("img");
+        	List<String> srcs = new ArrayList<String>();
+
+        	for (int i = 0; i < imgs.getLength(); i++) {
+        	    srcs.add(imgs.item(i).getAttributes().getNamedItem("src").getNodeValue());
+        	}
+
+        	for (String src: srcs) {
+        	    System.out.println(src);
+        	}
+		}
+    		
     	//Funktion um dem Bot einen Nachricht in einem privaten Chat ausrichten zu lassen
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "pm")){
 			String input = StringUtils.replace(event.getMessage().getContent(), "p!pm ", "");
@@ -109,16 +133,16 @@ public class DiscordEvents{
     	
     	//Start das Spiel Zahlenraten
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "startguessgame".toLowerCase())) {
-    		 Game_Nummber_Guess.start(event);
+    		 GameNummberGuess.start(event);
     	 }
     	 
     	 //Nimmt die vom User geratene Zahl entgegen
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "guess".toLowerCase())){
-    		 Game_Nummber_Guess.guess(event);
+    		 GameNummberGuess.guess(event);
     	 }
     	 //Beendet das Spiel mit dem User
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "gamedone".toLowerCase())){
-    		 Game_Nummber_Guess.done(event);
+    		 GameNummberGuess.done(event);
     	 }
     	 
     	 
