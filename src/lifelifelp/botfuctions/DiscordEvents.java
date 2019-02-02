@@ -22,9 +22,11 @@ import org.w3c.tidy.Tidy;
 
 import lifelifelp.games.GameNummberGuess;
 import lifelifelp.games.GameTicTacToe;
+import lifelifelp.games.TicTacToeSavegame;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
 import sx.blah.discord.handle.obj.IEmoji;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IMessage.Attachment;
@@ -42,6 +44,24 @@ public class DiscordEvents{
 	static String BOT_PREFIX = "p!";
 	
 	//Die @Anbindung wird ben�tig damit die Funktion bei einem Event ausgef�hrt wird
+	
+	
+	@EventSubscriber
+    public void onReactionAdd(ReactionAddEvent event){
+		//Testen auf Gamechannel
+		for(TicTacToeSavegame ttts: GameTicTacToe.GameData) {
+			if(event.getChannel().getLongID() == ttts.getGameChannel().getLongID()) {
+				System.out.println("Jemand spielt TicTacToe");
+			}else {
+				//Nichts
+			}
+			
+		}
+		
+		
+	}
+	
+	
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event){ //Dies ist der EventReceiver f�r alle Nachricht erhalten Events, dies wird bei JEDER erhalten Nachricht ausgef�hrt
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "meme")){

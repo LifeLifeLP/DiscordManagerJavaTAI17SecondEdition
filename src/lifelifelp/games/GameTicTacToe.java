@@ -11,9 +11,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.StringUtils;
 
+import jdk.nashorn.internal.ir.CallNode.EvalArgs;
 import lifelifelp.botfuctions.BotFunctions;
 import lifelifelp.tools.UnicodeEmoji;
+import sx.blah.discord.api.internal.json.objects.ReactionEmojiObject;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.impl.obj.ReactionEmoji;
+import sx.blah.discord.handle.obj.IEmoji;
+import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.RequestBuffer;
 
@@ -88,6 +93,7 @@ public class GameTicTacToe {
 															event.getGuild().getRolesByName(channelname).get(0),
 															allPermissions, noPermissions);
 											printPlayfield(ttts);
+											printPlayerChoice(ttts);
 										});
 									});
 								});
@@ -102,12 +108,28 @@ public class GameTicTacToe {
 		}
 	}
 
+	private static void printPlayerChoice(TicTacToeSavegame ttts) {
+		// TODO Auto-generated method stub
+		ttts.getGameChannel().setTypingStatus(true);
+		IMessage row1 = ttts.getGameChannel().sendMessage("Reihe:1");
+		row1.addReaction(UnicodeEmoji.L);
+		row1.addReaction(UnicodeEmoji.M);
+		row1.addReaction(UnicodeEmoji.R);
+		IMessage row2 = ttts.getGameChannel().sendMessage("Reihe:2");
+		row2.addReaction(UnicodeEmoji.L);
+		row2.addReaction(UnicodeEmoji.M);
+		row2.addReaction(UnicodeEmoji.R);
+		IMessage row3 = ttts.getGameChannel().sendMessage("Reihe:3");
+		row3.addReaction(UnicodeEmoji.L);
+		row3.addReaction(UnicodeEmoji.M);
+		row3.addReaction(UnicodeEmoji.R);
+	}
+
 	private static void printPlayfield(TicTacToeSavegame ttts) {
 		// TODO Auto-generated method stub
 		ttts.getGameChannel().getFullMessageHistory().bulkDelete();
 		
 		StringBuilder sbPlayfield = new StringBuilder();
-		int c = 0;
 		
 		{
 			for(int i = 0; i != 3; i++) {
@@ -124,7 +146,7 @@ public class GameTicTacToe {
 				}
 			}
 			sbPlayfield.append("\n");
-			for(int i = 4; i != 6; i++) {
+			for(int i = 3; i != 6; i++) {
 				switch (ttts.getPlayfield().get(i)) {
 				case 0:
 					sbPlayfield.append(UnicodeEmoji.TTTCLEAR);
