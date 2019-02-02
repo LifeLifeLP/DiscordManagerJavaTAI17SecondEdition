@@ -4,7 +4,6 @@
 package lifelifelp.botfuctions;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +11,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -24,6 +21,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
 import lifelifelp.games.GameNummberGuess;
+import lifelifelp.games.GameTicTacToe;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
@@ -40,7 +38,7 @@ import sx.blah.discord.util.RequestBuffer;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 public class DiscordEvents{
-	// Ansprech Pr�fix f�r den Bot, wenn die Nachricht damit beginnt soll er reagieren
+	// Das Präfix einer Nachricht, wenn eine Nachricht damit beginnt wird der Bot sie beachten
 	static String BOT_PREFIX = "p!";
 	
 	//Die @Anbindung wird ben�tig damit die Funktion bei einem Event ausgef�hrt wird
@@ -145,20 +143,10 @@ public class DiscordEvents{
     		 GameNummberGuess.done(event);
     	 }
     	 
+    	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "starttictactoe".toLowerCase())) {
+    		 GameTicTacToe.start(event);
+    	 }
     	 
-    	 /*if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "meme".toLowerCase())){
-    		 event.getMessage().delete();
-    		 File directory = new File("src\\memesource\\");
-    		 int fileCount= directory.list().length;
-    		 Random r = new Random();
-    		 String send = String.valueOf(r.nextInt(fileCount));
-    		 try {
-				event.getChannel().sendFile(new File("src\\memesource\\"+send+".png"));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	 }*/
     	 
     	 
     	 //Schreibt unter jeder Nachrichte die Max Schr�der schreibt seinen Namen und das Server Emoj "MAX_WHEELCHAIR"
