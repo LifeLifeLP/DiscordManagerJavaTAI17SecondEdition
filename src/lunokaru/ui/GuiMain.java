@@ -606,18 +606,6 @@ public class GuiMain {
 		gbc_cBServerListe.gridx = 0;
 		gbc_cBServerListe.gridy = 8;
 		pMenue.add(cBServerListe, gbc_cBServerListe);
-		cBServerListe.addMouseListener(new MouseAdapter() {
-			private IGuild discordServer;
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				for (IGuild ig : discordClient.getGuilds()) {
-					if(ig.getName() == cBServerListe.getSelectedItem()) {
-						discordServer = ig;
-					}
-				}
-			}
-		});
 		cBServerListe.setMaximumRowCount(3);
 		cBServerListe.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		cBServerListe.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -765,17 +753,10 @@ public class GuiMain {
 			}
 		});
 		btnUserVerwalten.addActionListener(new ActionListener() {
-			private IGuild discordServer;
-
 			public void actionPerformed(ActionEvent e) {
 				subMenueSwitch();
 				cardLayoutSwitch.show(pSwitch, "pUserVerwalten");
 				cardLayoutUVSwitch.show(pUVSwitch, "pUVMain");
-				for (IGuild ig : discordClient.getGuilds()) {
-					if(ig.getName() == cBServerListe.getSelectedItem()) {
-						discordServer = ig;
-					}
-				}
 				if(cBUserVerwalten.getItemCount() > 0) {
 					cBUserVerwalten.removeAllItems();
 					fillcBUserVerwalten();
