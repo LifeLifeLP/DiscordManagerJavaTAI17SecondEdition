@@ -4,25 +4,29 @@
 package lifelifelp.botfuctions;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.tidy.Tidy;
 
-import lifelifelp.games.Game_Nummber_Guess;
+import lifelifelp.games.GameNummberGuess;
+import lifelifelp.games.GameTicTacToe;
+import lifelifelp.games.TicTacToeSavegame;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
 import sx.blah.discord.handle.obj.IEmoji;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IMessage.Attachment;
@@ -36,13 +40,51 @@ import sx.blah.discord.util.RequestBuffer;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 public class DiscordEvents{
-	// Ansprech Pr�fix f�r den Bot, wenn die Nachricht damit beginnt soll er reagieren
+	// Das Präfix einer Nachricht, wenn eine Nachricht damit beginnt wird der Bot sie beachten
 	static String BOT_PREFIX = "p!";
 	
 	//Die @Anbindung wird ben�tig damit die Funktion bei einem Event ausgef�hrt wird
+	
+	
+	@EventSubscriber
+    public void onReactionAdd(ReactionAddEvent event){
+		//Testen auf Gamechannel
+		for(TicTacToeSavegame ttts: GameTicTacToe.GameData) {
+			if(event.getChannel().getLongID() == ttts.getGameChannel().getLongID()) {
+				System.out.println("Jemand spielt TicTacToe");
+			}else {
+				//Nichts
+			}
+			
+		}
+		
+		
+	}
+	
+	
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event){ //Dies ist der EventReceiver f�r alle Nachricht erhalten Events, dies wird bei JEDER erhalten Nachricht ausgef�hrt
-    	
+    	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "meme")){
+    		InputStream input = null;
+			try {
+				input = new URL("http://www.stackoverflow.com").openStream();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	Document document = new Tidy().parseDOM(input, null);
+        	NodeList imgs = document.getElementsByTagName("img");
+        	List<String> srcs = new ArrayList<String>();
+
+        	for (int i = 0; i < imgs.getLength(); i++) {
+        	    srcs.add(imgs.item(i).getAttributes().getNamedItem("src").getNodeValue());
+        	}
+
+        	for (String src: srcs) {
+        	    System.out.println(src);
+        	}
+		}
+    		
     	//Funktion um dem Bot einen Nachricht in einem privaten Chat ausrichten zu lassen
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "pm")){
 			String input = StringUtils.replace(event.getMessage().getContent(), "p!pm ", "");
@@ -109,32 +151,22 @@ public class DiscordEvents{
     	
     	//Start das Spiel Zahlenraten
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "startguessgame".toLowerCase())) {
-    		 Game_Nummber_Guess.start(event);
+    		 GameNummberGuess.start(event);
     	 }
     	 
     	 //Nimmt die vom User geratene Zahl entgegen
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "guess".toLowerCase())){
-    		 Game_Nummber_Guess.guess(event);
+    		 GameNummberGuess.guess(event);
     	 }
     	 //Beendet das Spiel mit dem User
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "gamedone".toLowerCase())){
-    		 Game_Nummber_Guess.done(event);
+    		 GameNummberGuess.done(event);
     	 }
     	 
-    	 
-    	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "meme".toLowerCase())){
-    		 event.getMessage().delete();
-    		 File directory = new File("src\\memesource\\");
-    		 int fileCount= directory.list().length;
-    		 Random r = new Random();
-    		 String send = String.valueOf(r.nextInt(fileCount));
-    		 try {
-				event.getChannel().sendFile(new File("src\\memesource\\"+send+".png"));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "starttictactoe".toLowerCase())) {
+    		 GameTicTacToe.start(event);
     	 }
+    	 
     	 
     	 
     	 //Schreibt unter jeder Nachrichte die Max Schr�der schreibt seinen Namen und das Server Emoj "MAX_WHEELCHAIR"

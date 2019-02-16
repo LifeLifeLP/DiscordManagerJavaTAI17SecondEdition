@@ -40,6 +40,10 @@ public class UnicodeEmoji {
 	public static final ReactionEmoji Z = ReactionEmoji.of("🇿");
 	public static final ReactionEmoji FIRE = ReactionEmoji.of("🔥");
 	public static final ReactionEmoji TADA = ReactionEmoji.of("🎉");
+	public static final ReactionEmoji TTTO = ReactionEmoji.of("🔴");
+	public static final ReactionEmoji TTTX = ReactionEmoji.of("🔵");
+	public static final ReactionEmoji TTTCLEAR = ReactionEmoji.of("⚫");
+	
 	/**
 	 * 
 	 */
