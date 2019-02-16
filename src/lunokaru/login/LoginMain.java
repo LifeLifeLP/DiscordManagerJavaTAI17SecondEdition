@@ -22,7 +22,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -35,7 +34,7 @@ import sx.blah.discord.api.IDiscordClient;
 public class LoginMain {
 	
 	//Klassenattribute
-	private JFrame frmDiscordManagerBeta;
+	private JFrame frmDiscordManager;
 	private CardLayout myCL;
 	private JTextField tfBotID;
 	private static Object[] cancelOption = {"Ja", "Nein"};
@@ -57,7 +56,7 @@ public class LoginMain {
 			public void run() {
 				try {
 					LoginMain window = new LoginMain();
-					window.frmDiscordManagerBeta.setVisible(true);
+					window.frmDiscordManager.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -72,7 +71,7 @@ public class LoginMain {
 		myCL = new CardLayout();
 		logger = LoggerFactory.getLogger(LoginMain.class);
 		initialize();
-		myCL.show(frmDiscordManagerBeta.getContentPane(), "pLoginMain");
+		myCL.show(frmDiscordManager.getContentPane(), "pLoginMain");
 	}
 	
 	//Einen weiteren Thread f�r das Einloggen des Bots starten
@@ -86,8 +85,8 @@ public class LoginMain {
 			}while(!discordClient.isReady());
 		    logger.info(discordClient.getApplicationName()+ " is back. Let's get going!");
 			LoginData.setBotID(discordClient);
-	    	frmDiscordManagerBeta.dispose();
-//	    	guiHauptfenster.GuiMain.main(null);
+	    	frmDiscordManager.dispose();
+	    	lunokaru.ui.GuiMain.main(null);
 	    }
 	}
 
@@ -110,7 +109,7 @@ public class LoginMain {
 		
 		JPanel pLoginMain = new JPanel();
 		pLoginMain.setBackground(UIManager.getColor("Table[Disabled+Selected].textBackground"));
-		frmDiscordManagerBeta.getContentPane().add(pLoginMain, "pLoginMain");
+		frmDiscordManager.getContentPane().add(pLoginMain, "pLoginMain");
 		GridBagLayout gbl_pLoginMain = new GridBagLayout();
 		gbl_pLoginMain.columnWidths = new int[]{0, 0, 195, 0, 0, 0};
 		gbl_pLoginMain.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
@@ -191,7 +190,7 @@ public class LoginMain {
 					 btnLoginMainLogin.setEnabled(false);
 				     thread.start();
 				}else {
-					JOptionPane.showMessageDialog(frmDiscordManagerBeta, "Bitte geben Sie die Bot-ID ein.", "Hinweis", JOptionPane.CANCEL_OPTION);
+					JOptionPane.showMessageDialog(frmDiscordManager, "Bitte geben Sie die Bot-ID ein.", "Hinweis", JOptionPane.CANCEL_OPTION);
 				}
 			}
 		});
@@ -202,7 +201,7 @@ public class LoginMain {
 		bntLoginMainAbbruch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		bntLoginMainAbbruch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int temp = JOptionPane.showOptionDialog(frmDiscordManagerBeta, "Wollen Sie das Programm wirklich verlassen?", "Hinweis", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, cancelOption, cancelOption[0]);
+				int temp = JOptionPane.showOptionDialog(frmDiscordManager, "Wollen Sie das Programm wirklich verlassen?", "Hinweis", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, cancelOption, cancelOption[0]);
 				if (temp == 0) {
 					System.exit(0);
 				}
