@@ -108,24 +108,32 @@ public class DiscordEvents{
     	//f�r jede Nachricht was aber um einiges langsamer ist, jedoch gr��ere Mengen schaft
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "clean")){
     		String input = StringUtils.replace(event.getMessage().getContent(), "p!clean ", "");
-    		int toremove = Integer.valueOf(input);
-    		if(toremove > 99) {
-    			List<IMessage> lim = event.getChannel().getMessageHistory(toremove);
-    			for(IMessage im: lim) {
-    				RequestBuffer.request(() -> {
-        				im.delete();
-                	});
+    		List<IRole> roles = event.getAuthor().getRolesForGuild(event.getGuild());
+    		Permissions ADMINISTRATOR = Permissions.ADMINISTRATOR;
+    		for(IRole ir: roles) {
+    			System.out.println(ir.getName());
+    			if(ir.getPermissions().contains(ADMINISTRATOR)) {
+    				int toremove = Integer.valueOf(input)+1;
+    	    		if(toremove > 99) {
+    	    			List<IMessage> lim = event.getChannel().getMessageHistory(toremove);
+    	    			for(IMessage im: lim) {
+    	    				RequestBuffer.request(() -> {
+    	        				im.delete();
+    	                	});
+    	    			}
+    	    			RequestBuffer.request(() -> {
+    	    				event.getMessage().delete();
+    	            	});
+    	    		}else {
+    	    			RequestBuffer.request(() -> {
+    	    				event.getChannel().bulkDelete(event.getChannel().getMessageHistory(toremove));
+    	    				RequestBuffer.request(() -> {
+    	    					event.getMessage().delete();
+    	                	});
+    	            	});
+    	    		}
+    				break;
     			}
-    			RequestBuffer.request(() -> {
-    				event.getMessage().delete();
-            	});
-    		}else {
-    			RequestBuffer.request(() -> {
-    				event.getChannel().bulkDelete(event.getChannel().getMessageHistory(toremove));
-    				RequestBuffer.request(() -> {
-    					event.getMessage().delete();
-                	});
-            	});
     		}
     	}
     	

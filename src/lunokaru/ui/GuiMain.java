@@ -558,6 +558,7 @@ public class GuiMain {
 		
 		JButton btnLogout = new JButton("Logout");
 		GridBagConstraints gbc_btnLogout = new GridBagConstraints();
+		gbc_btnLogout.anchor = GridBagConstraints.NORTH;
 		gbc_btnLogout.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnLogout.insets = new Insets(0, 0, 5, 0);
 		gbc_btnLogout.gridx = 0;

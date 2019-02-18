@@ -77,8 +77,8 @@ public class GameTicTacToe {
 							RequestBuffer.request(() -> {
 								BotFunctions.saveRole(event.getGuild(), channelname,
 										new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)), false, false,
-										true, true, true, true, true, false, false, false, false, false, false, false,
-										false, false, false, true, false, false, true, true, true, true, true, false,
+										false, false, false, false, false, false, false, false, false, false, false, false,
+										false, false, false, false, false, false, false, false, false, false, false, false,
 										false, false, false, false);
 								RequestBuffer.request(() -> {
 									EnumSet<Permissions> noPermissions = EnumSet.noneOf(Permissions.class);
