@@ -770,6 +770,7 @@ public class GuiMain {
 		
 		btnEinstellungen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Hier würde man später persistente Einstellungen vornehmen können.");
 			}
 		});
 		btnProgrammSchieen.addActionListener(new ActionListener() {
@@ -2287,6 +2288,11 @@ public class GuiMain {
 		pRVMenue.add(btnRolleLschen, gbc_btnRolleLschen);
 		
 		JButton btnRolleBearbeiten = new JButton("Rolle bearbeiten");
+		btnRolleBearbeiten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Die Funktion ist in der UI nicht fertig, aber technisch geht es! :D");
+			}
+		});
 		GridBagConstraints gbc_btnRolleBearbeiten = new GridBagConstraints();
 		gbc_btnRolleBearbeiten.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRolleBearbeiten.fill = GridBagConstraints.HORIZONTAL;

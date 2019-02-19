@@ -94,18 +94,18 @@ public class LoginMain {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmDiscordManagerBeta = new JFrame();
-		frmDiscordManagerBeta.setLocale(Locale.GERMANY);
-		frmDiscordManagerBeta.setBackground(Color.LIGHT_GRAY);
+		frmDiscordManager = new JFrame();
+		frmDiscordManager.setLocale(Locale.GERMANY);
+		frmDiscordManager.setBackground(Color.LIGHT_GRAY);
 		//frmDiscordManagerBeta.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginMain.class.getResource("/bilder/Logo.png")));
-		frmDiscordManagerBeta.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		frmDiscordManagerBeta.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		frmDiscordManagerBeta.setTitle("Discord Manager Beta V1");
-		frmDiscordManagerBeta.setBounds(100, 100, 450, 300);
-		frmDiscordManagerBeta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmDiscordManagerBeta.getContentPane().setLayout(myCL);
-		frmDiscordManagerBeta.setLocationRelativeTo(null);
-		frmDiscordManagerBeta.setResizable(false);
+		frmDiscordManager.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
+		frmDiscordManager.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		frmDiscordManager.setTitle("Discord Manager Beta V1");
+		frmDiscordManager.setBounds(100, 100, 450, 300);
+		frmDiscordManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDiscordManager.getContentPane().setLayout(myCL);
+		frmDiscordManager.setLocationRelativeTo(null);
+		frmDiscordManager.setResizable(false);
 		
 		JPanel pLoginMain = new JPanel();
 		pLoginMain.setBackground(UIManager.getColor("Table[Disabled+Selected].textBackground"));
