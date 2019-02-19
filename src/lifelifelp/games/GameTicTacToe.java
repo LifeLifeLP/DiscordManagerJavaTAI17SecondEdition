@@ -11,13 +11,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.StringUtils;
 
-import jdk.nashorn.internal.ir.CallNode.EvalArgs;
 import lifelifelp.botfuctions.BotFunctions;
 import lifelifelp.tools.UnicodeEmoji;
-import sx.blah.discord.api.internal.json.objects.ReactionEmojiObject;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
-import sx.blah.discord.handle.impl.obj.ReactionEmoji;
-import sx.blah.discord.handle.obj.IEmoji;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.RequestBuffer;
@@ -25,6 +21,16 @@ import sx.blah.discord.util.RequestBuffer;
 /**
  * @author LifeLifeLP
  *
+ */
+/*
+ * 
+ * 
+ *Dieses Spiel ist leider nicht fertig geworden, daher nicht funktionsfähig bzw. Testzustand 
+ * 
+ * 
+ * 
+ * 
+ * 
  */
 public class GameTicTacToe {
 	public static ArrayList<TicTacToeSavegame> GameData = new ArrayList<TicTacToeSavegame>();
