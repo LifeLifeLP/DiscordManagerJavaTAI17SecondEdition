@@ -19,10 +19,10 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Hashtable;
@@ -62,8 +62,6 @@ import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
-import java.awt.Toolkit;
-import java.awt.SystemColor;
 
 public class GuiMain {
 
@@ -73,7 +71,6 @@ public class GuiMain {
 	private IRole discordRolle;
 	private int discordChannelCount,
 				discordUserCount;
-	private Color discordRollenFarbe;
 	
 	//
 	//Klassenattribute
@@ -202,7 +199,6 @@ public class GuiMain {
 	 */
 	public GuiMain() {
 		discordClient = LoginData.getBotID();
-		discordRollenFarbe = new Color(0, 0, 0);
 		cardLayoutMenueSwitch = new CardLayout();
 		cardLayoutSwitch = new CardLayout();
 	    cardLayoutUVSwitch = new CardLayout();
@@ -495,7 +491,8 @@ public class GuiMain {
 	private void initialize() {
 		frmDiscordManagerBeta = new JFrame();
 		frmDiscordManagerBeta.setIconImage(Toolkit.getDefaultToolkit().getImage(GuiMain.class.getResource("/lunokaru/picture/Logo.png")));
-		frmDiscordManagerBeta.setBounds(100, 100, 840, 1142);
+		frmDiscordManagerBeta.setBounds(100, 100, 840, 800);
+		frmDiscordManagerBeta.setLocationRelativeTo(null);
 		frmDiscordManagerBeta.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		frmDiscordManagerBeta.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		frmDiscordManagerBeta.setTitle("Discord Manager V1");
@@ -953,8 +950,6 @@ public class GuiMain {
 				}
 
 			}
-
-
 		});
 		
 		JLabel lblServermitglieder = new JLabel("Servermitglieder");
