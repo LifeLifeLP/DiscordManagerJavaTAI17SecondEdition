@@ -69,7 +69,6 @@ public class DiscordEvents{
 			try {
 				input = new URL("http://www.stackoverflow.com").openStream();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	Document document = new Tidy().parseDOM(input, null);
