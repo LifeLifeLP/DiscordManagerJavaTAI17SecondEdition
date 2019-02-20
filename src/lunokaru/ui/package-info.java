@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author K.Schulz
+ * @author L.Rupnow
  *
  */
 package lunokaru.ui;

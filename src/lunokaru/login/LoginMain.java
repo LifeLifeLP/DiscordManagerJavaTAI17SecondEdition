@@ -10,7 +10,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,14 +21,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import org.slf4j.LoggerFactory;
 
 import lifelifelp.botfuctions.BotFunctions;
-import lifelifelp.botfuctions.DiscordEvents;
-import sx.blah.discord.api.IDiscordClient;
+import java.awt.Toolkit;
 
 public class LoginMain {
 	
@@ -38,10 +37,8 @@ public class LoginMain {
 	private CardLayout myCL;
 	private JTextField tfBotID;
 	private static Object[] cancelOption = {"Ja", "Nein"};
+	private JProgressBar pBLoadingScreen;
 	
-	//Discord Klassenattribute
-	private org.slf4j.Logger logger;
-	private static IDiscordClient discordClient;
 
 	/**
 	 * Launch the application.
@@ -69,38 +66,22 @@ public class LoginMain {
 	 */
 	public LoginMain() {
 		myCL = new CardLayout();
-		logger = LoggerFactory.getLogger(LoginMain.class);
+		LoggerFactory.getLogger(LoginMain.class);
 		initialize();
 		myCL.show(frmDiscordManager.getContentPane(), "pLoginMain");
 	}
 	
-	//Einen weiteren Thread f�r das Einloggen des Bots starten
-	class Server implements Runnable{
-		public void run() {
-			logger = LoggerFactory.getLogger(LoginMain.class);
-			discordClient = BotFunctions.getBuiltDiscordClient(tfBotID.getText());
-			discordClient.getDispatcher().registerListener(new DiscordEvents());
-		    discordClient.login();
-			do {
-			}while(!discordClient.isReady());
-		    logger.info(discordClient.getApplicationName()+ " is back. Let's get going!");
-			LoginData.setBotID(discordClient);
-	    	frmDiscordManager.dispose();
-	    	lunokaru.ui.GuiMain.main(null);
-	    }
-	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frmDiscordManager = new JFrame();
+		frmDiscordManager.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginMain.class.getResource("/lunokaru/picture/Logo.png")));
 		frmDiscordManager.setLocale(Locale.GERMANY);
 		frmDiscordManager.setBackground(Color.LIGHT_GRAY);
-		//frmDiscordManagerBeta.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginMain.class.getResource("/bilder/Logo.png")));
 		frmDiscordManager.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		frmDiscordManager.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		frmDiscordManager.setTitle("Discord Manager Beta V1");
+		frmDiscordManager.setTitle("Discord Manager V1");
 		frmDiscordManager.setBounds(100, 100, 450, 300);
 		frmDiscordManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDiscordManager.getContentPane().setLayout(myCL);
@@ -112,9 +93,9 @@ public class LoginMain {
 		frmDiscordManager.getContentPane().add(pLoginMain, "pLoginMain");
 		GridBagLayout gbl_pLoginMain = new GridBagLayout();
 		gbl_pLoginMain.columnWidths = new int[]{0, 0, 195, 0, 0, 0};
-		gbl_pLoginMain.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_pLoginMain.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_pLoginMain.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_pLoginMain.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_pLoginMain.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		pLoginMain.setLayout(gbl_pLoginMain);
 		
 		JLabel lLoginMainDiscordManager = new JLabel("Discord Manager");
@@ -153,7 +134,6 @@ public class LoginMain {
 		
 		tfBotID = new JTextField();
 		tfBotID.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-		tfBotID.setText("NTEyMjE0NjMyODMyOTU4NDk0.DtWGYA.VI6AIELp_bl8ucQI3f8xb6PqqCo");
 		tfBotID.setColumns(10);
 		GridBagConstraints gbc_tfBotID = new GridBagConstraints();
 		gbc_tfBotID.fill = GridBagConstraints.BOTH;
@@ -170,6 +150,17 @@ public class LoginMain {
 		gbc_horizontalStrut_1.gridy = 3;
 		pLoginMain.add(horizontalStrut_1, gbc_horizontalStrut_1);
 		
+		pBLoadingScreen = new JProgressBar();
+		pBLoadingScreen.setMinimum(0);
+		pBLoadingScreen.setMaximum(100);
+		GridBagConstraints gbc_pBLoadingScreen = new GridBagConstraints();
+		gbc_pBLoadingScreen.fill = GridBagConstraints.BOTH;
+		gbc_pBLoadingScreen.gridwidth = 2;
+		gbc_pBLoadingScreen.insets = new Insets(0, 0, 5, 5);
+		gbc_pBLoadingScreen.gridx = 2;
+		gbc_pBLoadingScreen.gridy = 4;
+		pLoginMain.add(pBLoadingScreen, gbc_pBLoadingScreen);
+		
 		JButton btnLoginMainLogin = new JButton("Login");
 		btnLoginMainLogin.setBackground(SystemColor.activeCaption);
 		btnLoginMainLogin.setMnemonic(KeyEvent.VK_ENTER);
@@ -179,16 +170,26 @@ public class LoginMain {
 		gbc_btnLoginMainLogin.fill = GridBagConstraints.BOTH;
 		gbc_btnLoginMainLogin.insets = new Insets(0, 0, 0, 5);
 		gbc_btnLoginMainLogin.gridx = 2;
-		gbc_btnLoginMainLogin.gridy = 4;
+		gbc_btnLoginMainLogin.gridy = 5;
 		pLoginMain.add(btnLoginMainLogin, gbc_btnLoginMainLogin);
 		btnLoginMainLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String botID = tfBotID.getText();
-				if(!botID.equals("")) {	
-					 Server myServer = new Server();
-					 Thread thread = new Thread(myServer);
-					 btnLoginMainLogin.setEnabled(false);
-				     thread.start();
+				if(!botID.equals("")) {
+					LoginData.setBotID(BotFunctions.getBuiltDiscordClient(tfBotID.getText()));
+					ThreadLoadingScreen mythread = new ThreadLoadingScreen();
+					mythread.start();					
+				    int zaehler = 0;
+					do {
+						System.out.println(mythread.isAlive());
+						zaehler++;
+						pBLoadingScreen.setValue(zaehler);
+						pBLoadingScreen.repaint();
+					}while(mythread.isAlive());
+					if(pBLoadingScreen.getValue() < 100) {
+						pBLoadingScreen.setValue(100);
+					}
+					btnLoginMainLogin.setEnabled(false);
 				}else {
 					JOptionPane.showMessageDialog(frmDiscordManager, "Bitte geben Sie die Bot-ID ein.", "Hinweis", JOptionPane.CANCEL_OPTION);
 				}
@@ -211,12 +212,11 @@ public class LoginMain {
 		gbc_bntLoginMainAbbruch.fill = GridBagConstraints.BOTH;
 		gbc_bntLoginMainAbbruch.insets = new Insets(0, 0, 0, 5);
 		gbc_bntLoginMainAbbruch.gridx = 3;
-		gbc_bntLoginMainAbbruch.gridy = 4;
+		gbc_bntLoginMainAbbruch.gridy = 5;
 		pLoginMain.add(bntLoginMainAbbruch, gbc_bntLoginMainAbbruch);
 		GridBagConstraints gbc_pBMain_1 = new GridBagConstraints();
 		gbc_pBMain_1.insets = new Insets(0, 0, 0, 5);
 		gbc_pBMain_1.gridx = 0;
 		gbc_pBMain_1.gridy = 3;
 	}
-
 }
