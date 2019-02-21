@@ -14,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import lifelifelp.botfuctions.BotFunctions;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
+import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.RequestBuffer;
@@ -69,8 +71,8 @@ public class GameTicTacToe {
 					ttts.setGameChannel(event.getGuild().getChannelsByName(channelname).get(0));
 					ArrayList<Integer> iAL = new ArrayList<Integer>();
 					while (iAL.size() != 9) {
-						//iAL.add(0);
-						iAL.add(ThreadLocalRandom.current().nextInt(0, 2 + 1));
+						iAL.add(0);
+						//iAL.add(ThreadLocalRandom.current().nextInt(0, 2 + 1));
 						System.out.println("iAL =" + iAL.size());
 					}
 					ttts.setPlayfield(iAL);
@@ -116,19 +118,50 @@ public class GameTicTacToe {
 
 	private static void printPlayerChoice(TicTacToeSavegame ttts) {
 		// TODO Auto-generated method stub
-		ttts.getGameChannel().setTypingStatus(true);
-		IMessage row1 = ttts.getGameChannel().sendMessage("Reihe:1");
-		row1.addReaction(UnicodeEmoji.L);
-		row1.addReaction(UnicodeEmoji.M);
-		row1.addReaction(UnicodeEmoji.R);
-		IMessage row2 = ttts.getGameChannel().sendMessage("Reihe:2");
-		row2.addReaction(UnicodeEmoji.L);
-		row2.addReaction(UnicodeEmoji.M);
-		row2.addReaction(UnicodeEmoji.R);
-		IMessage row3 = ttts.getGameChannel().sendMessage("Reihe:3");
-		row3.addReaction(UnicodeEmoji.L);
-		row3.addReaction(UnicodeEmoji.M);
-		row3.addReaction(UnicodeEmoji.R);
+		RequestBuffer.request(() -> {
+			IMessage row1 = ttts.getGameChannel().sendMessage("Reihe:1");
+			RequestBuffer.request(() -> {
+				row1.addReaction(UnicodeEmoji.L);
+				RequestBuffer.request(() -> {
+					row1.addReaction(UnicodeEmoji.M);
+					RequestBuffer.request(() -> {
+						row1.addReaction(UnicodeEmoji.R);
+						ttts.setRow1(row1);
+						RequestBuffer.request(() -> {
+							IMessage row2 = ttts.getGameChannel().sendMessage("Reihe:2");
+							RequestBuffer.request(() -> {
+								row2.addReaction(UnicodeEmoji.L);
+								RequestBuffer.request(() -> {
+									row2.addReaction(UnicodeEmoji.M);
+									RequestBuffer.request(() -> {
+										row2.addReaction(UnicodeEmoji.R);
+										ttts.setRow2(row2);
+										row3(ttts);
+									});
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+	}
+
+	private static void row3(TicTacToeSavegame ttts) {
+		// TODO Auto-generated method stub
+		RequestBuffer.request(() -> {
+			IMessage row3 = ttts.getGameChannel().sendMessage("Reihe:3");
+			RequestBuffer.request(() -> {
+				row3.addReaction(UnicodeEmoji.L);
+				RequestBuffer.request(() -> {
+					row3.addReaction(UnicodeEmoji.M);
+					RequestBuffer.request(() -> {
+						row3.addReaction(UnicodeEmoji.R);
+						ttts.setRow3(row3);
+					});
+				});
+			});
+		});
 	}
 
 	private static void printPlayfield(TicTacToeSavegame ttts) {
@@ -181,6 +214,15 @@ public class GameTicTacToe {
 			}
 		}
 		ttts.getGameChannel().sendMessage(sbPlayfield.toString());
+	}
+
+	public static void playerMadeMove(TicTacToeSavegame ttts, ReactionAddEvent event) {
+		// TODO Auto-generated method stub
+		if(ttts.getActivePlayer()) {
+			System.out.print(event.getReaction().getEmoji().getName());
+		}else {
+			//Der Bot ist dran!
+		}
 	}
 	
 	

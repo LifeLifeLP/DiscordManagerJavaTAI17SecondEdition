@@ -27,6 +27,7 @@ import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
+import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IEmoji;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IMessage.Attachment;
@@ -49,16 +50,37 @@ public class DiscordEvents{
 	@EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
 		//Testen auf Gamechannel
-		for(TicTacToeSavegame ttts: GameTicTacToe.GameData) {
-			if(event.getChannel().getLongID() == ttts.getGameChannel().getLongID()) {
-				System.out.println("Jemand spielt TicTacToe");
-			}else {
-				//Nichts
-			}
-			
+		if() {
+			for(TicTacToeSavegame ttts: GameTicTacToe.GameData) {
+				if(event.getChannel().getLongID() == ttts.getGameChannel().getLongID()) {
+					RequestBuffer.request(() -> {
+						IChannel ic = event.getClient().getChannelByID(new Long("548227977259909121"));
+						ic.sendMessage("Es wurde ein Game gefunden!");
+					});
+					GameTicTacToe.playerMadeMove(ttts, event);
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				}else {
+					//Nichts
+				}
+				
+			}	
+		}else {
+			RequestBuffer.request(() -> {
+				IChannel ic = event.getClient().getChannelByID(new Long("548227977259909121"));
+				ic.sendMessage("Ein Bot hat eine Reaction hinzufügt!"+" (im Channel:"+event.getMessage().getChannel().getName()+")");
+			});
 		}
-		
-		
 	}
 	
 	
