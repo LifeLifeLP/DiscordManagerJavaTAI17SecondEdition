@@ -6,6 +6,7 @@ package lifelifelp.games;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -17,6 +18,7 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IReaction;
 import sx.blah.discord.handle.obj.Permissions;
 import sx.blah.discord.util.RequestBuffer;
 
@@ -76,7 +78,6 @@ public class GameTicTacToe {
 						System.out.println("iAL =" + iAL.size());
 					}
 					ttts.setPlayfield(iAL);
-					GameData.add(ttts);
 					RequestBuffer.request(() -> {
 						ttts.getGameChannel().sendMessage("Ok, ich bin bereit!");
 						RequestBuffer.request(() -> {
@@ -100,8 +101,9 @@ public class GameTicTacToe {
 													.overrideRolePermissions(
 															event.getGuild().getRolesByName(channelname).get(0),
 															allPermissions, noPermissions);
-											printPlayfield(ttts);
+											ttts.setPlayfieldMessage(printPlayfield(ttts));
 											printPlayerChoice(ttts);
+											GameData.add(ttts);
 										});
 									});
 								});
@@ -118,6 +120,7 @@ public class GameTicTacToe {
 
 	private static void printPlayerChoice(TicTacToeSavegame ttts) {
 		// TODO Auto-generated method stub
+		// Reihen in Array pack und dann die Reaction en-mass adden
 		RequestBuffer.request(() -> {
 			IMessage row1 = ttts.getGameChannel().sendMessage("Reihe:1");
 			RequestBuffer.request(() -> {
@@ -164,7 +167,7 @@ public class GameTicTacToe {
 		});
 	}
 
-	private static void printPlayfield(TicTacToeSavegame ttts) {
+	private static IMessage printPlayfield(TicTacToeSavegame ttts) {
 		// TODO Auto-generated method stub
 		ttts.getGameChannel().getFullMessageHistory().bulkDelete();
 		
@@ -214,14 +217,88 @@ public class GameTicTacToe {
 			}
 		}
 		ttts.getGameChannel().sendMessage(sbPlayfield.toString());
+		for(IMessage im: ttts.getGameChannel().getFullMessageHistory()) {
+			if(im.getContent().equals(sbPlayfield.toString())) {
+				return im;
+			}
+		}
+		return null;
 	}
 
 	public static void playerMadeMove(TicTacToeSavegame ttts, ReactionAddEvent event) {
 		// TODO Auto-generated method stub
+		ttts.setActivePlayer(true);
 		if(ttts.getActivePlayer()) {
-			System.out.print(event.getReaction().getEmoji().getName());
+			System.out.println("Der Spieler macht einen Move!");
+			List<IReaction> lir = event.getMessage().getReactions();
+			for(IReaction ir: lir) {
+				System.out.println(ir.getEmoji().getName()+" = "+ir.getCount());
+			}
 		}else {
 			//Der Bot ist dran!
+		}
+	}
+
+	public static void reloadPlayfield(TicTacToeSavegame ttts) {
+		// TODO Auto-generated method stub
+		StringBuilder sbPlayfield = new StringBuilder();
+		{
+			for(int i = 0; i != 3; i++) {
+				switch (ttts.getPlayfield().get(i)) {
+				case 0:
+					sbPlayfield.append(UnicodeEmoji.TTTCLEAR);
+					break;
+				case 1:
+					sbPlayfield.append(UnicodeEmoji.TTTX);
+					break;
+				case 2:
+					sbPlayfield.append(UnicodeEmoji.TTTO);
+					break;
+				}
+			}
+			sbPlayfield.append("\n");
+			for(int i = 3; i != 6; i++) {
+				switch (ttts.getPlayfield().get(i)) {
+				case 0:
+					sbPlayfield.append(UnicodeEmoji.TTTCLEAR);
+					break;
+				case 1:
+					sbPlayfield.append(UnicodeEmoji.TTTX);
+					break;
+				case 2:
+					sbPlayfield.append(UnicodeEmoji.TTTO);
+					break;
+				}
+			}
+			sbPlayfield.append("\n");
+			for(int i = 6; i != 9; i++) {
+				switch (ttts.getPlayfield().get(i)) {
+				case 0:
+					sbPlayfield.append(UnicodeEmoji.TTTCLEAR);
+					break;
+				case 1:
+					sbPlayfield.append(UnicodeEmoji.TTTX);
+					break;
+				case 2:
+					sbPlayfield.append(UnicodeEmoji.TTTO);
+					break;
+				}
+			}
+		}
+		ttts.getPlayfieldMessage().edit(sbPlayfield.toString());
+	}
+
+	public static void botMadeMove(TicTacToeSavegame ttts) {
+		// TODO Auto-generated method stub
+		System.out.println("Der Bot ist dran!");
+		Random rdm = new Random();
+		int ziel = rdm.nextInt(9);
+		if(ttts.getPlayfield().get(ziel) == 0) {
+			ttts.getPlayfield().set(ziel, 2);
+			ttts.setActivePlayer(true);
+			GameTicTacToe.reloadPlayfield(ttts);
+		}else {
+			botMadeMove(ttts);
 		}
 	}
 	
