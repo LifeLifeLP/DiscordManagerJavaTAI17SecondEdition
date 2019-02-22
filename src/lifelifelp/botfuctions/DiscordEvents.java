@@ -47,10 +47,11 @@ public class DiscordEvents{
 	//Die @Anbindung wird ben�tig damit die Funktion bei einem Event ausgef�hrt wird
 	
 	
+	@SuppressWarnings("unused")
 	@EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
 		//Testen auf Gamechannel
-		if() {
+		if(true) {
 			for(TicTacToeSavegame ttts: GameTicTacToe.GameData) {
 				if(event.getChannel().getLongID() == ttts.getGameChannel().getLongID()) {
 					RequestBuffer.request(() -> {
