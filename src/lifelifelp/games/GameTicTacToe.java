@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,7 +15,6 @@ import lifelifelp.botfuctions.BotFunctions;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
-import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IReaction;
 import sx.blah.discord.handle.obj.Permissions;
@@ -293,13 +291,104 @@ public class GameTicTacToe {
 		System.out.println("Der Bot ist dran!");
 		Random rdm = new Random();
 		int ziel = rdm.nextInt(9);
+		int unendschieden = 0;
 		if(ttts.getPlayfield().get(ziel) == 0) {
 			ttts.getPlayfield().set(ziel, 2);
 			ttts.setActivePlayer(true);
 			GameTicTacToe.reloadPlayfield(ttts);
+			//Test ob das Game over ist
 		}else {
+			unendschieden++;
+			if(unendschieden > 99) {
+				GameTicTacToe.end(ttts, unendschieden);
+				return;
+			}
+			GameTicTacToe.checkForWin(ttts);
 			botMadeMove(ttts);
 		}
+	}
+
+	private static void checkForWin(TicTacToeSavegame ttts) {
+		// TODO Auto-generated method stub
+		//Spieler_Horizontal
+		if(ttts.getPlayfield().get(0).equals(1) && ttts.getPlayfield().get(1).equals(1) && ttts.getPlayfield().get(2).equals(1)) {
+			GameTicTacToe.end(ttts, 0);
+		}
+		if(ttts.getPlayfield().get(3).equals(1) && ttts.getPlayfield().get(4).equals(1) && ttts.getPlayfield().get(5).equals(1)) {
+			GameTicTacToe.end(ttts, 0);
+		}
+		if(ttts.getPlayfield().get(6).equals(1) && ttts.getPlayfield().get(7).equals(1) && ttts.getPlayfield().get(8).equals(1)) {
+			GameTicTacToe.end(ttts, 0);
+		}
+		//Spieler_Vertikal
+		if(ttts.getPlayfield().get(0).equals(1) && ttts.getPlayfield().get(3).equals(1) && ttts.getPlayfield().get(6).equals(1)) {
+			GameTicTacToe.end(ttts, 0);
+		}
+		if(ttts.getPlayfield().get(1).equals(1) && ttts.getPlayfield().get(4).equals(1) && ttts.getPlayfield().get(7).equals(1)) {
+			GameTicTacToe.end(ttts, 0);
+		}
+		if(ttts.getPlayfield().get(2).equals(1) && ttts.getPlayfield().get(1).equals(5) && ttts.getPlayfield().get(8).equals(1)) {
+			GameTicTacToe.end(ttts, 0);
+		}
+		//Spieler_X
+		if(ttts.getPlayfield().get(0).equals(1) && ttts.getPlayfield().get(4).equals(1) && ttts.getPlayfield().get(8).equals(1)) {
+			GameTicTacToe.end(ttts, 0);
+		}
+		if(ttts.getPlayfield().get(2).equals(1) && ttts.getPlayfield().get(4).equals(1) && ttts.getPlayfield().get(6).equals(1)) {
+			GameTicTacToe.end(ttts, 0);
+		}
+		//////////////////////////////////////////////////////////////////
+		//Bot_Horizontal
+		if(ttts.getPlayfield().get(0).equals(2) && ttts.getPlayfield().get(1).equals(2) && ttts.getPlayfield().get(2).equals(2)) {
+			GameTicTacToe.end(ttts, 1);
+		}
+		if(ttts.getPlayfield().get(3).equals(2) && ttts.getPlayfield().get(4).equals(2) && ttts.getPlayfield().get(5).equals(2)) {
+			GameTicTacToe.end(ttts, 1);
+		}
+		if(ttts.getPlayfield().get(6).equals(2) && ttts.getPlayfield().get(7).equals(2) && ttts.getPlayfield().get(8).equals(2)) {
+			GameTicTacToe.end(ttts, 1);
+		}
+		//Bot_Vertikal
+		if(ttts.getPlayfield().get(0).equals(2) && ttts.getPlayfield().get(3).equals(2) && ttts.getPlayfield().get(6).equals(2)) {
+			GameTicTacToe.end(ttts, 1);
+		}
+		if(ttts.getPlayfield().get(1).equals(2) && ttts.getPlayfield().get(4).equals(2) && ttts.getPlayfield().get(7).equals(2)) {
+			GameTicTacToe.end(ttts, 1);
+		}
+		if(ttts.getPlayfield().get(2).equals(2) && ttts.getPlayfield().get(1).equals(5) && ttts.getPlayfield().get(8).equals(2)) {
+			GameTicTacToe.end(ttts, 1);
+		}
+		//Bot_X
+		if(ttts.getPlayfield().get(0).equals(2) && ttts.getPlayfield().get(4).equals(2) && ttts.getPlayfield().get(8).equals(2)) {
+			GameTicTacToe.end(ttts, 1);
+		}
+		if(ttts.getPlayfield().get(2).equals(2) && ttts.getPlayfield().get(4).equals(2) && ttts.getPlayfield().get(6).equals(2)) {
+			GameTicTacToe.end(ttts, 1);
+		}
+	}
+
+	private static void end(TicTacToeSavegame ttts, int mode) {
+		// TODO Auto-generated method stub
+		//Muss unterscheiden ob "Unendschieden", "Sieg" und "Niederlage"
+		//Unendschieden: 100
+		//Sieg: 0
+		//Niederlage: 1
+		if(mode == 100) {
+			ttts.getGameChannel().sendMessage("Das Spiel ist vorbei! \nUNENDSCHIEDEN!");
+		}else {
+			if(mode == 0) {
+				ttts.getGameChannel().sendMessage("Das Spiel ist vorbei! \nDU HAST GEWONNEN!");
+			}else {
+				if(mode == 1) {
+					ttts.getGameChannel().sendMessage("Das Spiel ist vorbei! \nDU HAST VERLOREN!");
+				}
+			}
+		}
+	}
+
+	public static void done(MessageReceivedEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
