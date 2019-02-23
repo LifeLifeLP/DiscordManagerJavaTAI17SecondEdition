@@ -52,6 +52,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.table.DefaultTableModel;
 
+import lifelifelp.botfuctions.BotFunctions;
 import lunokaru.login.LoginData;
 import lunokaru.login.LoginMain;
 import sx.blah.discord.api.IDiscordClient;
@@ -65,6 +66,7 @@ import sx.blah.discord.handle.obj.IVoiceChannel;
 
 public class GuiMain {
 
+	private Color ausgewaehlteFarbe = new Color(255,255,255);
 	//Discordattribute
 	private static IDiscordClient discordClient;
 	private IUser discordUser;
@@ -889,7 +891,7 @@ public class GuiMain {
 		gbc_lblAktuelleTtigkeit.gridy = 5;
 		pWillkommen.add(lblAktuelleTtigkeit, gbc_lblAktuelleTtigkeit);
 		
-		JLabel label = new JLabel(String.valueOf(discordClient.getOurUser().getPresence().getStatus()).toLowerCase());
+		JLabel label = new JLabel("Online");
 		label.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 5, 0);
@@ -2263,9 +2265,10 @@ public class GuiMain {
 		btnRolleLschen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				for (IGuild ig : discordClient.getGuilds()) {
-					if(ig.getName().equals(cBServerListe.getSelectedItem())) {
+					if(ig.getName().equals(String.valueOf(cBServerListe.getSelectedItem()))) {
 						for (IRole ir : ig.getRoles()) {
 							if (ir.getName().equals(cBRVAlleRollen.getName())) {
+								System.out.println(ir.getName());
 								ir.delete();
 								fillCBRVAlleRollen();
 								break;
@@ -2392,7 +2395,7 @@ public class GuiMain {
 			public void actionPerformed(ActionEvent arg0) {
 				// Erstellung eines JColorChooser Dialoges, 
 		        // der eine Farbe zurück gibt
-		        Color ausgewaehlteFarbe = JColorChooser.showDialog(null, 
+		        ausgewaehlteFarbe = JColorChooser.showDialog(null, 
 		            "Farbauswahl", null);
 		        // Ausgabe der ausgewählten Farbe
 		        System.out.println(ausgewaehlteFarbe);
@@ -2845,6 +2848,17 @@ public class GuiMain {
 		pRVRollenErstellen.add(checkBox_22, gbc_checkBox_22);
 		
 		JButton btnRVRollenErstellen = new JButton("Rolle erstellen");
+		btnRVRollenErstellen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				List<IGuild> lig = discordClient.getGuilds();
+				Color c = new Color(255,255,255);
+				for(IGuild ig: lig) {
+					if(ig.getName().equals(String.valueOf(cBServerListe.getSelectedItem()))) {
+						BotFunctions.saveRole(ig , textField.getText(), ausgewaehlteFarbe, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+					}
+				}
+			}
+		});
 		GridBagConstraints gbc_btnRVRollenErstellen = new GridBagConstraints();
 		gbc_btnRVRollenErstellen.insets = new Insets(0, 0, 0, 5);
 		gbc_btnRVRollenErstellen.gridx = 0;
