@@ -214,13 +214,8 @@ public class GameTicTacToe {
 				}
 			}
 		}
-		ttts.getGameChannel().sendMessage(sbPlayfield.toString());
-		for(IMessage im: ttts.getGameChannel().getFullMessageHistory()) {
-			if(im.getContent().equals(sbPlayfield.toString())) {
-				return im;
-			}
-		}
-		return null;
+		IMessage lel = ttts.getGameChannel().sendMessage(sbPlayfield.toString());
+		return lel;
 	}
 
 	public static void playerMadeMove(TicTacToeSavegame ttts, ReactionAddEvent event) {
@@ -303,68 +298,88 @@ public class GameTicTacToe {
 				GameTicTacToe.end(ttts, unendschieden);
 				return;
 			}
-			GameTicTacToe.checkForWin(ttts);
-			botMadeMove(ttts);
+			if(GameTicTacToe.checkForWin(ttts)) {
+				return;
+			}else {
+				botMadeMove(ttts);
+			}
 		}
 	}
 
-	private static void checkForWin(TicTacToeSavegame ttts) {
+	private static boolean checkForWin(TicTacToeSavegame ttts) {
 		// TODO Auto-generated method stub
 		//Spieler_Horizontal
 		if(ttts.getPlayfield().get(0).equals(1) && ttts.getPlayfield().get(1).equals(1) && ttts.getPlayfield().get(2).equals(1)) {
 			GameTicTacToe.end(ttts, 0);
+			return true;
 		}
 		if(ttts.getPlayfield().get(3).equals(1) && ttts.getPlayfield().get(4).equals(1) && ttts.getPlayfield().get(5).equals(1)) {
 			GameTicTacToe.end(ttts, 0);
+			return true;
 		}
 		if(ttts.getPlayfield().get(6).equals(1) && ttts.getPlayfield().get(7).equals(1) && ttts.getPlayfield().get(8).equals(1)) {
 			GameTicTacToe.end(ttts, 0);
+			return true;
 		}
 		//Spieler_Vertikal
 		if(ttts.getPlayfield().get(0).equals(1) && ttts.getPlayfield().get(3).equals(1) && ttts.getPlayfield().get(6).equals(1)) {
 			GameTicTacToe.end(ttts, 0);
+			return true;
 		}
 		if(ttts.getPlayfield().get(1).equals(1) && ttts.getPlayfield().get(4).equals(1) && ttts.getPlayfield().get(7).equals(1)) {
 			GameTicTacToe.end(ttts, 0);
+			return true;
 		}
 		if(ttts.getPlayfield().get(2).equals(1) && ttts.getPlayfield().get(1).equals(5) && ttts.getPlayfield().get(8).equals(1)) {
 			GameTicTacToe.end(ttts, 0);
+			return true;
 		}
 		//Spieler_X
 		if(ttts.getPlayfield().get(0).equals(1) && ttts.getPlayfield().get(4).equals(1) && ttts.getPlayfield().get(8).equals(1)) {
 			GameTicTacToe.end(ttts, 0);
+			return true;
 		}
 		if(ttts.getPlayfield().get(2).equals(1) && ttts.getPlayfield().get(4).equals(1) && ttts.getPlayfield().get(6).equals(1)) {
 			GameTicTacToe.end(ttts, 0);
+			return true;
 		}
 		//////////////////////////////////////////////////////////////////
 		//Bot_Horizontal
 		if(ttts.getPlayfield().get(0).equals(2) && ttts.getPlayfield().get(1).equals(2) && ttts.getPlayfield().get(2).equals(2)) {
 			GameTicTacToe.end(ttts, 1);
+			return true;
 		}
 		if(ttts.getPlayfield().get(3).equals(2) && ttts.getPlayfield().get(4).equals(2) && ttts.getPlayfield().get(5).equals(2)) {
 			GameTicTacToe.end(ttts, 1);
+			return true;
 		}
 		if(ttts.getPlayfield().get(6).equals(2) && ttts.getPlayfield().get(7).equals(2) && ttts.getPlayfield().get(8).equals(2)) {
 			GameTicTacToe.end(ttts, 1);
+			return true;
 		}
 		//Bot_Vertikal
 		if(ttts.getPlayfield().get(0).equals(2) && ttts.getPlayfield().get(3).equals(2) && ttts.getPlayfield().get(6).equals(2)) {
 			GameTicTacToe.end(ttts, 1);
+			return true;
 		}
 		if(ttts.getPlayfield().get(1).equals(2) && ttts.getPlayfield().get(4).equals(2) && ttts.getPlayfield().get(7).equals(2)) {
 			GameTicTacToe.end(ttts, 1);
+			return true;
 		}
 		if(ttts.getPlayfield().get(2).equals(2) && ttts.getPlayfield().get(1).equals(5) && ttts.getPlayfield().get(8).equals(2)) {
 			GameTicTacToe.end(ttts, 1);
+			return true;
 		}
 		//Bot_X
 		if(ttts.getPlayfield().get(0).equals(2) && ttts.getPlayfield().get(4).equals(2) && ttts.getPlayfield().get(8).equals(2)) {
 			GameTicTacToe.end(ttts, 1);
+			return true;
 		}
 		if(ttts.getPlayfield().get(2).equals(2) && ttts.getPlayfield().get(4).equals(2) && ttts.getPlayfield().get(6).equals(2)) {
 			GameTicTacToe.end(ttts, 1);
+			return true;
 		}
+		return false;
 	}
 
 	private static void end(TicTacToeSavegame ttts, int mode) {
@@ -387,8 +402,19 @@ public class GameTicTacToe {
 	}
 
 	public static void done(MessageReceivedEvent event) {
-		// TODO Auto-generated method stub
-		
+		if(checkForGames(event)) {
+			int tmp = 0;
+			for(TicTacToeSavegame ttts : GameData) {
+				if(event.getAuthor().equals(ttts.getGameuser()) && event.getChannel().getName().equals(ttts.getGameChannel().getName())){
+					event.getChannel().delete();
+					event.getGuild().getRolesByName(ttts.getGameuser().getName().toLowerCase()+"-gameroom").get(0).delete();
+					GameData.remove(tmp);
+					break;
+				}else {
+					tmp++;
+				}
+			}
+		}
 	}
 	
 	
@@ -397,3 +423,4 @@ public class GameTicTacToe {
 	
 	
 }
+//End

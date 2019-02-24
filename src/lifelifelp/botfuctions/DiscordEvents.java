@@ -319,7 +319,9 @@ public class DiscordEvents{
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "starttictactoe".toLowerCase())) {
     		 GameTicTacToe.start(event);
     	 }
-    	 
+    	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "tttdone".toLowerCase())) {
+    		 GameTicTacToe.done(event);
+    	 }
     	 
     	 
     	 //Schreibt unter jeder Nachrichte die Max Schr�der schreibt seinen Namen und das Server Emoj "MAX_WHEELCHAIR"
@@ -413,6 +415,7 @@ public class DiscordEvents{
         		}
         		if(foundUser) {
         			break;
+        			//End
         		}
         	}
         }
