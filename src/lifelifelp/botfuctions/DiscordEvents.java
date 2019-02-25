@@ -365,32 +365,10 @@ public class DiscordEvents{
         
         //L�dt die an die Nachricht angeh�gte Musikdatei von Discord,s Servern runter und gibt sie im Voicechannel wieder
         if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "play")){
-        	try {
-				System.setProperty("http.agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0");
-				Attachment song = event.getMessage().getAttachments().get(0);
-				URL url = new URL(song.getUrl());
-				System.out.println(song.getUrl());
-				System.out.println("opening connection");
-				InputStream in = url.openStream();
-				File F = new File("music_"+event.getAuthor().getLongID()+".mp3");//LOL
-				FileOutputStream fos = new FileOutputStream(F);
-				System.out.println("reading file...");
-				int length = -1;
-				byte[] buffer = new byte[1024];
-				while ((length = in.read(buffer)) > -1) {
-				    fos.write(buffer, 0, length);
-				}
-				fos.close();
-				in.close();
-				System.out.println("file was downloaded");
-				System.out.println(F.getAbsolutePath());
-				AudioInputStream stream = AudioSystem.getAudioInputStream(F);
-				AudioPlayer audioP = AudioPlayer.getAudioPlayerForGuild(event.getGuild());
-				audioP.queue(stream);
-			} catch (IOException | UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			}
-        
+        	ThreadMusicPlayer threadMP = new ThreadMusicPlayer().run(event);
+        	threadMP.start();
+        	
+        }
         	
         //Stopt die Musikwiedergabe im Channel und entfernt die Musik aus der Wiedergabe
         if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "stop")){
@@ -424,4 +402,4 @@ public class DiscordEvents{
         
         
         
-    }
+    
