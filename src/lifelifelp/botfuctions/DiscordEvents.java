@@ -365,9 +365,8 @@ public class DiscordEvents{
         
         //L�dt die an die Nachricht angeh�gte Musikdatei von Discord,s Servern runter und gibt sie im Voicechannel wieder
         if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "play")){
-        	ThreadMusicPlayer threadMP = new ThreadMusicPlayer().run(event);
+        	ThreadMusicPlayer threadMP = new ThreadMusicPlayer(event);
         	threadMP.start();
-        	
         }
         	
         //Stopt die Musikwiedergabe im Channel und entfernt die Musik aus der Wiedergabe

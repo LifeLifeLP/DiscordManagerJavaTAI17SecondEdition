@@ -16,8 +16,14 @@ import sx.blah.discord.util.audio.AudioPlayer;
 
 public class ThreadMusicPlayer extends Thread{
 
+	MessageReceivedEvent event;
+	
+	public ThreadMusicPlayer(MessageReceivedEvent event) {
+		this.event = event;
+	}
+	
 	//run() Methode, wird ausgeführt nach Starten des Threads
-	public ThreadMusicPlayer run(MessageReceivedEvent event) {
+	public void run() {
 		try {
 			System.setProperty("http.agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0");
 			Attachment song = event.getMessage().getAttachments().get(0);
@@ -43,6 +49,5 @@ public class ThreadMusicPlayer extends Thread{
 		} catch (IOException | UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 }
