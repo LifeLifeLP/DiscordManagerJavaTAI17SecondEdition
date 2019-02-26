@@ -23,7 +23,6 @@ import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
 import sx.blah.discord.handle.obj.IEmoji;
-import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IPrivateChannel;
 import sx.blah.discord.handle.obj.IReaction;
 import sx.blah.discord.handle.obj.IRole;
@@ -244,34 +243,8 @@ public class DiscordEvents{
     	//Funktion um eine Anzahl an Nachrichten aus einem Channel zu loeschen, sofern es weniger als 99 �berlassen wird Discord die Arbeit(.bulkDelete) andernfalls macht es der Bot selbst
     	//f�r jede Nachricht was aber um einiges langsamer ist, jedoch gr��ere Mengen schaft
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "clean")){
-    		String input = StringUtils.replace(event.getMessage().getContent(), "p!clean ", "");
-    		List<IRole> roles = event.getAuthor().getRolesForGuild(event.getGuild());
-    		Permissions ADMINISTRATOR = Permissions.ADMINISTRATOR;
-    		for(IRole ir: roles) {
-    			System.out.println(ir.getName());
-    			if(ir.getPermissions().contains(ADMINISTRATOR)) {
-    				int toremove = Integer.valueOf(input)+1;
-    	    		if(toremove > 99) {
-    	    			List<IMessage> lim = event.getChannel().getMessageHistory(toremove);
-    	    			for(IMessage im: lim) {
-    	    				RequestBuffer.request(() -> {
-    	        				im.delete();
-    	                	});
-    	    			}
-    	    			RequestBuffer.request(() -> {
-    	    				event.getMessage().delete();
-    	            	});
-    	    		}else {
-    	    			RequestBuffer.request(() -> {
-    	    				event.getChannel().bulkDelete(event.getChannel().getMessageHistory(toremove));
-    	    				RequestBuffer.request(() -> {
-    	    					event.getMessage().delete();
-    	                	});
-    	            	});
-    	    		}
-    				break;
-    			}
-    		}
+    		ThreadCleanChannel tch = new ThreadCleanChannel(event);
+    		tch.start();
     	}
     	
     	//Verbannt einen Benutzer vom Server wenn der Benutzer den den Befehl schreibt das Recht Administrator hat
@@ -304,9 +277,8 @@ public class DiscordEvents{
     		 GameNummberGuess.guess(event);
     	 }
     	 //Beendet das Spiel mit dem User
-    	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "gamedone".toLowerCase())){
+    	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "guessgamedone".toLowerCase())){
     		 GameNummberGuess.done(event);
-    		 GameTicTacToe.done(event);
     	 }
     	 
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "starttictactoe".toLowerCase())) {
@@ -331,7 +303,6 @@ public class DiscordEvents{
                 	});
             	});
         	});
-        	
         }
         
         //Wenn der User in einem VoiceChannel ist wird der Bot dem VoiceChannel ebenfalls betretenm sofern den Bot den Channel sehen kann und auch Rechte zum beitreten hat

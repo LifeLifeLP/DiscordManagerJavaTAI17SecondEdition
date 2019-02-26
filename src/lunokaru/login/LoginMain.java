@@ -10,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,27 +29,26 @@ import javax.swing.UIManager;
 import org.slf4j.LoggerFactory;
 
 import lifelifelp.botfuctions.BotFunctions;
-import java.awt.Toolkit;
 
 public class LoginMain {
-	
-	//Klassenattribute
+
+	// Klassenattribute
 	private JFrame frmDiscordManager;
 	private CardLayout myCL;
 	private JTextField tfBotID;
-	private static Object[] cancelOption = {"Ja", "Nein"};
+	private static Object[] cancelOption = { "Ja", "Nein" };
 	private JProgressBar pBLoadingScreen;
-	
+
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -70,13 +70,14 @@ public class LoginMain {
 		initialize();
 		myCL.show(frmDiscordManager.getContentPane(), "pLoginMain");
 	}
-	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frmDiscordManager = new JFrame();
-		frmDiscordManager.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginMain.class.getResource("/lunokaru/picture/Logo.png")));
+		frmDiscordManager.setIconImage(
+				Toolkit.getDefaultToolkit().getImage(LoginMain.class.getResource("/lunokaru/picture/Logo.png")));
 		frmDiscordManager.setLocale(Locale.GERMANY);
 		frmDiscordManager.setBackground(Color.LIGHT_GRAY);
 		frmDiscordManager.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
@@ -87,17 +88,17 @@ public class LoginMain {
 		frmDiscordManager.getContentPane().setLayout(myCL);
 		frmDiscordManager.setLocationRelativeTo(null);
 		frmDiscordManager.setResizable(false);
-		
+
 		JPanel pLoginMain = new JPanel();
 		pLoginMain.setBackground(UIManager.getColor("Table[Disabled+Selected].textBackground"));
 		frmDiscordManager.getContentPane().add(pLoginMain, "pLoginMain");
 		GridBagLayout gbl_pLoginMain = new GridBagLayout();
-		gbl_pLoginMain.columnWidths = new int[]{0, 0, 195, 0, 0, 0};
-		gbl_pLoginMain.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_pLoginMain.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_pLoginMain.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_pLoginMain.columnWidths = new int[] { 0, 0, 195, 0, 0, 0 };
+		gbl_pLoginMain.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gbl_pLoginMain.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_pLoginMain.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		pLoginMain.setLayout(gbl_pLoginMain);
-		
+
 		JLabel lLoginMainDiscordManager = new JLabel("Discord Manager");
 		lLoginMainDiscordManager.setFont(new Font("Segoe UI Black", Font.BOLD, 35));
 		GridBagConstraints gbc_lLoginMainDiscordManager = new GridBagConstraints();
@@ -106,7 +107,7 @@ public class LoginMain {
 		gbc_lLoginMainDiscordManager.gridx = 0;
 		gbc_lLoginMainDiscordManager.gridy = 0;
 		pLoginMain.add(lLoginMainDiscordManager, gbc_lLoginMainDiscordManager);
-		
+
 		JLabel lLoginMainLogin = new JLabel("Login");
 		lLoginMainLogin.setFont(new Font("Segoe UI Black", Font.BOLD, 30));
 		GridBagConstraints gbc_lLoginMainLogin = new GridBagConstraints();
@@ -115,14 +116,14 @@ public class LoginMain {
 		gbc_lLoginMainLogin.gridx = 0;
 		gbc_lLoginMainLogin.gridy = 1;
 		pLoginMain.add(lLoginMainLogin, gbc_lLoginMainLogin);
-		
+
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
 		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
 		gbc_horizontalStrut.gridx = 0;
 		gbc_horizontalStrut.gridy = 3;
 		pLoginMain.add(horizontalStrut, gbc_horizontalStrut);
-		
+
 		JLabel lLoginMainBotID = new JLabel("Bot-ID:");
 		lLoginMainBotID.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		GridBagConstraints gbc_lLoginMainBotID = new GridBagConstraints();
@@ -131,7 +132,7 @@ public class LoginMain {
 		gbc_lLoginMainBotID.gridx = 1;
 		gbc_lLoginMainBotID.gridy = 3;
 		pLoginMain.add(lLoginMainBotID, gbc_lLoginMainBotID);
-		
+
 		tfBotID = new JTextField();
 		tfBotID.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		tfBotID.setColumns(10);
@@ -142,14 +143,14 @@ public class LoginMain {
 		gbc_tfBotID.gridx = 2;
 		gbc_tfBotID.gridy = 3;
 		pLoginMain.add(tfBotID, gbc_tfBotID);
-		
+
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut_1 = new GridBagConstraints();
 		gbc_horizontalStrut_1.insets = new Insets(0, 0, 5, 0);
 		gbc_horizontalStrut_1.gridx = 4;
 		gbc_horizontalStrut_1.gridy = 3;
 		pLoginMain.add(horizontalStrut_1, gbc_horizontalStrut_1);
-		
+
 		pBLoadingScreen = new JProgressBar();
 		pBLoadingScreen.setMinimum(0);
 		pBLoadingScreen.setMaximum(100);
@@ -160,7 +161,7 @@ public class LoginMain {
 		gbc_pBLoadingScreen.gridx = 2;
 		gbc_pBLoadingScreen.gridy = 4;
 		pLoginMain.add(pBLoadingScreen, gbc_pBLoadingScreen);
-		
+
 		JButton btnLoginMainLogin = new JButton("Login");
 		btnLoginMainLogin.setBackground(SystemColor.activeCaption);
 		btnLoginMainLogin.setMnemonic(KeyEvent.VK_ENTER);
@@ -175,40 +176,35 @@ public class LoginMain {
 		btnLoginMainLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String botID = tfBotID.getText();
-				if(!botID.equals("")) {
+				if (!botID.equals("")) {
+					btnLoginMainLogin.setEnabled(false);
 					LoginData.setBotID(BotFunctions.getBuiltDiscordClient(tfBotID.getText()));
-					ThreadLoadingScreen threadLS = new ThreadLoadingScreen();
-					threadLS.start();					
-				    int zaehler = 0;
-				    btnLoginMainLogin.setEnabled(false);
-					do {
-						zaehler++;
-						pBLoadingScreen.setValue(zaehler);
-						pBLoadingScreen.repaint();
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}while(threadLS.isAlive());
-					if(pBLoadingScreen.getValue() < 100) {
-						pBLoadingScreen.setValue(100);
+					ThreadDiscordLogin threadDL = new ThreadDiscordLogin();
+					threadDL.start();
+					pBLoadingScreen.setValue(100);
+					try {
+						threadDL.join();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 					frmDiscordManager.dispose();
-				}else {
-					JOptionPane.showMessageDialog(frmDiscordManager, "Bitte geben Sie die Bot-ID ein.", "Hinweis", JOptionPane.CANCEL_OPTION);
+				} else {
+					JOptionPane.showMessageDialog(frmDiscordManager, "Bitte geben Sie die Bot-ID ein.", "Hinweis",
+							JOptionPane.CANCEL_OPTION);
 				}
 			}
 		});
-		
+
 		JButton bntLoginMainAbbruch = new JButton("Abbruch");
 		bntLoginMainAbbruch.setBackground(SystemColor.activeCaption);
 		bntLoginMainAbbruch.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
 		bntLoginMainAbbruch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		bntLoginMainAbbruch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int temp = JOptionPane.showOptionDialog(frmDiscordManager, "Wollen Sie das Programm wirklich verlassen?", "Hinweis", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, cancelOption, cancelOption[0]);
+				int temp = JOptionPane.showOptionDialog(frmDiscordManager,
+						"Wollen Sie das Programm wirklich verlassen?", "Hinweis", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE, null, cancelOption, cancelOption[0]);
 				if (temp == 0) {
 					System.exit(0);
 				}
