@@ -177,7 +177,8 @@ public class GuiMain {
 						chBCVChannelinKategorie;
 	
 	
-	private JTextField textField;
+	private JTextField tfRERollenName;
+	
 
 	
 	/**
@@ -2374,14 +2375,14 @@ public class GuiMain {
 		gbc_label_2.gridy = 1;
 		pRVRollenErstellen.add(label_2, gbc_label_2);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 1;
-		pRVRollenErstellen.add(textField, gbc_textField);
+		tfRERollenName = new JTextField();
+		tfRERollenName.setColumns(10);
+		GridBagConstraints gbc_tfRERollenName = new GridBagConstraints();
+		gbc_tfRERollenName.insets = new Insets(0, 0, 5, 0);
+		gbc_tfRERollenName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfRERollenName.gridx = 1;
+		gbc_tfRERollenName.gridy = 1;
+		pRVRollenErstellen.add(tfRERollenName, gbc_tfRERollenName);
 		
 		JLabel label_3 = new JLabel("Rollenfarbe auswaehlen:");
 		GridBagConstraints gbc_label_3 = new GridBagConstraints();
@@ -2395,13 +2396,13 @@ public class GuiMain {
 			public void actionPerformed(ActionEvent arg0) {
 				// Erstellung eines JColorChooser Dialoges, 
 		        // der eine Farbe zurück gibt
-		        ausgewaehlteFarbe = JColorChooser.showDialog(null, 
-		            "Farbauswahl", null);
+		        ausgewaehlteFarbe = JColorChooser.showDialog(null, "Farbauswahl", null);
 		        // Ausgabe der ausgewählten Farbe
 		        System.out.println(ausgewaehlteFarbe);
 			}
 		});
 		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.fill = GridBagConstraints.BOTH;
 		gbc_button.insets = new Insets(0, 0, 5, 0);
 		gbc_button.gridx = 1;
 		gbc_button.gridy = 2;
@@ -2439,12 +2440,12 @@ public class GuiMain {
 		gbc_label_7.gridy = 5;
 		pRVRollenErstellen.add(label_7, gbc_label_7);
 		
-		JCheckBox checkBox = new JCheckBox("");
-		GridBagConstraints gbc_checkBox = new GridBagConstraints();
-		gbc_checkBox.insets = new Insets(0, 0, 5, 0);
-		gbc_checkBox.gridx = 1;
-		gbc_checkBox.gridy = 5;
-		pRVRollenErstellen.add(checkBox, gbc_checkBox);
+		JCheckBox cBREMitgliederGruppieren = new JCheckBox("");
+		GridBagConstraints gbc_cBREMitgliederGruppieren = new GridBagConstraints();
+		gbc_cBREMitgliederGruppieren.insets = new Insets(0, 0, 5, 0);
+		gbc_cBREMitgliederGruppieren.gridx = 1;
+		gbc_cBREMitgliederGruppieren.gridy = 5;
+		pRVRollenErstellen.add(cBREMitgliederGruppieren, gbc_cBREMitgliederGruppieren);
 		
 		JLabel label_8 = new JLabel("mit @ erwaehnen");
 		GridBagConstraints gbc_label_8 = new GridBagConstraints();
@@ -2453,12 +2454,12 @@ public class GuiMain {
 		gbc_label_8.gridy = 6;
 		pRVRollenErstellen.add(label_8, gbc_label_8);
 		
-		JCheckBox checkBox_1 = new JCheckBox("");
-		GridBagConstraints gbc_checkBox_1 = new GridBagConstraints();
-		gbc_checkBox_1.insets = new Insets(0, 0, 5, 0);
-		gbc_checkBox_1.gridx = 1;
-		gbc_checkBox_1.gridy = 6;
-		pRVRollenErstellen.add(checkBox_1, gbc_checkBox_1);
+		JCheckBox cBREErwaehnen = new JCheckBox("");
+		GridBagConstraints gbc_cBREErwaehnen = new GridBagConstraints();
+		gbc_cBREErwaehnen.insets = new Insets(0, 0, 5, 0);
+		gbc_cBREErwaehnen.gridx = 1;
+		gbc_cBREErwaehnen.gridy = 6;
+		pRVRollenErstellen.add(cBREErwaehnen, gbc_cBREErwaehnen);
 		
 		JLabel label_9 = new JLabel("Allgemeine Einstellungen");
 		label_9.setFont(new Font("Segoe UI", Font.PLAIN, 15));
@@ -2476,12 +2477,12 @@ public class GuiMain {
 		gbc_label_10.gridy = 8;
 		pRVRollenErstellen.add(label_10, gbc_label_10);
 		
-		JCheckBox checkBox_2 = new JCheckBox("");
-		GridBagConstraints gbc_checkBox_2 = new GridBagConstraints();
-		gbc_checkBox_2.insets = new Insets(0, 0, 5, 0);
-		gbc_checkBox_2.gridx = 1;
-		gbc_checkBox_2.gridy = 8;
-		pRVRollenErstellen.add(checkBox_2, gbc_checkBox_2);
+		JCheckBox cBREAdmin = new JCheckBox("");
+		GridBagConstraints gbc_cBREAdmin = new GridBagConstraints();
+		gbc_cBREAdmin.insets = new Insets(0, 0, 5, 0);
+		gbc_cBREAdmin.gridx = 1;
+		gbc_cBREAdmin.gridy = 8;
+		pRVRollenErstellen.add(cBREAdmin, gbc_cBREAdmin);
 		
 		JLabel label_11 = new JLabel("Audit-Log anzeigen");
 		GridBagConstraints gbc_label_11 = new GridBagConstraints();
@@ -2490,12 +2491,12 @@ public class GuiMain {
 		gbc_label_11.gridy = 9;
 		pRVRollenErstellen.add(label_11, gbc_label_11);
 		
-		JCheckBox checkBox_3 = new JCheckBox("");
-		GridBagConstraints gbc_checkBox_3 = new GridBagConstraints();
-		gbc_checkBox_3.insets = new Insets(0, 0, 5, 0);
-		gbc_checkBox_3.gridx = 1;
-		gbc_checkBox_3.gridy = 9;
-		pRVRollenErstellen.add(checkBox_3, gbc_checkBox_3);
+		JCheckBox cBREAuditLog = new JCheckBox("");
+		GridBagConstraints gbc_cBREAuditLog = new GridBagConstraints();
+		gbc_cBREAuditLog.insets = new Insets(0, 0, 5, 0);
+		gbc_cBREAuditLog.gridx = 1;
+		gbc_cBREAuditLog.gridy = 9;
+		pRVRollenErstellen.add(cBREAuditLog, gbc_cBREAuditLog);
 		
 		JLabel label_12 = new JLabel("Server verwalten");
 		GridBagConstraints gbc_label_12 = new GridBagConstraints();
@@ -2504,12 +2505,12 @@ public class GuiMain {
 		gbc_label_12.gridy = 10;
 		pRVRollenErstellen.add(label_12, gbc_label_12);
 		
-		JCheckBox checkBox_4 = new JCheckBox("");
-		GridBagConstraints gbc_checkBox_4 = new GridBagConstraints();
-		gbc_checkBox_4.insets = new Insets(0, 0, 5, 0);
-		gbc_checkBox_4.gridx = 1;
-		gbc_checkBox_4.gridy = 10;
-		pRVRollenErstellen.add(checkBox_4, gbc_checkBox_4);
+		JCheckBox cBREServerVerwalten = new JCheckBox("");
+		GridBagConstraints gbc_cBREServerVerwalten = new GridBagConstraints();
+		gbc_cBREServerVerwalten.insets = new Insets(0, 0, 5, 0);
+		gbc_cBREServerVerwalten.gridx = 1;
+		gbc_cBREServerVerwalten.gridy = 10;
+		pRVRollenErstellen.add(cBREServerVerwalten, gbc_cBREServerVerwalten);
 		
 		JLabel label_13 = new JLabel("Rollen verwalten");
 		GridBagConstraints gbc_label_13 = new GridBagConstraints();
@@ -2518,12 +2519,12 @@ public class GuiMain {
 		gbc_label_13.gridy = 11;
 		pRVRollenErstellen.add(label_13, gbc_label_13);
 		
-		JCheckBox checkBox_5 = new JCheckBox("");
-		GridBagConstraints gbc_checkBox_5 = new GridBagConstraints();
-		gbc_checkBox_5.insets = new Insets(0, 0, 5, 0);
-		gbc_checkBox_5.gridx = 1;
-		gbc_checkBox_5.gridy = 11;
-		pRVRollenErstellen.add(checkBox_5, gbc_checkBox_5);
+		JCheckBox cBRERollenVerwalten = new JCheckBox("");
+		GridBagConstraints gbc_cBRERollenVerwalten = new GridBagConstraints();
+		gbc_cBRERollenVerwalten.insets = new Insets(0, 0, 5, 0);
+		gbc_cBRERollenVerwalten.gridx = 1;
+		gbc_cBRERollenVerwalten.gridy = 11;
+		pRVRollenErstellen.add(cBRERollenVerwalten, gbc_cBRERollenVerwalten);
 		
 		JLabel label_14 = new JLabel("Channel verwalten");
 		GridBagConstraints gbc_label_14 = new GridBagConstraints();
@@ -2532,12 +2533,12 @@ public class GuiMain {
 		gbc_label_14.gridy = 12;
 		pRVRollenErstellen.add(label_14, gbc_label_14);
 		
-		JCheckBox checkBox_6 = new JCheckBox("");
-		GridBagConstraints gbc_checkBox_6 = new GridBagConstraints();
-		gbc_checkBox_6.insets = new Insets(0, 0, 5, 0);
-		gbc_checkBox_6.gridx = 1;
-		gbc_checkBox_6.gridy = 12;
-		pRVRollenErstellen.add(checkBox_6, gbc_checkBox_6);
+		JCheckBox cBREChannelVerwalten = new JCheckBox("");
+		GridBagConstraints gbc_cBREChannelVerwalten = new GridBagConstraints();
+		gbc_cBREChannelVerwalten.insets = new Insets(0, 0, 5, 0);
+		gbc_cBREChannelVerwalten.gridx = 1;
+		gbc_cBREChannelVerwalten.gridy = 12;
+		pRVRollenErstellen.add(cBREChannelVerwalten, gbc_cBREChannelVerwalten);
 		
 		JLabel label_15 = new JLabel("Mitglieder kicken");
 		GridBagConstraints gbc_label_15 = new GridBagConstraints();
@@ -2851,10 +2852,42 @@ public class GuiMain {
 		btnRVRollenErstellen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				List<IGuild> lig = discordClient.getGuilds();
-				Color c = new Color(255,255,255);
 				for(IGuild ig: lig) {
 					if(ig.getName().equals(String.valueOf(cBServerListe.getSelectedItem()))) {
-						BotFunctions.saveRole(ig , textField.getText(), ausgewaehlteFarbe, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+						BotFunctions.saveRole(
+								ig,
+								tfRERollenName.getText(),
+								ausgewaehlteFarbe,
+								cBREMitgliederGruppieren.isSelected(), 
+								cBREErwaehnen.isSelected(), 
+								cBREAdmin.isSelected(), 
+								cBREAuditLog.isSelected(), 
+								cBREServerVerwalten.isSelected(), 
+								cBRERollenVerwalten.isSelected(), 
+								cBREChannelVerwalten.isSelected(), 
+								false,
+								false, 
+								false,
+								false, 
+								false, 
+								false,
+								false, 
+								false,
+								false, 
+								false, 
+								false,
+								false, 
+								false, 
+								false,
+								false, 
+								false, 
+								false, 
+								false, 
+								false,
+								false, 
+								false, 
+								false,
+								false);
 					}
 				}
 			}
