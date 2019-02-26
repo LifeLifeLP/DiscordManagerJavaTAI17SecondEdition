@@ -177,19 +177,25 @@ public class LoginMain {
 				String botID = tfBotID.getText();
 				if(!botID.equals("")) {
 					LoginData.setBotID(BotFunctions.getBuiltDiscordClient(tfBotID.getText()));
-					ThreadLoadingScreen mythread = new ThreadLoadingScreen();
-					mythread.start();					
+					ThreadLoadingScreen threadLS = new ThreadLoadingScreen();
+					threadLS.start();					
 				    int zaehler = 0;
+				    btnLoginMainLogin.setEnabled(false);
 					do {
-						System.out.println(mythread.isAlive());
 						zaehler++;
 						pBLoadingScreen.setValue(zaehler);
 						pBLoadingScreen.repaint();
-					}while(mythread.isAlive());
+						try {
+							Thread.sleep(10);
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}while(threadLS.isAlive());
 					if(pBLoadingScreen.getValue() < 100) {
 						pBLoadingScreen.setValue(100);
 					}
-					btnLoginMainLogin.setEnabled(false);
+					frmDiscordManager.dispose();
 				}else {
 					JOptionPane.showMessageDialog(frmDiscordManager, "Bitte geben Sie die Bot-ID ein.", "Hinweis", JOptionPane.CANCEL_OPTION);
 				}
