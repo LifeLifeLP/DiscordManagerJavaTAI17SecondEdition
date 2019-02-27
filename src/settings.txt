@@ -1,0 +1,5 @@
+DATA
+TRUE1
+Drei
+Vier
+Fünf
