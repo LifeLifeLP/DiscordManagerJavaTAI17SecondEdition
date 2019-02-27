@@ -17,14 +17,12 @@ import org.w3c.tidy.Tidy;
 
 import lifelifelp.games.GameNummberGuess;
 import lifelifelp.games.GameTicTacToe;
-import lifelifelp.games.TicTacToeSavegame;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
 import sx.blah.discord.handle.obj.IEmoji;
 import sx.blah.discord.handle.obj.IPrivateChannel;
-import sx.blah.discord.handle.obj.IReaction;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
@@ -42,160 +40,7 @@ public class DiscordEvents{
 	
 	@EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
-		System.out.println(event.getReaction().getEmoji().getName());
-		//Bot reacted auf Reactions
-		if(!event.getUser().isBot()) {
-			for(TicTacToeSavegame ttts: GameTicTacToe.GameData) {
-				if(String.valueOf(event.getChannel().getLongID()).equals(String.valueOf(ttts.getGameChannel().getLongID()))) {
-					//TTTS ist der aktuelle Spielstand
-					ttts.setActivePlayer(true);
-					if(ttts.getActivePlayer()) {
-						//Reihe1
-						for(IReaction ir: ttts.getRow1().getReactions()) {
-							if(ir.getUserReacted(ttts.getGameuser())) {
-								switch(ir.getEmoji().getName()){
-						        case "🇱":
-						        	if(ttts.getPlayfield().get(0) == 0) {
-						        		ttts.getPlayfield().set(0, 1);//Spieler setzen
-						        		ttts.getRow1().removeReaction(ttts.getGameuser(), ir.getEmoji());
-						        		GameTicTacToe.reloadPlayfield(ttts);
-						        		ttts.setActivePlayer(false);
-						        		GameTicTacToe.botMadeMove(ttts);
-						        	}else {
-						        		
-						        		//Platz ist voll vom Spieler/Bot
-						        	}
-						            break;
-						        case "🇲":
-						        	if(ttts.getPlayfield().get(1) == 0) {
-						        		ttts.getPlayfield().set(1, 1);//Spieler setzen
-						        		ttts.getRow1().removeReaction(ttts.getGameuser(), ir.getEmoji());
-						        		GameTicTacToe.reloadPlayfield(ttts);
-						        		ttts.setActivePlayer(false);
-						        		GameTicTacToe.botMadeMove(ttts);
-						        	}else {
-						        		
-						        		//Platz ist voll vom Spieler/Bot
-						        	}
-						            break;
-						        case "🇷":
-						        	if(ttts.getPlayfield().get(2) == 0) {
-						        		ttts.getPlayfield().set(2, 1);//Spieler setzen
-						        		ttts.getRow1().removeReaction(ttts.getGameuser(), ir.getEmoji());
-						        		GameTicTacToe.reloadPlayfield(ttts);
-						        		ttts.setActivePlayer(false);
-						        		GameTicTacToe.botMadeMove(ttts);
-						        	}else {
-						        		
-						        		//Platz ist voll vom Spieler/Bot
-						        	}
-						            break;
-						        default:
-						            //Nichts
-						        } 
-							}
-						}
-						//Reihe1
-						
-						//Reihe2
-						for(IReaction ir: ttts.getRow2().getReactions()) {
-							if(ir.getUserReacted(ttts.getGameuser())) {
-								switch(ir.getEmoji().getName()){
-						        case "🇱":
-						        	if(ttts.getPlayfield().get(3) == 0) {
-						        		ttts.getPlayfield().set(3, 1);//Spieler setzen
-						        		ttts.getRow2().removeReaction(ttts.getGameuser(), ir.getEmoji());
-						        		GameTicTacToe.reloadPlayfield(ttts);
-						        		ttts.setActivePlayer(false);
-						        		GameTicTacToe.botMadeMove(ttts);
-						        	}else {
-						        		
-						        		//Platz ist voll vom Spieler/Bot
-						        	}
-						            break;
-						        case "🇲":
-						        	if(ttts.getPlayfield().get(4) == 0) {
-						        		ttts.getPlayfield().set(4, 1);//Spieler setzen
-						        		ttts.getRow2().removeReaction(ttts.getGameuser(), ir.getEmoji());
-						        		GameTicTacToe.reloadPlayfield(ttts);
-						        		ttts.setActivePlayer(false);
-						        		GameTicTacToe.botMadeMove(ttts);
-						        	}else {
-						        		
-						        		//Platz ist voll vom Spieler/Bot
-						        	}
-						            break;
-						        case "🇷":
-						        	if(ttts.getPlayfield().get(5) == 0) {
-						        		ttts.getPlayfield().set(5, 1);//Spieler setzen
-						        		ttts.getRow2().removeReaction(ttts.getGameuser(), ir.getEmoji());
-						        		GameTicTacToe.reloadPlayfield(ttts);
-						        		ttts.setActivePlayer(false);
-						        		GameTicTacToe.botMadeMove(ttts);
-						        	}else {
-						        		
-						        		//Platz ist voll vom Spieler/Bot
-						        	}
-						            break;
-						        default:
-						            //Nichts
-						        } 
-							}
-						}
-						//Reihe2
-						
-						//Reihe3
-						for(IReaction ir: ttts.getRow3().getReactions()) {
-							if(ir.getUserReacted(ttts.getGameuser())) {
-								switch(ir.getEmoji().getName()){
-						        case "🇱":
-						        	if(ttts.getPlayfield().get(6) == 0) {
-						        		ttts.getPlayfield().set(6, 1);//Spieler setzen
-						        		ttts.getRow3().removeReaction(ttts.getGameuser(), ir.getEmoji());
-						        		GameTicTacToe.reloadPlayfield(ttts);
-						        		ttts.setActivePlayer(false);
-						        		GameTicTacToe.botMadeMove(ttts);
-						        	}else {
-						        		
-						        		//Platz ist voll vom Spieler/Bot
-						        	}
-						            break;
-						        case "🇲":
-						        	if(ttts.getPlayfield().get(7) == 0) {
-						        		ttts.getPlayfield().set(7, 1);//Spieler setzen
-						        		ttts.getRow3().removeReaction(ttts.getGameuser(), ir.getEmoji());
-						        		GameTicTacToe.reloadPlayfield(ttts);
-						        		ttts.setActivePlayer(false);
-						        		GameTicTacToe.botMadeMove(ttts);
-						        	}else {
-						        		
-						        		//Platz ist voll vom Spieler/Bot
-						        	}
-						            break;
-						        case "🇷":
-						        	if(ttts.getPlayfield().get(8) == 0) {
-						        		ttts.getPlayfield().set(8, 1);//Spieler setzen
-						        		ttts.getRow3().removeReaction(ttts.getGameuser(), ir.getEmoji());
-						        		GameTicTacToe.reloadPlayfield(ttts);
-						        		ttts.setActivePlayer(false);
-						        		GameTicTacToe.botMadeMove(ttts);
-						        	}else {
-						        		
-						        		//Platz ist voll vom Spieler/Bot
-						        	}
-						            break;
-						        } 
-							}
-						}
-						//Reihe3
-					}else {
-						//Nichts
-					}
-				}
-			}
-		}else {
-			//Nichts
-		}
+		GameTicTacToe.move(event);
 	}
 	
 	
