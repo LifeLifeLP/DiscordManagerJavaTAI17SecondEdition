@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 /**
  * @author K.Schulz
  *
@@ -21,7 +23,8 @@ public class IO {
 		try {
 			File f = new File("src\\settings.txt");
 			BufferedReader br = new BufferedReader(new FileReader(f));
-			String botID = br.readLine();
+			//BotID
+			settings.setBotID(br.readLine());
 			String headlessMode = br.readLine();
 			if(headlessMode.equals("TRUE")) {
 				settings.setHeadlessmode(true);
@@ -32,11 +35,12 @@ public class IO {
 			String canBanBots = br.readLine();
 			br.close();
 		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, String.valueOf(e.toString()), String.valueOf(e.toString()), 0);
 			e.printStackTrace();
-			return settings;
+			System.exit(1);
 		} catch (IOException e) {
 			e.printStackTrace();
-			return settings;
+			System.exit(1);
 		}
 		return settings;
 	}

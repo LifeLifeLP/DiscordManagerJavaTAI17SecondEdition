@@ -57,10 +57,11 @@ public class LoginMain {
 				try {
 					settings = IO.loadSetting();
 					if(settings.isHeadlessmode()) {
+						LoginData.setBotID(BotFunctions.getBuiltDiscordClient(settings.getBotID()));
+						
+					}else {
 						LoginMain window = new LoginMain();
 						window.frmDiscordManager.setVisible(true);
-					}else {
-						//Headless Boot Code
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
