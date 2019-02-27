@@ -24,16 +24,6 @@ import sx.blah.discord.util.RequestBuffer;
  * @author LifeLifeLP
  *
  */
-/*
- * 
- * 
- *Dieses Spiel ist leider nicht fertig geworden, daher nicht funktionsfähig bzw. Testzustand 
- * 
- * 
- * 
- * 
- * 
- */
 public class GameTicTacToe {
 	public static ArrayList<TicTacToeSavegame> GameData = new ArrayList<TicTacToeSavegame>();
 
@@ -48,8 +38,6 @@ public class GameTicTacToe {
 		for(TicTacToeSavegame ttts: GameData) {
 			if(ttts.getGameuser().equals(event.getAuthor())) {
 				return true;
-			}else {
-				//Nichts
 			}
 		}
 		return false;
@@ -60,7 +48,6 @@ public class GameTicTacToe {
 		String channelname = StringUtils.replace(event.getAuthor().getName().toLowerCase() + "-gameroom", " ", "-");
 		if (!checkForGames(event)) {
 			Random rng = new Random();
-
 			RequestBuffer.request(() -> {
 				lifelifelp.botfuctions.BotFunctions.CreateChannel(event.getGuild(),
 						event.getAuthor().getName() + "-gameroom", true, "Tic Tac und Toe", false, 0, 0, null, 0);
@@ -72,15 +59,12 @@ public class GameTicTacToe {
 					ArrayList<Integer> iAL = new ArrayList<Integer>();
 					while (iAL.size() != 9) {
 						iAL.add(0);
-						//iAL.add(ThreadLocalRandom.current().nextInt(0, 2 + 1));
-						System.out.println("iAL =" + iAL.size());
 					}
 					ttts.setPlayfield(iAL);
 					RequestBuffer.request(() -> {
 						ttts.getGameChannel().sendMessage("Ok, ich bin bereit!");
 						RequestBuffer.request(() -> {
-							event.getChannel().sendMessage("Wir sehen uns in <#"
-									+ event.getGuild().getChannelsByName(channelname).get(0).getLongID() + "> !");
+							event.getChannel().sendMessage("Wir sehen uns in <#"+ event.getGuild().getChannelsByName(channelname).get(0).getLongID() + "> !");
 							RequestBuffer.request(() -> {
 								BotFunctions.saveRole(event.getGuild(), channelname,
 										new Color(rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)), false, false,
@@ -90,15 +74,11 @@ public class GameTicTacToe {
 								RequestBuffer.request(() -> {
 									EnumSet<Permissions> noPermissions = EnumSet.noneOf(Permissions.class);
 									EnumSet<Permissions> allPermissions = EnumSet.allOf(Permissions.class);
-									event.getGuild().getChannelsByName(channelname).get(0).overrideRolePermissions(
-											event.getGuild().getEveryoneRole(), noPermissions, allPermissions);
+									event.getGuild().getChannelsByName(channelname).get(0).overrideRolePermissions(event.getGuild().getEveryoneRole(), noPermissions, allPermissions);
 									RequestBuffer.request(() -> {
 										event.getAuthor().addRole(event.getGuild().getRolesByName(channelname).get(0));
 										RequestBuffer.request(() -> {
-											event.getGuild().getChannelsByName(channelname).get(0)
-													.overrideRolePermissions(
-															event.getGuild().getRolesByName(channelname).get(0),
-															allPermissions, noPermissions);
+											event.getGuild().getChannelsByName(channelname).get(0).overrideRolePermissions(event.getGuild().getRolesByName(channelname).get(0),allPermissions, noPermissions);
 											ttts.setPlayfieldMessage(printPlayfield(ttts));
 											printPlayerChoice(ttts);
 											GameData.add(ttts);
@@ -111,8 +91,7 @@ public class GameTicTacToe {
 				});
 			});
 		} else {
-			event.getChannel().sendMessage("Wir spielen doch schon zusammen <@" + event.getAuthor().getLongID()
-					+ "> ! \n In <#" + event.getGuild().getChannelsByName(channelname).get(0).getLongID() + ">");
+			event.getChannel().sendMessage("Wir spielen doch schon zusammen <@" + event.getAuthor().getLongID()+ "> ! \n In <#" + event.getGuild().getChannelsByName(channelname).get(0).getLongID() + ">");
 		}
 	}
 
@@ -128,26 +107,30 @@ public class GameTicTacToe {
 					RequestBuffer.request(() -> {
 						row1.addReaction(UnicodeEmoji.R);
 						ttts.setRow1(row1);
-						RequestBuffer.request(() -> {
-							IMessage row2 = ttts.getGameChannel().sendMessage("Reihe:2");
-							RequestBuffer.request(() -> {
-								row2.addReaction(UnicodeEmoji.L);
-								RequestBuffer.request(() -> {
-									row2.addReaction(UnicodeEmoji.M);
-									RequestBuffer.request(() -> {
-										row2.addReaction(UnicodeEmoji.R);
-										ttts.setRow2(row2);
-										row3(ttts);
-									});
-								});
-							});
-						});
+						row2(ttts);
 					});
 				});
 			});
 		});
 	}
-
+	
+	private static void row2(TicTacToeSavegame ttts) {
+		RequestBuffer.request(() -> {
+			IMessage row2 = ttts.getGameChannel().sendMessage("Reihe:2");
+			RequestBuffer.request(() -> {
+				row2.addReaction(UnicodeEmoji.L);
+				RequestBuffer.request(() -> {
+					row2.addReaction(UnicodeEmoji.M);
+					RequestBuffer.request(() -> {
+						row2.addReaction(UnicodeEmoji.R);
+						ttts.setRow2(row2);
+						row3(ttts);
+					});
+				});
+			});
+		});
+	}
+	
 	private static void row3(TicTacToeSavegame ttts) {
 		// TODO Auto-generated method stub
 		RequestBuffer.request(() -> {
@@ -283,7 +266,6 @@ public class GameTicTacToe {
 
 	public static void botMadeMove(TicTacToeSavegame ttts) {
 		// TODO Auto-generated method stub
-		System.out.println("Der Bot ist dran!");
 		Random rdm = new Random();
 		int ziel = rdm.nextInt(9);
 		int unendschieden = 0;
@@ -291,7 +273,6 @@ public class GameTicTacToe {
 			ttts.getPlayfield().set(ziel, 2);
 			ttts.setActivePlayer(true);
 			GameTicTacToe.reloadPlayfield(ttts);
-			//Test ob das Game over ist
 		}else {
 			unendschieden++;
 			if(unendschieden > 99) {
@@ -303,6 +284,161 @@ public class GameTicTacToe {
 			}else {
 				botMadeMove(ttts);
 			}
+		}
+	}
+	
+	public static void move(ReactionAddEvent event) {
+		if(!event.getUser().isBot()) {
+			for(TicTacToeSavegame ttts: GameTicTacToe.GameData) {
+				if(String.valueOf(event.getChannel().getLongID()).equals(String.valueOf(ttts.getGameChannel().getLongID()))) {
+					//TTTS ist der aktuelle Spielstand
+					ttts.setActivePlayer(true);
+					if(ttts.getActivePlayer()) {
+						//Reihe1
+						for(IReaction ir: ttts.getRow1().getReactions()) {
+							if(ir.getUserReacted(ttts.getGameuser())) {
+								switch(ir.getEmoji().getName()){
+						        case "🇱":
+						        	if(ttts.getPlayfield().get(0) == 0) {
+						        		ttts.getPlayfield().set(0, 1);//Spieler setzen
+						        		ttts.getRow1().removeReaction(ttts.getGameuser(), ir.getEmoji());
+						        		GameTicTacToe.reloadPlayfield(ttts);
+						        		ttts.setActivePlayer(false);
+						        		GameTicTacToe.botMadeMove(ttts);
+						        	}else {
+						        		
+						        		//Platz ist voll vom Spieler/Bot
+						        	}
+						            break;
+						        case "🇲":
+						        	if(ttts.getPlayfield().get(1) == 0) {
+						        		ttts.getPlayfield().set(1, 1);//Spieler setzen
+						        		ttts.getRow1().removeReaction(ttts.getGameuser(), ir.getEmoji());
+						        		GameTicTacToe.reloadPlayfield(ttts);
+						        		ttts.setActivePlayer(false);
+						        		GameTicTacToe.botMadeMove(ttts);
+						        	}else {
+						        		
+						        		//Platz ist voll vom Spieler/Bot
+						        	}
+						            break;
+						        case "🇷":
+						        	if(ttts.getPlayfield().get(2) == 0) {
+						        		ttts.getPlayfield().set(2, 1);//Spieler setzen
+						        		ttts.getRow1().removeReaction(ttts.getGameuser(), ir.getEmoji());
+						        		GameTicTacToe.reloadPlayfield(ttts);
+						        		ttts.setActivePlayer(false);
+						        		GameTicTacToe.botMadeMove(ttts);
+						        	}else {
+						        		
+						        		//Platz ist voll vom Spieler/Bot
+						        	}
+						            break;
+						        default:
+						            //Nichts
+						        } 
+							}
+						}
+						//Reihe1
+						
+						//Reihe2
+						for(IReaction ir: ttts.getRow2().getReactions()) {
+							if(ir.getUserReacted(ttts.getGameuser())) {
+								switch(ir.getEmoji().getName()){
+						        case "🇱":
+						        	if(ttts.getPlayfield().get(3) == 0) {
+						        		ttts.getPlayfield().set(3, 1);//Spieler setzen
+						        		ttts.getRow2().removeReaction(ttts.getGameuser(), ir.getEmoji());
+						        		GameTicTacToe.reloadPlayfield(ttts);
+						        		ttts.setActivePlayer(false);
+						        		GameTicTacToe.botMadeMove(ttts);
+						        	}else {
+						        		
+						        		//Platz ist voll vom Spieler/Bot
+						        	}
+						            break;
+						        case "🇲":
+						        	if(ttts.getPlayfield().get(4) == 0) {
+						        		ttts.getPlayfield().set(4, 1);//Spieler setzen
+						        		ttts.getRow2().removeReaction(ttts.getGameuser(), ir.getEmoji());
+						        		GameTicTacToe.reloadPlayfield(ttts);
+						        		ttts.setActivePlayer(false);
+						        		GameTicTacToe.botMadeMove(ttts);
+						        	}else {
+						        		
+						        		//Platz ist voll vom Spieler/Bot
+						        	}
+						            break;
+						        case "🇷":
+						        	if(ttts.getPlayfield().get(5) == 0) {
+						        		ttts.getPlayfield().set(5, 1);//Spieler setzen
+						        		ttts.getRow2().removeReaction(ttts.getGameuser(), ir.getEmoji());
+						        		GameTicTacToe.reloadPlayfield(ttts);
+						        		ttts.setActivePlayer(false);
+						        		GameTicTacToe.botMadeMove(ttts);
+						        	}else {
+						        		
+						        		//Platz ist voll vom Spieler/Bot
+						        	}
+						            break;
+						        default:
+						            //Nichts
+						        } 
+							}
+						}
+						//Reihe2
+						
+						//Reihe3
+						for(IReaction ir: ttts.getRow3().getReactions()) {
+							if(ir.getUserReacted(ttts.getGameuser())) {
+								switch(ir.getEmoji().getName()){
+						        case "🇱":
+						        	if(ttts.getPlayfield().get(6) == 0) {
+						        		ttts.getPlayfield().set(6, 1);//Spieler setzen
+						        		ttts.getRow3().removeReaction(ttts.getGameuser(), ir.getEmoji());
+						        		GameTicTacToe.reloadPlayfield(ttts);
+						        		ttts.setActivePlayer(false);
+						        		GameTicTacToe.botMadeMove(ttts);
+						        	}else {
+						        		
+						        		//Platz ist voll vom Spieler/Bot
+						        	}
+						            break;
+						        case "🇲":
+						        	if(ttts.getPlayfield().get(7) == 0) {
+						        		ttts.getPlayfield().set(7, 1);//Spieler setzen
+						        		ttts.getRow3().removeReaction(ttts.getGameuser(), ir.getEmoji());
+						        		GameTicTacToe.reloadPlayfield(ttts);
+						        		ttts.setActivePlayer(false);
+						        		GameTicTacToe.botMadeMove(ttts);
+						        	}else {
+						        		
+						        		//Platz ist voll vom Spieler/Bot
+						        	}
+						            break;
+						        case "🇷":
+						        	if(ttts.getPlayfield().get(8) == 0) {
+						        		ttts.getPlayfield().set(8, 1);//Spieler setzen
+						        		ttts.getRow3().removeReaction(ttts.getGameuser(), ir.getEmoji());
+						        		GameTicTacToe.reloadPlayfield(ttts);
+						        		ttts.setActivePlayer(false);
+						        		GameTicTacToe.botMadeMove(ttts);
+						        	}else {
+						        		
+						        		//Platz ist voll vom Spieler/Bot
+						        	}
+						            break;
+						        } 
+							}
+						}
+						//Reihe3
+					}else {
+						//Nichts
+					}
+				}
+			}
+		}else {
+			//Nichts
 		}
 	}
 
@@ -389,16 +525,30 @@ public class GameTicTacToe {
 		//Sieg: 0
 		//Niederlage: 1
 		if(mode == 100) {
-			ttts.getGameChannel().sendMessage("Das Spiel ist vorbei! \nUNENDSCHIEDEN!");
+			ttts.getGameChannel().sendMessage("Das Spiel ist vorbei! \nUNENDSCHIEDEN!\n Beende das Spiel mit p!tttdone");
+			removerows(ttts);
 		}else {
 			if(mode == 0) {
-				ttts.getGameChannel().sendMessage("Das Spiel ist vorbei! \nDU HAST GEWONNEN!");
+				ttts.getGameChannel().sendMessage("Das Spiel ist vorbei! \nDU HAST GEWONNEN!\n Beende das Spiel mit p!tttdone");
 			}else {
 				if(mode == 1) {
-					ttts.getGameChannel().sendMessage("Das Spiel ist vorbei! \nDU HAST VERLOREN!");
+					ttts.getGameChannel().sendMessage("Das Spiel ist vorbei! \nDU HAST VERLOREN!\n Beende das Spiel mit p!tttdone");
 				}
 			}
 		}
+	}
+
+	private static void removerows(TicTacToeSavegame ttts) {
+		// TODO Auto-generated method stub
+		RequestBuffer.request(() -> {
+			ttts.getRow1().delete();
+			RequestBuffer.request(() -> {
+				ttts.getRow2().delete();
+				RequestBuffer.request(() -> {
+					ttts.getRow3().delete();
+				});
+			});
+		});
 	}
 
 	public static void done(MessageReceivedEvent event) {
