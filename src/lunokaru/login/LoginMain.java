@@ -29,6 +29,8 @@ import javax.swing.UIManager;
 import org.slf4j.LoggerFactory;
 
 import lifelifelp.botfuctions.BotFunctions;
+import lifelifelp.io.IO;
+import lifelifelp.io.Settings;
 
 public class LoginMain {
 
@@ -38,6 +40,7 @@ public class LoginMain {
 	private JTextField tfBotID;
 	private static Object[] cancelOption = { "Ja", "Nein" };
 	private JProgressBar pBLoadingScreen;
+	private static Settings settings;
 
 
 	/**
@@ -52,8 +55,13 @@ public class LoginMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginMain window = new LoginMain();
-					window.frmDiscordManager.setVisible(true);
+					settings = IO.loadSetting();
+					if(settings.isHeadlessmode()) {
+						LoginMain window = new LoginMain();
+						window.frmDiscordManager.setVisible(true);
+					}else {
+						//Headless Boot Code
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
