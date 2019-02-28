@@ -53,7 +53,7 @@ public class IO {
 		return s;
 	}
 
-	public static ArrayList<SettingsUser> readUsers() {
+	 protected static ArrayList<SettingsUser> readUsers() {
 		ArrayList<SettingsUser> aSU = new ArrayList<SettingsUser>();
 			try {
 				File f = new File("src\\settingsUser.txt");
