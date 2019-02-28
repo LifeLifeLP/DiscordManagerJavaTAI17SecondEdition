@@ -46,10 +46,6 @@ public class CommonEvents{
 		GameTicTacToe.move(event);
 	}
 	
-	@EventSubscriber
-    public void onReadyEvent(ReadyEvent event){
-		Startup.OnStartup(event.getClient());
-	}
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event){ //Dies ist der EventReceiver f�r alle Nachricht erhalten Events, dies wird bei JEDER erhalten Nachricht ausgef�hrt
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "meme")){
