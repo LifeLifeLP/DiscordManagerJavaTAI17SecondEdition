@@ -1,6 +1,14 @@
 eclipse.preferences.version=1
+encoding//src/lifelifelp=UTF-8
 encoding//src/lifelifelp/Startup.java=UTF-8
+encoding//src/lifelifelp/botfuctions=UTF-8
+encoding//src/lifelifelp/botfuctions/BotFunctions.java=UTF-8
 encoding//src/lifelifelp/botfuctions/CommonEvents.java=UTF-8
+encoding//src/lifelifelp/botfuctions/DMEvents.java=UTF-8
+encoding//src/lifelifelp/botfuctions/ServerEvents.java=UTF-8
+encoding//src/lifelifelp/botfuctions/ThreadCleanChannel.java=UTF-8
+encoding//src/lifelifelp/botfuctions/ThreadMusicPlayer.java=UTF-8
+encoding//src/lifelifelp/botfuctions/package-info.java=UTF-8
 encoding//src/lifelifelp/package-info.java=UTF-8
 encoding//src/lifelifelp/ui/HeadlessMain.java=UTF-8
 encoding//src/lunokaru/login/LoginMain.java=UTF-8
