@@ -33,7 +33,7 @@ import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RequestBuffer;
 import sx.blah.discord.util.audio.AudioPlayer;
 
-public class DiscordEvents{
+public class CommonEvents{
 	// Das Präfix einer Nachricht, wenn eine Nachricht damit beginnt wird der Bot sie beachten
 	static String BOT_PREFIX = "p!";
 	
