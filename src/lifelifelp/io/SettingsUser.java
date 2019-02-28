@@ -51,4 +51,15 @@ public class SettingsUser {
 		this.personalNickname = personalNickname;
 	}
 
+
+	/**
+	 * @param userID
+	 * @param personalNickname
+	 */
+	public SettingsUser(String userID, String personalNickname) {
+		super();
+		this.userID = userID;
+		this.personalNickname = personalNickname;
+	}
+
 }
