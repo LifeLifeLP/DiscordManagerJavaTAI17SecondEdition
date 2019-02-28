@@ -15,12 +15,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
+import lifelifelp.Startup;
 import lifelifelp.games.GameNummberGuess;
 import lifelifelp.games.GameTicTacToe;
-import lifelifelp.io.IO;
 import lifelifelp.io.IOfunctions;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
+import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
 import sx.blah.discord.handle.obj.IEmoji;
@@ -45,7 +46,10 @@ public class CommonEvents{
 		GameTicTacToe.move(event);
 	}
 	
-	
+	@EventSubscriber
+    public void onReadyEvent(ReadyEvent event){
+		Startup.OnStartup(event.getClient());
+	}
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event){ //Dies ist der EventReceiver f�r alle Nachricht erhalten Events, dies wird bei JEDER erhalten Nachricht ausgef�hrt
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "meme")){

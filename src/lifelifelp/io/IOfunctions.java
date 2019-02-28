@@ -13,16 +13,23 @@ import sx.blah.discord.handle.obj.IUser;
  *
  */
 public interface IOfunctions {
-
 	static void updateUserDatabase(IDiscordClient iDiscordClient) {
-		// Diese Funktion wird für alle User die der Bot erreichen kann einen SettinngsUser-Eintrag erstellen
 		ArrayList<SettingsUser> aSettingsUserFromHDD = IO.readUsers();
-		
-		for(IUser iu: iDiscordClient.getUsers()) {
-			if(!iu.isBot()) {
-				
-			}
+		ArrayList<SettingsUser> aSettingsUserToHDD = new ArrayList<SettingsUser>();
+		for(SettingsUser su: aSettingsUserFromHDD) {
+			for(IUser iu: iDiscordClient.getUsers()) {
+				if(!iu.isBot() && String.valueOf(su.getUserID()).equals(String.valueOf(iu.getLongID()))) {
+				}else {
+					IUser newIUser = iu;
+					aSettingsUserToHDD.add(new SettingsUser(String.valueOf(newIUser.getLongID()), String.valueOf(newIUser.getName())));
+				}
+			}	
 		}
+		aSettingsUserFromHDD.addAll(aSettingsUserToHDD);
+		IO.writeUsers(aSettingsUserFromHDD);
+	}
+
+	static void loadUserDatabase(IDiscordClient iDiscordClient) {
 	}
 
 }

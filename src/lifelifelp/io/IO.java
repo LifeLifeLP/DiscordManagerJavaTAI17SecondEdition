@@ -4,9 +4,11 @@
 package lifelifelp.io;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,7 +20,6 @@ import javax.swing.JOptionPane;
  */
 public class IO {
 	//Ungenutzt soll sp�ter genutzt werden um einen Headless-Betrieb auf einem Server zu erm�glichen
-	@SuppressWarnings("unused")
 	public static SettingsCommon loadSetting(){
 		SettingsCommon settingsCommon = new SettingsCommon();
 		try {
@@ -37,19 +38,16 @@ public class IO {
 			br.close();
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, String.valueOf(e.toString()), String.valueOf(e.toString()), 0);
-			e.printStackTrace();
 			System.exit(1);
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, String.valueOf(e.toString()), String.valueOf(e.toString()), 0);
 			System.exit(1);
 		}
 		return settingsCommon;
 	}
 
 	public static SettingsCommon set() {
-		// TODO Auto-generated method stub
 		SettingsCommon s = new SettingsCommon();
-		
 		return s;
 	}
 
@@ -62,13 +60,15 @@ public class IO {
 					SettingsUser su = new SettingsUser();
 					su.setUserID(br.readLine());
 					su.setPersonalNickname(br.readLine());
-					if(br.readLine().equals("####CUT####")) {
+					if(String.valueOf(br.readLine()).equals("####CUT####")) {
+						aSU.add(su);
 					}else {
 						break;
 					}
 				}
 				
 				br.close();
+				return aSU;
 			} catch (FileNotFoundException e) {
 				JOptionPane.showMessageDialog(null, String.valueOf(e.toString()), String.valueOf(e.toString()), 0);
 				e.printStackTrace();
@@ -77,8 +77,28 @@ public class IO {
 				e.printStackTrace();
 				System.exit(1);
 			}
-		// TODO Auto-generated method stub
-		return null;
+		return aSU;
+	}
+
+	protected static void writeUsers(ArrayList<SettingsUser> aSettingsUserToHDD) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter("src\\settingsUser.txt"))) {
+			for(SettingsUser su: aSettingsUserToHDD) {
+				bw.write(su.getUserID());
+				bw.flush();
+				bw.newLine();
+				bw.write(su.getPersonalNickname());
+				bw.flush();
+				bw.newLine();
+				bw.write("####CUT####");
+				bw.flush();
+				bw.newLine();
+			}
+			bw.close();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, String.valueOf(e.toString()), String.valueOf(e.toString()), 0);
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
 
 }
