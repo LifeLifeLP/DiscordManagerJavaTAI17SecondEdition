@@ -7,13 +7,15 @@ package lifelifelp.io;
  * @author K.Schulz
  *
  */
-public class Settings {
+public class SettingsCommon {
 	private boolean headlessmode;
 	private String botID;
+	private String botName;
+	private boolean botBansBot;
 	/**
 	 * 
 	 */
-	public Settings() {
+	public SettingsCommon() {
 		// TODO Auto-generated constructor stub
 	}
 	/**

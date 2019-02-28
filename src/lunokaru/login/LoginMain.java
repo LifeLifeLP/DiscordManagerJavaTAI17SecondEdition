@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import lifelifelp.botfuctions.BotFunctions;
 import lifelifelp.io.IO;
-import lifelifelp.io.Settings;
+import lifelifelp.io.SettingsCommon;
 
 public class LoginMain {
 
@@ -40,7 +40,7 @@ public class LoginMain {
 	private JTextField tfBotID;
 	private static Object[] cancelOption = { "Ja", "Nein" };
 	private JProgressBar pBLoadingScreen;
-	private static Settings settings;
+	private static SettingsCommon settingsCommon;
 
 
 	/**
@@ -55,10 +55,11 @@ public class LoginMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					settings = IO.loadSetting();
-					if(settings.isHeadlessmode()) {
-						LoginData.setBotID(BotFunctions.getBuiltDiscordClient(settings.getBotID()));
-						
+					settingsCommon = IO.loadSetting();
+					if(settingsCommon.isHeadlessmode()) {
+						LoginData.setBotID(BotFunctions.getBuiltDiscordClient(settingsCommon.getBotID()));
+						ThreadDiscordLogin threadDL = new ThreadDiscordLogin();
+						threadDL.start();
 					}else {
 						LoginMain window = new LoginMain();
 						window.frmDiscordManager.setVisible(true);
