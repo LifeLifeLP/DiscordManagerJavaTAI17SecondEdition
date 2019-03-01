@@ -3,6 +3,7 @@
  */
 package lifelifelp.botfuctions;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -15,15 +16,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
-import lifelifelp.Startup;
 import lifelifelp.games.GameNummberGuess;
 import lifelifelp.games.GameTicTacToe;
 import lifelifelp.io.IOfunctions;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
-import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
+import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IEmoji;
 import sx.blah.discord.handle.obj.IPrivateChannel;
 import sx.blah.discord.handle.obj.IRole;
@@ -46,6 +46,8 @@ public class CommonEvents{
 		GameTicTacToe.move(event);
 	}
 	
+	
+	
     @EventSubscriber
     public void onMessageReceived(MessageReceivedEvent event){ //Dies ist der EventReceiver f�r alle Nachricht erhalten Events, dies wird bei JEDER erhalten Nachricht ausgef�hrt
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "meme")){
@@ -67,7 +69,22 @@ public class CommonEvents{
         	    System.out.println(src);
         	}
 		}
-    		
+    	
+    	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "fuckmax")){
+    		BotFunctions.saveRole(event.getGuild(), "MUTEMAX", new Color(255, 255, 255), false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+    		EnumSet<Permissions> none = EnumSet.noneOf(Permissions.class);
+    		EnumSet<Permissions> all = EnumSet.allOf(Permissions.class);
+    		for(IChannel ic: event.getGuild().getChannels()) {
+    			System.out.println("Gruppe erstellt für Channel: "+ic.getName() );
+    			RequestBuffer.request(() -> {
+    				ic.overrideRolePermissions(event.getGuild().getRolesByName("MUTEMAX").get(0), none, all);
+    			});
+    			RequestBuffer.request(() -> {
+    				ic.removePermissionsOverride(event.getGuild().getUserByID(Long.parseLong("124227286575742978")));
+    			});
+    		}
+    	}
+    	
     	//Funktion um dem Bot einen Nachricht in einem privaten Chat ausrichten zu lassen
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "pm")){
 			String input = StringUtils.replace(event.getMessage().getContent(), "p!pm ", "");
