@@ -46,11 +46,6 @@ public class IO {
 		return settingsCommon;
 	}
 
-	public static SettingsCommon set() {
-		SettingsCommon s = new SettingsCommon();
-		return s;
-	}
-
 	 protected static ArrayList<SettingsUser> readUsers() {
 		ArrayList<SettingsUser> aSU = new ArrayList<SettingsUser>();
 			try {
@@ -84,13 +79,10 @@ public class IO {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter("src\\settingsUser.txt"))) {
 			for(SettingsUser su: aSettingsUserToHDD) {
 				bw.write(su.getUserID());
-				bw.flush();
 				bw.newLine();
 				bw.write(su.getPersonalNickname());
-				bw.flush();
 				bw.newLine();
 				bw.write("####CUT####");
-				bw.flush();
 				bw.newLine();
 			}
 			bw.close();
