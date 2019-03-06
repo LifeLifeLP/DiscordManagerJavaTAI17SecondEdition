@@ -63,6 +63,8 @@ import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IRole;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.handle.obj.IVoiceChannel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GuiMain {
 
@@ -178,6 +180,7 @@ public class GuiMain {
 	
 	
 	private JTextField tfRERollenName;
+	private JButton btnEinstellungen;
 	
 
 	
@@ -438,6 +441,7 @@ public class GuiMain {
 	    	lblchannelcountzahl.setText(String.valueOf(temp));
 		}
 		for (IGuild iG : discordClient.getGuilds()) {
+			System.out.println("NEW_SERVER");
 			cBServerListe.addItem(iG.getName());
 		}
 	}
@@ -493,6 +497,14 @@ public class GuiMain {
 	 */
 	private void initialize() {
 		frmDiscordManagerBeta = new JFrame();
+		frmDiscordManagerBeta.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				btnEinstellungen.doClick();
+				btnEinstellungen.setEnabled(false);
+				btnEinstellungen.setVisible(false);
+			}
+		});
 		frmDiscordManagerBeta.setIconImage(Toolkit.getDefaultToolkit().getImage(GuiMain.class.getResource("/lunokaru/picture/Logo.png")));
 		frmDiscordManagerBeta.setBounds(100, 100, 840, 800);
 		frmDiscordManagerBeta.setLocationRelativeTo(null);
@@ -575,7 +587,7 @@ public class GuiMain {
 		pMenue.add(btnProgrammSchieen, gbc_btnProgrammSchieen);
 		btnProgrammSchieen.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 13));
 		
-		JButton btnEinstellungen = new JButton("Einstellungen");
+		btnEinstellungen = new JButton("Einstellungen");
 		GridBagConstraints gbc_btnEinstellungen = new GridBagConstraints();
 		gbc_btnEinstellungen.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnEinstellungen.insets = new Insets(0, 0, 5, 0);
@@ -770,7 +782,11 @@ public class GuiMain {
 		
 		btnEinstellungen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Hier würde man später persistente Einstellungen vornehmen können.");
+				//JOptionPane.showMessageDialog(null, "Hier würde man später persistente Einstellungen vornehmen können.");
+				computeDiscordChannels();
+				computeDiscordUsers();
+				fillStatistic();
+				createButtonGroupUserBannen();
 			}
 		});
 		btnProgrammSchieen.addActionListener(new ActionListener() {

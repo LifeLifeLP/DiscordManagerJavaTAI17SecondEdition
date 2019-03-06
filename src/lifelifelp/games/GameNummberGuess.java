@@ -185,7 +185,6 @@ public class GameNummberGuess {
 					event.getChannel().delete();
 					event.getGuild().getRolesByName(ngs.getName()).get(0).delete();
 					GameData.remove(tmp);
-					
 					break;
 				}else {
 					tmp++;

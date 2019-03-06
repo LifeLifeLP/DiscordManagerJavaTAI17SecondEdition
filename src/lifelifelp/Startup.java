@@ -25,9 +25,9 @@ public class Startup {
 	
 	@EventSubscriber
     public void onReadyEvent(ReadyEvent event){
-		JOptionPane.showMessageDialog(null, null, null, 0);
-		IOfunctions.updateUserDatabase(event.getClient());
-		IOfunctions.loadUserDatabase(event.getClient());
+		//JOptionPane.showMessageDialog(null, null, null, 0);
+		//IOfunctions.updateUserDatabase(event.getClient());
+		//IOfunctions.loadUserDatabase(event.getClient());
 		System.out.println("Startup done!");
 	}
 
