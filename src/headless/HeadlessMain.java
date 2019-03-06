@@ -1,7 +1,7 @@
 /**
  * 
  */
-package lifelifelp.ui;
+package headless;
 
 import java.util.ArrayList;
 

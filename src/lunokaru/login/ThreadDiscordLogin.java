@@ -21,7 +21,7 @@ public class ThreadDiscordLogin extends Thread {
 		discordClient.getDispatcher().registerListener(new ServerEvents());
 		discordClient.login();
 		logger.info(discordClient.getApplicationName() + " is back. Let's get going!");
-		//lunokaru.ui.GuiMain.main(null);
-		lifelifelp.ui.HeadlessMain.main(discordClient);
+		lunokaru.ui.GuiMain.main(null);
+		//lifelifelp.ui.HeadlessMain.main(discordClient);
 	}
 }

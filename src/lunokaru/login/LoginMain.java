@@ -55,11 +55,13 @@ public class LoginMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					settingsCommon = IO.loadSetting();
-					if(settingsCommon.isHeadlessmode()) {
-						LoginData.setBotID(BotFunctions.getBuiltDiscordClient(settingsCommon.getBotID()));
-						ThreadDiscordLogin threadDL = new ThreadDiscordLogin();
-						threadDL.start();
+					//settingsCommon = IO.loadSetting();
+					if(true) {
+						//LoginData.setBotID(BotFunctions.getBuiltDiscordClient(settingsCommon.getBotID()));
+						//ThreadDiscordLogin threadDL = new ThreadDiscordLogin();
+						//threadDL.start();
+						LoginMain window = new LoginMain();
+						window.frmDiscordManager.setVisible(true);
 					}else {
 						LoginMain window = new LoginMain();
 						window.frmDiscordManager.setVisible(true);
