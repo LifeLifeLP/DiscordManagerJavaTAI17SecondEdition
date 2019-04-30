@@ -1,1 +1,0 @@
-# DiscordManagerJavaTAI17SecondEdition
