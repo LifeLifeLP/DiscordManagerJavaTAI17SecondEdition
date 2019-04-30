@@ -3,18 +3,10 @@
  */
 package lifelifelp.botfuctions;
 
-import java.awt.Color;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.tidy.Tidy;
 
 import lifelifelp.games.GameNummberGuess;
 import lifelifelp.games.GameTicTacToe;
@@ -23,7 +15,6 @@ import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
-import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IEmoji;
 import sx.blah.discord.handle.obj.IPrivateChannel;
 import sx.blah.discord.handle.obj.IRole;

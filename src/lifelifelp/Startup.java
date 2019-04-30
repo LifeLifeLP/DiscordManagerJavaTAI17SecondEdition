@@ -3,12 +3,8 @@
  */
 package lifelifelp;
 
-import javax.swing.JOptionPane;
-
-import lifelifelp.io.IOfunctions;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
-import sx.blah.discord.handle.obj.IUser;
 
 /**
  * @author K.Schulz

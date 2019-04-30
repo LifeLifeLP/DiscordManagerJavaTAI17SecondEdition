@@ -10,7 +10,9 @@ package lifelifelp.io;
 public class SettingsCommon {
 	private boolean headlessmode;
 	private String botID;
+	@SuppressWarnings("unused")
 	private String botName;
+	@SuppressWarnings("unused")
 	private boolean botBansBot;
 	/**
 	 * 

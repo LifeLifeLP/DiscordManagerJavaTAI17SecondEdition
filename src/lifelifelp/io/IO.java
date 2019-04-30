@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class IO {
 	//Ungenutzt soll sp�ter genutzt werden um einen Headless-Betrieb auf einem Server zu erm�glichen
+	@SuppressWarnings("unused")
 	public static SettingsCommon loadSetting(){
 		SettingsCommon settingsCommon = new SettingsCommon();
 		try {
