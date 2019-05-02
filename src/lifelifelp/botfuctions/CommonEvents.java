@@ -25,13 +25,7 @@ import sx.blah.discord.util.RequestBuffer;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 public class CommonEvents{
-	// Das Präfix einer Nachricht, wenn eine Nachricht damit beginnt wird der Bot sie beachten
 	static String BOT_PREFIX = "p!";
-	//lel
-
-	
-	//Die @Anbindung wird ben�tig damit die Funktion bei einem Event ausgef�hrt wird
-	
 	
 	@EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
@@ -41,9 +35,8 @@ public class CommonEvents{
 	
 	
     @EventSubscriber
-    public void onMessageReceived(MessageReceivedEvent event){ //Dies ist der EventReceiver f�r alle Nachricht erhalten Events, dies wird bei JEDER erhalten Nachricht ausgef�hrt
+    public void onMessageReceived(MessageReceivedEvent event){
     	
-    	//Funktion um dem Bot einen Nachricht in einem privaten Chat ausrichten zu lassen
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "pm")){
 			String input = StringUtils.replace(event.getMessage().getContent(), "p!pm ", "");
 			String user = StringUtils.substring(input, 3, 21);

@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="src/sourcejars/slf4j-api-1.7.25.jar" sourcepath="src/sourcejars/slf4j-api-1.7.25-sources.jar"/>
 	<classpathentry kind="lib" path="src/sourcejars/slf4j-simple-1.7.25.jar" sourcepath="src/sourcejars/slf4j-simple-1.7.25-sources.jar"/>
 	<classpathentry kind="lib" path="src/sourcejars/jtidy-r938.jar" sourcepath="src/sourcejars/jtidy-r938-sources.zip"/>
+	<classpathentry kind="lib" path="src/sourcejars/mysql-connector-java-8.0.16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
