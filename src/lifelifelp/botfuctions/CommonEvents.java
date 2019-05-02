@@ -27,6 +27,8 @@ import sx.blah.discord.util.audio.AudioPlayer;
 public class CommonEvents{
 	// Das Präfix einer Nachricht, wenn eine Nachricht damit beginnt wird der Bot sie beachten
 	static String BOT_PREFIX = "p!";
+	//lel
+
 	
 	//Die @Anbindung wird ben�tig damit die Funktion bei einem Event ausgef�hrt wird
 	
