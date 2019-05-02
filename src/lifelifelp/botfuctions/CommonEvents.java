@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import lifelifelp.games.GameNummberGuess;
 import lifelifelp.games.GameTicTacToe;
-import lifelifelp.io.IOfunctions;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
@@ -108,9 +107,7 @@ public class CommonEvents{
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "tttdone".toLowerCase())) {
     		 GameTicTacToe.done(event);
     	 }
-    	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "scannow".toLowerCase())) {
-    		 IOfunctions.updateUserDatabase(event.getClient());
-    	 }
+
     	 
     	 //Schreibt unter jeder Nachrichte die Max Schr�der schreibt seinen Namen und das Server Emoj "MAX_WHEELCHAIR"
         if(event.getMessage().getAuthor().getLongID() == Long.parseLong("124227286575742978")) {
