@@ -3,27 +3,17 @@
  */
 package lifelifelp.botfuctions;
 
-import java.awt.Color;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.tidy.Tidy;
 
 import lifelifelp.games.GameNummberGuess;
 import lifelifelp.games.GameTicTacToe;
-import lifelifelp.io.IOfunctions;
 import lifelifelp.tools.UnicodeEmoji;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
-import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IEmoji;
 import sx.blah.discord.handle.obj.IPrivateChannel;
 import sx.blah.discord.handle.obj.IRole;
@@ -35,11 +25,7 @@ import sx.blah.discord.util.RequestBuffer;
 import sx.blah.discord.util.audio.AudioPlayer;
 
 public class CommonEvents{
-	// Das Präfix einer Nachricht, wenn eine Nachricht damit beginnt wird der Bot sie beachten
 	static String BOT_PREFIX = "p!";
-	
-	//Die @Anbindung wird ben�tig damit die Funktion bei einem Event ausgef�hrt wird
-	
 	
 	@EventSubscriber
     public void onReactionAdd(ReactionAddEvent event){
@@ -49,9 +35,8 @@ public class CommonEvents{
 	
 	
     @EventSubscriber
-    public void onMessageReceived(MessageReceivedEvent event){ //Dies ist der EventReceiver f�r alle Nachricht erhalten Events, dies wird bei JEDER erhalten Nachricht ausgef�hrt
+    public void onMessageReceived(MessageReceivedEvent event){
     	
-    	//Funktion um dem Bot einen Nachricht in einem privaten Chat ausrichten zu lassen
     	if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX + "pm")){
 			String input = StringUtils.replace(event.getMessage().getContent(), "p!pm ", "");
 			String user = StringUtils.substring(input, 3, 21);
@@ -117,9 +102,7 @@ public class CommonEvents{
     	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "tttdone".toLowerCase())) {
     		 GameTicTacToe.done(event);
     	 }
-    	 if(event.getMessage().getContent().startsWith(BotFunctions.BOT_PREFIX.toLowerCase() + "scannow".toLowerCase())) {
-    		 IOfunctions.updateUserDatabase(event.getClient());
-    	 }
+
     	 
     	 //Schreibt unter jeder Nachrichte die Max Schr�der schreibt seinen Namen und das Server Emoj "MAX_WHEELCHAIR"
         if(event.getMessage().getAuthor().getLongID() == Long.parseLong("124227286575742978")) {

@@ -29,8 +29,6 @@ import javax.swing.UIManager;
 import org.slf4j.LoggerFactory;
 
 import lifelifelp.botfuctions.BotFunctions;
-import lifelifelp.io.IO;
-import lifelifelp.io.SettingsCommon;
 
 public class LoginMain {
 
@@ -40,7 +38,6 @@ public class LoginMain {
 	private JTextField tfBotID;
 	private static Object[] cancelOption = { "Ja", "Nein" };
 	private JProgressBar pBLoadingScreen;
-	private static SettingsCommon settingsCommon;
 
 
 	/**
@@ -53,6 +50,7 @@ public class LoginMain {
 			e.printStackTrace();
 		}
 		EventQueue.invokeLater(new Runnable() {
+			@SuppressWarnings("unused")
 			public void run() {
 				try {
 					//settingsCommon = IO.loadSetting();
